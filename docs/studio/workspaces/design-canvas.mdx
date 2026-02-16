@@ -1,490 +1,168 @@
 ---
-last_update: { author: "Author Name" }
+last_update: { author: "Shahnawaz Ahmed" }
 ---
 
 # Design Canvas
 
-The visual design workspace for building application user interfaces through drag-and-drop canvas.
-
-## Overview
-The Design Workspace Canvas is the primary interface for visually designing your application's UI. It provides a drag-and-drop environment where you can create pages, add widgets, configure properties, and see real-time previews of your application.
-
-## Canvas Interface
-
-### Main Components
-
-#### Canvas Area
-- **Main Design Surface** - Visual representation of your page
-- **Grid System** - Alignment guides and snapping
-- **Responsive Preview** - View in different device sizes
-- **Zoom Controls** - Zoom in/out for detailed work
-- **Pan Tool** - Navigate large canvases
-
-#### Widget Palette
-- Pre-built UI components
-- Custom widgets
-- Container widgets
-- Form widgets
-- Data widgets
-- Chart widgets
-- Media widgets
-
-#### Properties Panel
-- Widget properties
-- Styling options
-- Data binding
-- Event handlers
-- Accessibility settings
-
-#### Page Structure
-- Page hierarchy tree
-- Widget layers
-- Parent-child relationships
-- Navigation structure
-
-## Working with Canvas
-
-### Creating Pages
-
-#### New Page Creation
-1. Click "New Page" button
-2. Choose page template (Blank, Form, List, etc.)
-3. Configure page settings:
-   - Page name
-   - Route/URL
-   - Layout type
-   - Responsive behavior
-
-#### Page Types
-- **Blank Page** - Start from scratch
-- **Main Page** - Application entry point
-- **Partial Page** - Reusable page fragments
-- **Prefab Page** - Component-based pages
-
-### Drag and Drop
-
-#### Adding Widgets
-1. Select widget from palette
-2. Drag onto canvas
-3. Position where needed
-4. Drop to place
-
-#### Widget Categories
-- **Layout Widgets**
-  - Container
-  - Grid Layout
-  - Flex Layout
-  - Panel
-  - Tabs
-  - Accordion
-
-- **Form Widgets**
-  - Text Input
-  - Number Input
-  - Date Picker
-  - Select/Dropdown
-  - Checkbox
-  - Radio Button
-  - File Upload
-
-- **Display Widgets**
-  - Label
-  - HTML Content
-  - Picture
-  - Video
-  - Audio
-  - Icon
-
-- **Data Widgets**
-  - Data Table
-  - List
-  - Cards
-  - Tree
-  - Form
-
-- **Chart Widgets**
-  - Line Chart
-  - Bar Chart
-  - Pie Chart
-  - Area Chart
-  - Donut Chart
-
-- **Navigation Widgets**
-  - Nav Bar
-  - Menu
-  - Breadcrumb
-  - Anchor
-  - Popover
-
-### Arranging Widgets
-
-#### Positioning
-- **Drag to Move** - Click and drag widgets
-- **Alignment Tools** - Align left, right, center, top, bottom
-- **Distribution** - Even spacing between elements
-- **Z-Index** - Layer ordering (bring forward, send back)
-
-#### Sizing
-- **Resize Handles** - Drag corners/edges to resize
-- **Fixed Size** - Set specific width/height
-- **Percentage** - Relative sizing
-- **Auto** - Content-based sizing
-
-#### Layout Options
-- **Inline** - Flow with content
-- **Block** - Full width
-- **Flex** - Flexible box layout
-- **Grid** - Grid-based layout
-- **Absolute** - Fixed positioning
-
-## Widget Configuration
-
-### Properties Panel
-
-#### Basic Properties
-- **Name** - Widget identifier
-- **Show** - Visibility toggle
-- **Class** - CSS classes
-- **Disabled** - Enable/disable state
-
-#### Style Properties
-- **Width & Height** - Dimensions
-- **Margin & Padding** - Spacing
-- **Background** - Color, image, gradient
-- **Border** - Style, width, color, radius
-- **Font** - Family, size, weight, color
-- **Alignment** - Text and content alignment
-
-#### Data Properties
-- **Dataset** - Bind to data source
-- **Value** - Widget value
-- **Display Field** - Field to show
-- **Data Field** - Field to store
-
-#### Event Properties
-- **onClick** - Click handler
-- **onChange** - Value change handler
-- **onLoad** - Load event
-- **onSuccess** - Success callback
-- **onError** - Error handler
-
-### Data Binding
-
-#### Bind to Variable
-```javascript
-// Bind widget value to variable
-Widget.datavalue = Variables.employeeData.dataSet[0].name;
-
-// Two-way binding
-Widget.datavalue <-> Variables.currentUser.name;
-```
-
-#### Bind to Service
-```javascript
-// Bind to API response
-Widget.dataset = Variables.getEmployeesAPI.dataSet;
-
-// Filter data
-Widget.dataset = Variables.getEmployeesAPI.dataSet.filter(emp => emp.active);
-```
-
-#### Expression Binding
-```javascript
-// Calculated values
-Widget.caption = "Hello, " + Variables.userName.dataSet;
-
-// Conditional binding
-Widget.show = Variables.userRole.dataSet === "admin";
-```
-
-## Responsive Design
-
-### Breakpoints
-
-#### Device Sizes
-- **Desktop** - > 1200px
-- **Tablet** - 768px - 1200px
-- **Mobile** - < 768px
-
-#### Preview Modes
-- Switch between device views
-- Test responsive behavior
-- Adjust layouts per breakpoint
-- Hide/show elements per device
-
-### Responsive Properties
-- **Width** - Set per breakpoint
-- **Height** - Adjust for devices
-- **Show/Hide** - Toggle visibility
-- **Order** - Change element order
-- **Alignment** - Different per device
-
-## Templates and Prefabs
-
-### Page Templates
-- Pre-designed page layouts
-- Common patterns (Login, Dashboard, Form)
-- Customizable starting points
-- Theme-aware designs
-
-### Prefabs (Reusable Components)
-- Custom widget bundles
-- Shareable across projects
-- Versioned components
-- Configurable properties
-
-#### Creating Prefabs
-1. Design widget combination
-2. Right-click → "Create Prefab"
-3. Configure prefab properties
-4. Save to library
-5. Reuse in other pages
-
-## Layout Containers
-
-### Container Widget
-Generic container for grouping widgets:
-- Set layout direction (horizontal/vertical)
-- Configure spacing
-- Set background and borders
-- Add scrolling if needed
-
-### Grid Layout
-Structured grid system:
-- Define rows and columns
-- Span across cells
-- Responsive columns
-- Gap/gutter spacing
-
-### Flex Layout
-Flexible box layout:
-- Direction (row/column)
-- Justify content
-- Align items
-- Flex wrap
-- Gap spacing
-
-### Panel
-Collapsible container:
-- Header and content areas
-- Expandable/collapsible
-- Custom icons
-- Styling options
-
-## Working with Forms
-
-### Form Widget
-Container for form fields:
-- Auto-layout form fields
-- Validation handling
-- Submit/cancel actions
-- Data binding to objects
-
-### Form Fields
-- Automatic label generation
-- Field validation rules
-- Error message display
-- Required field indicators
-
-### Form Actions
-```javascript
-// Submit form
-Page.Widgets.employeeForm.submit();
-
-// Reset form
-Page.Widgets.employeeForm.reset();
-
-// Get form data
-var formData = Page.Widgets.employeeForm.dataoutput;
-```
-
-## Data Tables and Lists
-
-### Data Table Widget
-Display data in tabular format:
-- Column configuration
-- Sorting and filtering
-- Pagination
-- Row selection
-- Inline editing
-- Export to Excel/CSV
-
-### List Widget
-Display items in list format:
-- Template-based rendering
-- Infinite scroll
-- Pull to refresh
-- Item actions
-- Grouping
-
-### Live Form/List
-CRUD operations:
-- Automatic form generation
-- Create/Read/Update/Delete
-- Validation
-- Data binding
-
-## Charts and Visualizations
-
-### Chart Types
-- **Line Chart** - Trends over time
-- **Bar/Column Chart** - Comparisons
-- **Pie/Donut Chart** - Proportions
-- **Area Chart** - Cumulative data
-- **Scatter Plot** - Correlations
-
-### Chart Configuration
-- Data source binding
-- X/Y axis configuration
-- Legend settings
-- Colors and themes
-- Tooltips
-- Export options
-
-## Canvas Operations
-
-### Selection
-- **Click** - Select single widget
-- **Ctrl+Click** - Multi-select
-- **Shift+Click** - Range select
-- **Drag** - Select multiple
-
-### Copy/Paste
-```
-Ctrl+C - Copy
-Ctrl+V - Paste
-Ctrl+X - Cut
-Ctrl+D - Duplicate
-```
-
-### Undo/Redo
-```
-Ctrl+Z - Undo
-Ctrl+Y - Redo
-```
-
-### Delete
-```
-Delete - Remove selected widgets
-Ctrl+Delete - Remove and children
-```
-
-## Keyboard Shortcuts
-
-### Navigation
-- **Tab** - Next widget
-- **Shift+Tab** - Previous widget
-- **Arrow Keys** - Move widget (1px)
-- **Shift+Arrow** - Move widget (10px)
-
-### Editing
-- **F2** - Edit widget name
-- **Enter** - Edit text content
-- **Esc** - Cancel editing
-
-### View
-- **Ctrl+0** - Fit to screen
-- **Ctrl++** - Zoom in
-- **Ctrl+-** - Zoom out
-- **Ctrl+1** - Actual size
-
-## Layers and Z-Index
-
-### Layer Management
-- View all widgets in tree structure
-- Drag to reorder layers
-- Lock/unlock widgets
-- Show/hide widgets
-
-### Z-Index Operations
-- **Bring to Front** - Move to top layer
-- **Send to Back** - Move to bottom layer
-- **Bring Forward** - Move up one layer
-- **Send Backward** - Move down one layer
-
-## Styling
-
-### Style Properties
-- Background color/image
-- Text styling
-- Borders and shadows
-- Spacing (margin/padding)
-- Dimensions
-
-### CSS Classes
-- Apply predefined classes
-- Custom class names
-- Theme classes
-- Responsive classes
-
-### Inline Styles
-Direct CSS styling:
-```css
-background-color: #007bff;
-font-size: 16px;
-border-radius: 4px;
-```
-
-## Best Practices
-
-### Organization
-1. **Use meaningful names** for widgets
-2. **Group related widgets** in containers
-3. **Create reusable prefabs** for common patterns
-4. **Keep hierarchy shallow** when possible
-5. **Use layouts** instead of absolute positioning
-
-### Performance
-1. **Minimize widget count** per page
-2. **Use pagination** for large data sets
-3. **Lazy load** content when possible
-4. **Optimize images** before using
-5. **Avoid deep nesting** of containers
-
-### Responsive Design
-1. **Design mobile-first** approach
-2. **Test all breakpoints** regularly
-3. **Use relative sizing** instead of fixed
-4. **Hide non-essential** elements on mobile
-5. **Optimize touch targets** for mobile
-
-### Accessibility
-1. **Add labels** to form fields
-2. **Set tab order** properly
-3. **Use semantic widgets** appropriately
-4. **Provide alt text** for images
-5. **Ensure color contrast** meets standards
-
-## Troubleshooting
-
-### Common Issues
-
-**Widget Not Visible**
-- Check Show property
-- Verify parent container visibility
-- Check z-index/layer order
-- Verify conditional visibility expressions
-
-**Layout Issues**
-- Check container layout settings
-- Verify widget sizing properties
-- Check for conflicting CSS
-- Test at different breakpoints
-
-**Data Binding Not Working**
-- Verify variable/service binding
-- Check data source availability
-- Validate binding expression syntax
-- Ensure data is loaded
-
-**Performance Issues**
-- Reduce widget count
-- Optimize data queries
-- Use pagination
-- Minimize complex expressions
-
-## Related Documentation
-
-- [Style Workspace](./style-workspace.mdx)
-- [API Explorer](./api-explorer.mdx)
-- [Database Explorer](./database-explorer.mdx)
+The **Design Canvas** is the primary workspace environment, where all application development activities take place, including designing pages, managing data sources, configuring services, and testing the application.
+
+The Studio interface is organized into several functional areas, each serving a specific role in the development workflow. Navigation panels provide access to project resources such as pages, variables, and services, while the central canvas is used to visually design and structure the user interface. Supporting panels allow developers to configure properties, manage styling, inspect page structure, and monitor application behavior during testing.
+
+The following sections walk through each part of the Studio interface and explain its purpose and usage.
+
+
+## Top Toolbar
+
+The **Top Toolbar** is the primary control strip of the Studio and provides quick access to the most frequently used actions during development. It allows developers to view and control, design modes, manage project structure, preview the application, track changes, export builds, deploy, and access job notifications and profile settings, without leaving the workspace.
+
+Below is a detailed walkthrough of each functional area of the Top Toolbar from left to right.
+
+### 1. Recent Items
+
+  This section gives you a listing and access of the recently engaged items like, pages, partials, databses, APIs, Java services, and Files.
+
+### 2. Workspace Mode Selector (Canvas / Code / Variables)
+
+  At the left side of the toolbar, the workspace mode selector allows developers to switch between different views of the current page.
+
+  **Canvas**
+  This is the visual design mode where UI components can be placed, resized, and configured. It is the default workspace used for layout and interaction design.
+
+  **Code**
+  In the next section you get to choose between three modes:
+
+      - Markup: This view provides access to the underlying structure of the page in the WaveMaker Markup language
+
+      - Script: This is where you write any frontend scripting if necessary
+
+      - Styles: This mode is useful when developers need finer control over styles through CSS.
+
+  **Variables and Actions**
+  The Variables are managed in a dialogue. This section is used to configure API call methods, data binding , and other application workflows data exchange between UI and backend.
+
+
+### 4. Save Status Indicator
+
+A small status indicator shows whether the project is saved or has pending changes. This helps developers confirm that changes are persisted.
+
+### 5. Preview 
+
+The Preview  allows developers to run the application instantly in an adjacent tab in the same browser window. This provides immediate feedback without requiring a full deployment.
+
+### 6. Version Control and Change Management
+
+The version control menu provides options related to managing project changes.
+
+Typical actions include:
+
+    - Pull Changes: Fetch updates from the repository
+
+    - Push Changes : Upload local changes
+
+    - View Changes : Inspect modified files
+
+    - Commit History : View previous commits
+
+    - Push to External Repository : Sync with an external Git repository
+
+This functionality integrates source control directly into the development environment, allowing teams to manage versions without leaving the Studio.
+
+      ### 7. Export and Build Options
+
+      The export menu provides options to generate project artifacts in different formats.
+
+       Export options provided are:
+
+      Project Sources as ZIP :  Download full project source
+
+      Angular Project ZIP :  Export frontend in Angular format
+
+      React Project ZIP :  Export frontend in React format
+
+      WAR Package :  Export deployable server artifact
+
+      Shell to Workspace :  Export into another environment
+
+### 8. Deployment
+
+  The Deploy option allows publishing the application to a runtime environment.
+
+### 9. Project Notifications
+
+The notifications panel displays updates related to the project.
+
+This includes:
+
+- Build progress
+- Deployment status
+- Job execution results
+- Test run status
+
+### 10. Profile and Account Menu
+
+The profile menu provides access to user-related options such as:
+
+  - Viewing account details
+
+  - Switching Accounts
+
+  - Logging out
+
+  - Accessing Studio information
+
+## Primary Navigation Bar
+
+The Primary Left Navigation Bar is the main entry point to all project resources such as pages, Components, Page tree structure, Databases, java services, APIs, settings, and Style workspace. It organizes the application into logical sections so developers can easily switch between UI, data, and configuration.
+
+
+## Secondary Navigation Bar
+
+The Secondary Navigation Bar appears after selecting a section in the primary navigation and lists the items within that category. It allows quick navigation between pages, components, APIs, or services.
+
+## Pages
+
+The Pages section lists all application screens and reusable views. Selecting a page loads it into the Canvas where its layout and behavior can be edited.
+
+
+
+## Tree View Page Structure
+
+The Tree View provides a hierarchical representation of all widgets in the current page. It is useful for selecting hidden elements, reordering components, and understanding layout structure in complex pages.
+
+## Database
+
+The Database section provides access to databases, their tables, and schemas, connected to the application. 
+
+## Java Services
+
+Java Services allow developers to implement backend logic using Java within the WaveMaker environment. They are used for business logic, data processing, or integrations that require server-side execution. All Java services present or used in the application are listed as endpoints in this section
+
+## Imported APIs
+
+The Imported APIs section lists external REST services integrated into the application. These APIs can be imported using an open API swagger file, webservices, or websockets, and so on.
+
+## Settings
+
+The Settings section contains project-level configurations such as general application properties, security settings, environment profiles, and localization settings. It is used to control application behavior and deployment configuration.
+
+## Style Workspace
+
+The Style Workspace is used to manage themes, global styles, and component styles. It ensures consistent visual design across the application and allows centralized styling changes.
+
+## Canvas
+
+The Canvas is the main visual design surface in the focal center of the whole UI, where UI components are placed, arranged, and laid out. It shows a live representation of the page layout and allows drag-and-drop editing of components and prefabs.
+
+## Properties Panel
+
+The Properties Panel shows configuration options for the selected component. It allows developers to modify appearance, layout, data binding, and event behavior. It also provides controls for adjusting responsive behaviour for various types of device screens.
+
+## Component Breadcrumb
+
+The Component Breadcrumb below the canvas, displays the hierarchy of the selected component. Showing its parent containers and layout structure. It helps developers understand nesting and quickly navigate to higher-level containers.
+
+## Bottom Toolbar
+
+The Bottom Toolbar provides debugging and runtime information such as logs, console output, and network activity. It helps developers diagnose errors, inspect API calls, and troubleshoot application behavior during testing. It also provides a file explorer, to explore and locate any file in the project structure.
+
+
