@@ -366,16 +366,26 @@ export default [
             id: 'user-interfaces/web/develop/create-web-app-project/project-structure',
             label: 'Project structure',
           },
-           {
-            type: 'doc',
-            id: 'user-interfaces/web/develop/create-web-app-project/angular-project-structure',
-            label: 'Generated Angular project',
-          },
-           {
-            type: 'doc',
-            id: 'user-interfaces/web/develop/create-web-app-project/react-project-structure',
-            label: 'Generated React project',
-          },
+          {
+            type: 'category',
+            label: 'Generated Code',
+            collapsible: true,
+            collapsed: true,
+            items: [
+              {
+                type: 'doc',
+                id: 'user-interfaces/web/develop/create-web-app-project/angular-project-structure',
+                label: 'Angular',
+              },
+              {
+                type: 'doc',
+                id: 'user-interfaces/web/develop/create-web-app-project/react-project-structure',
+                label: 'React',
+              },
+
+            ]
+
+          }
         ],
       },
       {

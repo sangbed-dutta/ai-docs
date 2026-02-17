@@ -5,13 +5,14 @@ last_update: { author: 'Raj Kumar Reddy Abbadi' }
 # Working with Generated Angular Code
 
 WaveMaker allows applications to be exported as a standard Angular project, producing a complete frontend codebase that follows Angular CLI conventions while preserving WaveMaker’s runtime, bindings, and page composition model. The generated code aligns with Angular best practices and is structured to be modular, maintainable, and production ready, while accurately reflecting the UI, logic, and data bindings defined in WaveMaker Studio.
-Key characteristics of the generated Angular code include:
+
+**Key characteristics of the generated Angular code include:**
     - **Component Based Structure**: Each page is generated as an Angular component with a clearly defined scope, promoting modularity and separation of concerns. This makes individual pages easier to maintain, test, and evolve without impacting unrelated parts of the application.
     - **Security & Performance Optimizations**: The generated setup incorporates standard Angular build optimizations such as route guards for access control, tree-shaking to remove unused code, and minification for smaller bundle sizes. Together, these practices help keep the application secure, fast, and production ready.
     - **Custom Extensions & Integrations**: The project structure allows teams to extend generated components with custom logic and integrate third party Angular components and libraries, enabling advanced UI patterns and feature enhancements without disrupting the generated core.
     - **Deployment Friendly Frontend Output**: The compiled frontend output is suitable for deployment as static assets, making it straightforward to host on web servers or CDNs as part of standard frontend deployment pipelines.
 
-The exported project is organized into three main layers:
+#### Working with the Exported Project Follows Three Main Steps:
     - **Export workflow:** how the Angular ZIP is generated and downloaded
     - **Project structure:** how the Angular application is organized at a high level
     - **Page structure:** how each WaveMaker page is represented as an Angular component
@@ -27,7 +28,7 @@ The exported project is organized into three main layers:
 - **Find the Export Job** Locate the job related to “Angular ZIP export”.
 - **Download the Angular ZIP** Click the Download button for the completed job.
 
---- 
+
 ### Understanding the WaveMaker Angular Project Structure 
 
 When you export a WaveMaker app as an Angular ZIP, you get a standard Angular CLI project with WaveMaker-specific runtime and build layers on top. 
@@ -95,8 +96,6 @@ angular_app/
 │       └── app-servicedefs.json // Backend API definitions used by WM
 
 ```
-
----
 
 ### WaveMaker Page Component Structure
 
