@@ -751,6 +751,6 @@ function App() {
 ## Related Documentation
 
 - [Overview](./overview.md) - UI development fundamentals
-- [Create Page, working with Layouts](../develop/create-page-working-with-layouts.md) - Page creation
-- [State Management](../develop/state-management.md) - Managing application state
-- [Integrating with APIs](../develop/integrating-with-apis/variables.md) - API integration
+- [Create Page, working with Layouts](#) - Page creation
+- [State Management](#) - Managing application state
+- [Integrating with APIs](#) - API integration

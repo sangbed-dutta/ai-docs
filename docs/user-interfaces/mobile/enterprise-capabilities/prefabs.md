@@ -828,5 +828,5 @@ export const loadPrefab = async (name) => {
 
 - [WMX Components- Mobile](./prefabs/wmx-components-mobile.md) - Mobile-specific components
 - [Role based Access Control](./role-based-access-control.md)
-- [State Management](../develop/state-management.md)
-- [Create Page, working with Layouts](../develop/create-page-working-with-layouts.md)
+- [State Management](#)
+- [Create Page, working with Layouts](#)
