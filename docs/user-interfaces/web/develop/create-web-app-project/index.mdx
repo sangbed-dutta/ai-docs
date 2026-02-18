@@ -2,7 +2,27 @@
 last_update: { author: 'Raj Kumar Reddy Abbadi' }
 ---
 
-# Walkthrough
+# Creating a Web App in WaveMaker
+
+WaveMaker Studio is a low code platform that lets you rapidly build full stack web applications using visual development for UI and configuration driven backend services
+
+A typical WaveMaker web app is generated as a single page application (SPA) using React or Angular for the frontend and Spring Boot + Hibernate for the backend. 
+
+The platform provides responsive design out of the box and follows a clean three layer architecture:
+  - **UI Layer:** The UI layer consists of pages constructed through drag and drop composition of components. Pages are divided into layout sections (header, content, footer, left panel) 
+  - **Binding Layer:** The binding layer uses Variables as the integration mechanism between UI components and backend services.
+  - **Backend Layer:** The backend layer is built on the Spring Framework ecosystem and provides service APIs for database access, REST/SOAP integration, and custom Java logic.
+
+```mermaid
+flowchart TD
+    A["Create or Import Backend Services (Database, REST, Java, etc.)"]
+    B["Create Pages and Drag-and-Drop Components"]
+    C["Bind Data Using Variables"]
+    D["Preview the Application"]
+    E["Deploy with One-Click Deployment"]
+
+    A --> B --> C --> D --> E
+```
 
 ## WaveMaker Project Workspace
 When you create a new application or open an existing one in WaveMaker Studio, you are taken to the Project Workspace.
@@ -14,7 +34,7 @@ The Project Workspace is divided into the following major sections:
 ![canvas](../../assets/canvas.png)
 
 #### Studio Left Navigation
-The Left Nav provides access to all **application resources and developer utilities**.
+The Left Nav provides access to all **Application resources and developer utilities**.
 
 - **Resources**: Each resource opens its own Resource Explorer (as nested item in left nav).
   - Pages
@@ -103,4 +123,38 @@ The Properties Panel allows configuration of the selected page or component.
   - Events – Client side logic
   - Device – Responsive behavior
   - Security – Role based access
+
+---
+
+### Step by Step Flow to Create a Web App
+
+**Create or Import Backend Services**
+  - Connect to a database
+  - Import REST/SOAP APIs
+  - Create custom Java services
+
+**Create Pages**
+  - Create pages, partials, and popovers
+  - Define layout sections (header, content, footer, left panel)
+  - Design navigation flow
+
+**Drag and Drop Components**
+  - Add tables, forms, charts, and UI controls
+  - Configure properties visually
+  - Add responsiveness
+
+**Bind Data Using Variables**
+  - Create Variables from services
+  - Bind UI components to Variable data
+  - Add lifecycle hooks (onBeforeUpdate, onSuccess, onError)
+  - Write custom logic using Page/App scope
+
+**Preview the Application**
+  - Use built in preview mode
+  - Test responsiveness
+  - Validate data binding and navigation
+
+**One Click Deployment**
+  - Deploy to supported environments
+  - Environment configurations managed via profiles
 

@@ -452,6 +452,21 @@ export default [
             id: 'user-interfaces/web/develop/styling-with-design-tokens/introduction-to-foundation-css',
             label: 'Introduction to Foundation CSS',
           },
+           {
+            type: 'doc',
+            id: 'user-interfaces/web/develop/styling-with-design-tokens/design-token-architecture',
+            label: 'Design Token Architecture',
+          },
+           {
+            type: 'doc',
+            id: 'user-interfaces/web/develop/styling-with-design-tokens/working-with-style-workspace',
+            label: 'Working with Style Workspace',
+          },
+           {
+            type: 'doc',
+            id: 'user-interfaces/web/develop/styling-with-design-tokens/component-variants',
+            label: 'Component Variants',
+          },
           {
             type: 'doc',
             id: 'user-interfaces/web/develop/styling-with-design-tokens/customising-your-application',
@@ -461,12 +476,7 @@ export default [
             type: 'doc',
             id: 'user-interfaces/web/develop/styling-with-design-tokens/editing-foundation-css',
             label: 'Editing Foundation CSS',
-          },
-          {
-            type: 'doc',
-            id: 'user-interfaces/web/develop/styling-with-design-tokens/overview',
-            label: 'Styling with Design Tokens',
-          },
+          }
         ],
       },
       {

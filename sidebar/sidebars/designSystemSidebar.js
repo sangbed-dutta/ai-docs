@@ -10,9 +10,6 @@ export default [
       id: 'design-system/concepts/index',
     },
     items: [
-      'design-system/concepts/design-token-architecture',
-      'design-system/concepts/working-with-style-workspace',
-      'design-system/concepts/component-variants',
       'design-system/concepts/best-practices',
     ],
   },

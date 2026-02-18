@@ -41,31 +41,31 @@ flowchart TB
 
   %% UI Layer
   subgraph UI["UI Layer"]
-    WebUI["Web UI<br/>Angular<br/> React"]
-    MobileUI["Mobile UI<br/>React Native<br/>Expo 54"]
+    WebUI["Web UI (Angular | React)"]
+    MobileUI["Mobile UI (React Native)"]
   end
 
   %% Binding Layer
   subgraph Binding["Binding Layer"]
     VariablesSystem["Variables System"]
 
-    DBVars["Database Variables<br/>DatabaseCRUDVariable<br/>DatabaseAPIVariable"]
-    ServiceVars["Service Variables<br/>ServiceVariable<br/>WebSocketVariable"]
-    ModelVars["Model Variables<br/>ModelVariable<br/>DeviceVariable"]
-    Actions["Actions<br/>NavigationAction<br/>LoginAction<br/>NotificationAction"]
+    DBVars["Database Variables DatabaseCRUDVariable DatabaseAPIVariable"]
+    ServiceVars["Service Variables ServiceVariable WebSocketVariable"]
+    ModelVars["Model Variables ModelVariable DeviceVariable"]
+    Actions["Actions NavigationAction LoginAction NotificationAction"]
   end
 
   %% Backend Layer
   subgraph Backend["Backend Layer"]
-    Spring["Spring Framework<br/>Spring Boot<br/>Spring Security"]
+    Spring["Spring Framework, Spring Boot, Spring Security"]
 
-    ORM["Hibernate<br/>HikariCP"]
+    ORM["Hibernate HikariCP"]
     BackendServices["Backend Services"]
 
-    DBServices["Database Services<br/>MySQL, PostgreSQL,<br/>MongoDB,<br/>SAP HANA, Redshift"]
-    REST["REST APIs<br/>OpenAPI / Swagger Import"]
-    SOAP["SOAP Services<br/>WSDL Import"]
-    JavaServices["Java Services<br/>Custom Business Logic"]
+    DBServices["Database Services, MySQL, PostgreSQL, MongoDB"]
+    REST["REST APIs OpenAPI / Swagger Import"]
+    SOAP["SOAP Services WSDL Import"]
+    JavaServices["Java Services Custom Business Logic"]
   end
 
   %% Connections
