@@ -500,24 +500,24 @@ export default [
           },
         ],
       },
-      {
-        type: 'category',
-        label: 'Component behaviour & methods',
-        collapsible: true,
-        collapsed: true,
-        items: [
-          {
-            type: 'doc',
-            id: 'user-interfaces/web/develop/component-behaviour-and-methods/common-properties',
-            label: 'Common properties',
-          },
-          {
-            type: 'doc',
-            id: 'user-interfaces/web/develop/component-behaviour-and-methods/javascript-access',
-            label: 'JavaScript access methods',
-          },
-        ],
-      },
+      // {
+      //   type: 'category',
+      //   label: 'Component behaviour & methods',
+      //   collapsible: true,
+      //   collapsed: true,
+      //   items: [
+      //     {
+      //       type: 'doc',
+      //       id: 'user-interfaces/web/develop/component-behaviour-and-methods/common-properties',
+      //       label: 'Common properties',
+      //     },
+      //     {
+      //       type: 'doc',
+      //       id: 'user-interfaces/web/develop/component-behaviour-and-methods/javascript-access',
+      //       label: 'JavaScript access methods',
+      //     },
+      //   ],
+      // },
       {
         type: 'category',
         label: 'Validations',
