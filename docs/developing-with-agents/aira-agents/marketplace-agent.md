@@ -186,6 +186,6 @@ The agent does not participate after installation completes.
 - [Prefabs (Mobile)](../../user-interfaces/mobile/enterprise-capabilities/prefabs) – Creating and using reusable UI components for mobile
 - [Connectors Architecture](../../apis-and-services/connectors/architecture) – Understanding connector structure and integration
 - [Building Connectors](../../apis-and-services/connectors/build-a-connector) – Creating custom external service integrations
-- [Design Tokens](../../design-system/concepts/design-token-architecture) – Design system fundamentals and styling consistency
+- [Design Tokens](../../user-interfaces/web/develop/styling-with-design-tokens/design-token-architecture) – Design system fundamentals and styling consistency
 - [WMX Agent](./wmx-agent) – WMX component management and React Native integration
 - [WaveMaker Agent](./wavemaker-agent) – Main orchestration agent and intent resolution
