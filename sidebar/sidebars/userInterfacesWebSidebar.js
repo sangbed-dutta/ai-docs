@@ -471,11 +471,6 @@ export default [
             type: 'doc',
             id: 'user-interfaces/web/develop/styling-with-design-tokens/customising-your-application',
             label: 'Customising your Application',
-          },
-          {
-            type: 'doc',
-            id: 'user-interfaces/web/develop/styling-with-design-tokens/editing-foundation-css',
-            label: 'Editing Foundation CSS',
           }
         ],
       },
