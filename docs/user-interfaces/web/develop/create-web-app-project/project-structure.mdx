@@ -32,63 +32,105 @@ project/
 └── profiles/          # Environment-specific configurations
 ```
 
-### Three-Layer Application Architecture
+## WaveMaker Project Workspace
+When you create a new application or open an existing one in WaveMaker Studio, you are taken to the Project Workspace.
+The Project Workspace is the central area where you design UI, configure services, manage resources, and control project settings.
 
-WaveMaker applications follow a strict three-layer architecture that separates concerns between presentation, data binding, and business logic.
+### Project Workspace Overview
+The Project Workspace is divided into the following major sections:
 
-```mermaid
-flowchart TB
+![canvas](../../assets/canvas.png)
 
-  %% UI Layer
-  subgraph UI["UI Layer"]
-    WebUI["Web UI (Angular | React)"]
-    MobileUI["Mobile UI (React Native)"]
-  end
+#### Studio Left Navigation
+The Left Nav provides access to all **Application resources and developer utilities**.
 
-  %% Binding Layer
-  subgraph Binding["Binding Layer"]
-    VariablesSystem["Variables System"]
+- **Resources**: Each resource opens its own Resource Explorer (as nested item in left nav).
+  - Pages
+  - Building Blocks
+  - Page Structure
+  - Databases
+  - Java Services 
+  - View Project and Team Published API's 
+  - Settings
+  - Style
 
-    DBVars["Database Variables DatabaseCRUDVariable DatabaseAPIVariable"]
-    ServiceVars["Service Variables ServiceVariable WebSocketVariable"]
-    ModelVars["Model Variables ModelVariable DeviceVariable"]
-    Actions["Actions NavigationAction LoginAction NotificationAction"]
-  end
+- **Developer Utilities**
+  - File Explorer – View project files
+  - Logs – Application and server logs
+  - App Resources
+    - Update Sources
+    - App.css
+    - App.js
+    - Issues
 
-  %% Backend Layer
-  subgraph Backend["Backend Layer"]
-    Spring["Spring Framework, Spring Boot, Spring Security"]
+#### Studio Header
+The Header provides access to all frequently used actions and global project operations.
+  - Wavemaker Logo (Naviagtes back to projects)
+  - Project name and Branching
+  - Recently Accessed Items
+  - Resource Toolbar 
+    - Canvas
+    - Canvas view switch (Markup, Script, Style)
+    - Variables | Actions
+    - Design Mode (Visual development)
+    - AIRA (AI assisted development)
+  - Project Configurations
+    - Previewer
+    - Sync Project Changes
+      - Pull changes
+      - Push changes
+      - View Changes
+      - Commit History
+      - Push to external Repo
+      - Open in VCS
+    - Export Project
+      - Export
+        - Project Sources as ZIP
+        - Project as Angular ZIP
+        - Project as React ZIP
+        - Project as WAR (Development | Deployment)
+        - Theme to Team
+      - Publish
+        Publish to Teams as CORE
+      - Deploy
+    - Updates (Project Notifications)
+    - User Profile
+      - User Details 
+      - Logout
+      - About Studio
 
-    ORM["Hibernate HikariCP"]
-    BackendServices["Backend Services"]
+#### Studio Top Navigation
+The Top Nav appears only when a page is selected and has below page operations.
+  - WaveMaker Generated Pages
+    - Duplicate
+    - Ch ange Layout
+  - User created Pages
+    - Rename
+    - Duplicate
+    - Delete
+    - Change Layout
 
-    DBServices["Database Services, MySQL, PostgreSQL, MongoDB"]
-    REST["REST APIs OpenAPI / Swagger Import"]
-    SOAP["SOAP Services WSDL Import"]
-    JavaServices["Java Services Custom Business Logic"]
-  end
+#### Canvas (Design Area)
+The Canvas occupies the majority of the workspace and is used to design and edit pages visually.
+  - Displays the selected page UI
+  - Allows drag-and-drop of components
+  - Shows real-time layout and styling changes
 
-  %% Connections
-  WebUI --> VariablesSystem
-  MobileUI --> VariablesSystem
-  
-  VariablesSystem --> DBVars
-  VariablesSystem --> ServiceVars
-  VariablesSystem --> ModelVars
-  VariablesSystem --> Actions
+#### Component Breadcrumb & Page Adjustments (Bottom of Canvas)
+  - The Component Breadcrumb shows:
+    - The hierarchy of the currently selected component
+    - The active component context in Properties Panel
+    - Quick navigation to parent containers
+  - Page Adjustments (Sets zoom percentage of Page )
 
-  DBVars --> Spring
-  ServiceVars --> Spring
-  Actions --> Spring
 
-  Spring --> ORM
-  Spring --> BackendServices
+#### Properties Panel (Right Side)
+The Properties Panel allows configuration of the selected page or component.
+  - Properties – Data binding, behavior
+  - Styles – Layout and appearance
+  - Events – Client side logic
+  - Device – Responsive behavior
+  - Security – Role based access
 
-  ORM --> DBServices
-  BackendServices --> DBServices
-  BackendServices --> REST
-  BackendServices --> SOAP
-  BackendServices --> JavaServices
 
-```
 
