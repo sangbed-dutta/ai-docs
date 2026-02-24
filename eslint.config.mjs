@@ -28,7 +28,6 @@ export default [
       ...prettier.rules,
       'no-unused-vars': 'warn',
       'no-undef': 'error',
-      'react/react-in-jsx-scope': 'off', // Docusaurus doesn't need React in scope
     },
   },
   {
