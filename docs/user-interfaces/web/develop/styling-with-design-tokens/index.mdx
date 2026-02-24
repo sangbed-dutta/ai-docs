@@ -2,130 +2,120 @@
 last_update: { author: 'Sagar Vemala' }
 ---
 
+import StylingArchitecture from '../styling-with-design-tokens/assets/images/StylingArchitecture.png'
+
+
 # Styling Architecture 
 
-In a [Design System project](../../../../design-system/design-system-project), styling in WaveMaker follows a structured, token-driven architecture.
-
-The system ensures consistency, controlled customization, and safe extensibility.
+In a [Design System project](../../../../design-system/design-system-project), styling in WaveMaker follows a structured, token-driven architecture. The system ensures consistency, controlled customization, and safe extensibility.
 
 ---
 
 ## Styling Flow Overview
 
+Styling in a Design System project is structured into distinct layers that build upon each other to create the final visual output of the application. Each layer serves a specific purpose in the styling architecture, allowing for a clear separation of concerns and enabling both consistency and flexibility in design.
+
+Below are the key layers in the styling flow:
+
+<img
+  src={StylingArchitecture}
+  style={{ width: "800px", display: "block", margin: "0 auto" }}
+/>
+
 
 ---
+## Layer 1 — Foundation.css
 
-## 1. Design Token Mapping
+**Foundation.css** is the core styling layer of the application.
 
-This layer connects external or predefined design tokens to WaveMaker's internal styling system.
+It contains pure CSS definitions built on **CSS variables** and system classes that control how the application renders visually.
 
-It ensures:
+This layer is responsible for:
 
-- Tokens are recognized by the platform
-- Naming conventions are aligned
-- Tokens can be consumed through CSS variables
-- Styling remains system-driven, not hard-coded
+### Design Tokens
+Defines foundational design decisions such as:
 
-This is the entry point of styling into the application runtime.
-
----
-
-## 2. Foundation CSS
-
-Foundation CSS is the core styling engine of the project.
-
-It is built entirely on **CSS variables** and defines:
-
-- Color system
+- Colors
 - Typography scale
-- Spacing system
+- Spacing
 - Border radius
 - Elevation and shadows
-- Surface and background layers
+- Surfaces and backgrounds
 
-All component styles resolve through these variables.
+### CSS Variables
+Design tokens are exposed as **CSS variables** so they can be consumed consistently across the platform at runtime.
 
-This enables:
+### Token → Variable Mapping
+External or predefined tokens are mapped to platform CSS variables, ensuring:
 
-- Runtime theming
-- Centralized visual control
-- Scalable styling across the entire application
+- Standardized naming
+- System consumption
+- No hard-coded styling
+
+Foundation.css acts as the **single visual source of truth** and remains untouched by customizations, ensuring upgrade safety.
 
 ---
 
-## 3. WaveMaker Components
+## Layer 2 — Components
 
-WaveMaker components are designed to:
+The **Components layer** consumes Foundation.css.
 
-- Consume Foundation CSS variables
+WaveMaker components:
+
+- Adhere to Foundation CSS via predefined CSS classes
 - Avoid hard-coded styling values
-- Support system-based variants
-- Maintain consistent visual behavior
+- Resolve styling using CSS variables
+- Maintain consistent behavior across pages
 
-Components inherit their look and feel from the token layer.
+Because components depend on the foundation layer, token changes automatically propagate across the application.
 
 This ensures:
 
-- Uniform UI across screens
+- Uniform UI
 - Predictable styling behavior
-- Easy global updates through token changes
+- Scalable design updates
 
 ---
 
-## 4. Style Workspace
+## Layer 3 — Style Workspace & Overrides
 
-Style Workspace is the management layer for styling customization.
+The **Style Workspace** is the customization and extension layer.
 
-It allows developers to:
+It enables developers and designers to:
 
-- Modify token values
-- Create component variants
-- Extend design definitions safely
-- Preview changes in real-time
+- Override design token values
+- Create component variants (CSS classes)
+- Extend styling safely without modifying Foundation.css
 
-All customizations are structured and system-aware.
+When changes are made:
 
-No direct CSS fragmentation.
+- Token overrides are tracked
+- Variant classes are generated
+- A structured **override.css** file is created to apply these changes
 
----
-
-## 5. Generated Overrides
-
-When tokens or component variants are modified:
-
-- Overridden tokens are tracked
-- Structured override files are generated (`override.css`)
-- Base Foundation CSS remains untouched
-
-This ensures:
-
-- Upgrade safety
-- Clear separation between system and customization
-- Controlled extensibility
+This creates a clear separation between system styles and project customization.
 
 ---
 
-## Runtime Behavior
+## Custom CSS (Optional — Last Mile)
 
-At runtime:
+If styling cannot be achieved through tokens or variants, users can add **custom CSS**.
 
-- Foundation CSS injects token values as CSS variables
-- Components resolve styles using those variables
-- Overrides apply only where defined
-- The final WM application renders consistently
+This provides last-mile flexibility while preserving the recommended approach:
 
-The system separates structure from styling, enabling applications to scale without visual inconsistency.
+1. Token-driven styling first  
+2. Variant-driven styling second  
+3. Custom CSS only when necessary  
 
 ---
 
 ## Summary
 
-Styling in a Design System project is:
+The styling architecture is structured into clear layers:
 
-- Token-driven
-- CSS variable based
-- Component-governed
-- Workspace-managed
-- Override-controlled
+1. **Foundation.css** — Design tokens, CSS variables, token mapping (source of truth)
+2. **Components** — Consume foundation via CSS classes
+3. **Style Workspace** — Overrides tokens and generates variants + override.css
+4. **Custom CSS** — Optional last-mile flexibility
 
-This architecture ensures scalable, maintainable, and enterprise-ready UI development in WaveMaker.
+This layered approach ensures styling that is consistent, maintainable, upgrade-safe, and enterprise-ready.

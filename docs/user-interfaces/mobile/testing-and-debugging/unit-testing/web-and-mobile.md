@@ -747,4 +747,4 @@ jobs:
 - [UI Testing Mobile](../testing-strategies/ui-testing-mobile.md)
 - [WavePulse](../wm-debugging-tools/wavepulse.md) – WaveMaker debugging tool
 - [Debugging Overview](../debugging-overview.md) – All debugging tools and methods
-- [State Management](../../develop/state-management.md)
+- [State Management](#)

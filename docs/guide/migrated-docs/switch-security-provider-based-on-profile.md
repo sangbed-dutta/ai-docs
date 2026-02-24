@@ -7,7 +7,7 @@ last_update: { author: "WaveMaker" }
 WaveMaker supports many security providers which can be enabled from the Security dialog.
 You can now switch between the security providers based on the profile that is being used to build the application. To learn more about profiles, see [Configuration Profiles](#).
 
-For example, the Development profile can have Demo security and other profiles can have SAML as the security provider. This feature is now supported in the studio as WaveMaker application security configuration has been migrated from XML-based configuration to Java-based configuration. To know more, see [Migration from XML to Java Configuration](/blog/2023/09/05/xml-to-java-configuration-migration).
+For example, the Development profile can have Demo security and other profiles can have SAML as the security provider. This feature is now supported in the studio as WaveMaker application security configuration has been migrated from XML-based configuration to Java-based configuration. To know more, see [Migration from XML to Java Configuration](#).
 
 ## Switching Security Provider
 

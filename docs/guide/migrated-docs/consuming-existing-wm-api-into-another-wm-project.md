@@ -44,6 +44,6 @@ The WaveMaker app's API is ready to consume in your project.
 
 ## See Also
 
-[OpenAPI support in WaveMaker - Blog](/feature-announcements/2020/04/21/wavemaker-openapi-import)  
+[OpenAPI support in WaveMaker - Blog](#)  
 [Importing REST APIs via Swagger](#)  
 

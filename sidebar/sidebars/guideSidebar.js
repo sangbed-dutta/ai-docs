@@ -441,6 +441,28 @@ export default [
               'guide/migrated-docs/local-setup',
             ],
           },
+          {
+            type: 'category',
+            label: 'Table',
+            items: [
+              'guide/components/creating-dynamic-data-table',
+              'guide/components/configuring-row-expansion-in-a-data-table',
+              'guide/components/custom-styling-data-table-columns-rows',
+              'guide/components/combining-columns-in-data-table',
+              'guide/components/displaying-additional-components-data-table',
+              'guide/components/queries-with-dynamic-where-clause',
+            ],
+          },
+          {
+            type: 'category',
+            label: 'Form',
+            items: [
+              'guide/components/creating-dynamic-form',
+              'guide/components/live-form-fields-configuration',
+              'guide/components/capturing-data-from-wizard-steps-with-forms'
+            ],
+          }
+
           // {
           //   type: 'category',
           //   label: 'Deployment',

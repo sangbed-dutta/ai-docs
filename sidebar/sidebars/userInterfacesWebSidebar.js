@@ -366,16 +366,26 @@ export default [
             id: 'user-interfaces/web/develop/create-web-app-project/project-structure',
             label: 'Project structure',
           },
-           {
-            type: 'doc',
-            id: 'user-interfaces/web/develop/create-web-app-project/angular-project-structure',
-            label: 'Generated Angular project',
-          },
-           {
-            type: 'doc',
-            id: 'user-interfaces/web/develop/create-web-app-project/react-project-structure',
-            label: 'Generated React project',
-          },
+          {
+            type: 'category',
+            label: 'Generated Code',
+            collapsible: true,
+            collapsed: true,
+            items: [
+              {
+                type: 'doc',
+                id: 'user-interfaces/web/develop/create-web-app-project/angular-project-structure',
+                label: 'Angular',
+              },
+              {
+                type: 'doc',
+                id: 'user-interfaces/web/develop/create-web-app-project/react-project-structure',
+                label: 'React',
+              },
+
+            ]
+
+          }
         ],
       },
       {
@@ -413,7 +423,7 @@ export default [
           {
             type: 'doc',
             id: 'user-interfaces/web/develop/working-with-layouts/auto-layout',
-            label: 'Container Auto Layout',
+            label: 'Auto Layout',
           },
           {
             type: 'doc',
@@ -442,21 +452,26 @@ export default [
             id: 'user-interfaces/web/develop/styling-with-design-tokens/introduction-to-foundation-css',
             label: 'Introduction to Foundation CSS',
           },
+           {
+            type: 'doc',
+            id: 'user-interfaces/web/develop/styling-with-design-tokens/design-token-architecture',
+            label: 'Design Token Architecture',
+          },
+           {
+            type: 'doc',
+            id: 'user-interfaces/web/develop/styling-with-design-tokens/working-with-style-workspace',
+            label: 'Working with Style Workspace',
+          },
+           {
+            type: 'doc',
+            id: 'user-interfaces/web/develop/styling-with-design-tokens/component-variants',
+            label: 'Component Variants',
+          },
           {
             type: 'doc',
             id: 'user-interfaces/web/develop/styling-with-design-tokens/customising-your-application',
             label: 'Customising your Application',
-          },
-          {
-            type: 'doc',
-            id: 'user-interfaces/web/develop/styling-with-design-tokens/editing-foundation-css',
-            label: 'Editing Foundation CSS',
-          },
-          {
-            type: 'doc',
-            id: 'user-interfaces/web/develop/styling-with-design-tokens/overview',
-            label: 'Styling with Design Tokens',
-          },
+          }
         ],
       },
       {
@@ -480,24 +495,24 @@ export default [
           },
         ],
       },
-      {
-        type: 'category',
-        label: 'Component behaviour & methods',
-        collapsible: true,
-        collapsed: true,
-        items: [
-          {
-            type: 'doc',
-            id: 'user-interfaces/web/develop/component-behaviour-and-methods/common-properties',
-            label: 'Common properties',
-          },
-          {
-            type: 'doc',
-            id: 'user-interfaces/web/develop/component-behaviour-and-methods/javascript-access',
-            label: 'JavaScript access methods',
-          },
-        ],
-      },
+      // {
+      //   type: 'category',
+      //   label: 'Component behaviour & methods',
+      //   collapsible: true,
+      //   collapsed: true,
+      //   items: [
+      //     {
+      //       type: 'doc',
+      //       id: 'user-interfaces/web/develop/component-behaviour-and-methods/common-properties',
+      //       label: 'Common properties',
+      //     },
+      //     {
+      //       type: 'doc',
+      //       id: 'user-interfaces/web/develop/component-behaviour-and-methods/javascript-access',
+      //       label: 'JavaScript access methods',
+      //     },
+      //   ],
+      // },
       {
         type: 'category',
         label: 'Validations',
