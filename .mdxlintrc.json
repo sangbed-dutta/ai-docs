@@ -2,10 +2,11 @@
   "plugins": [
     "remark-gfm",
     ["remark-frontmatter", ["yaml", "toml"]],
-    "./scripts/remark-wavemaker.js"
+    "./scripts/lint-scripts/remark-final-newline.js",
+    "./scripts/lint-scripts/remark-wavemaker.js"
   ],
   "settings": {
     "bullet": "-",
-    "listItemIndent": "one"
+    "rule": "-"
   }
 }
