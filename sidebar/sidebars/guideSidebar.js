@@ -458,7 +458,8 @@ export default [
             label: 'Form',
             items: [
               'guide/components/creating-dynamic-form',
-              'guide/components/live-form-fields-configuration'
+              'guide/components/live-form-fields-configuration',
+              'guide/components/capturing-data-from-wizard-steps-with-forms'
             ],
           }
 
