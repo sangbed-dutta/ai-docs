@@ -1,5 +1,3 @@
-import { label } from 'framer-motion/client';
-
 /** @type {import('@docusaurus/plugin-content-docs').SidebarConfig} */
 export default [
   {
@@ -15,27 +13,27 @@ export default [
       {
         type: 'doc',
         id: 'studio/governance/project-collaboration',
-        label: 'Project Collaboration'
+        label: 'Project Collaboration',
       },
       {
         type: 'doc',
         id: 'studio/governance/artifact-management',
-        label: 'Artifact Management'
+        label: 'Artifact Management',
       },
       {
         type: 'doc',
         id: 'studio/governance/code-repository-configuration',
-        label: 'Code Repository Configuration'
+        label: 'Code Repository Configuration',
       },
       {
         type: 'doc',
         id: 'studio/governance/team_management',
-        label: 'Team Management'
+        label: 'Team Management',
       },
       {
         type: 'doc',
         id: 'studio/governance/application-deployments-demo',
-        label: 'Application Deployments - Demo'
+        label: 'Application Deployments - Demo',
       },
     ],
   },
@@ -79,7 +77,7 @@ export default [
               {
                 type: 'doc',
                 id: 'studio/offerings/wme/getting-started/prerequisites',
-                label: "Prerequisites",
+                label: 'Prerequisites',
               },
               {
                 type: 'doc',
@@ -113,7 +111,7 @@ export default [
                     label: 'AWS',
                     collapsible: true,
                     collapsed: true,
-                    
+
                     items: [
                       {
                         type: 'doc',
@@ -126,7 +124,7 @@ export default [
                     label: 'Azure',
                     collapsible: true,
                     collapsed: true,
-                    
+
                     items: [
                       {
                         type: 'doc',
@@ -143,7 +141,7 @@ export default [
                     label: 'Hyper-V',
                     collapsible: true,
                     collapsed: true,
-                   
+
                     items: [
                       {
                         type: 'doc',
@@ -156,7 +154,7 @@ export default [
                     label: 'VMware ESXi',
                     collapsible: true,
                     collapsed: true,
-                    
+
                     items: [
                       {
                         type: 'doc',
@@ -204,7 +202,6 @@ export default [
                     type: 'doc',
                     id: 'studio/offerings/wme/installation/common-steps/apply-license',
                   },
-                  
                 ],
               },
             ],
