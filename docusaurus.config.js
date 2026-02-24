@@ -85,7 +85,7 @@ const config = {
       algolia: {
         appId: 'QCVP2DTGFE',
         apiKey: '5c6569989dc17486081c8ab5cd736d10',
-        indexName: 'ai-docs',
+        indexName: 'wavemaker-ai-docs',
       },
       metadata: [
         {
