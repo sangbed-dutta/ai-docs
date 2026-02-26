@@ -14,7 +14,9 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "manage-docs": "node scripts/doc-manager.mjs",
     "pre-build-scripts": "node scripts/gen-metrics.js && node scripts/gen-tech-stack-versions.js",
-    "gen-metrics": "node scripts/gen-metrics.js"
+    "gen-metrics": "node scripts/gen-metrics.js",
+    "prepare": "husky",
+    "lint": "eslint . && mdxlint . --frail"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
@@ -32,12 +34,21 @@
     "wm-ui-components": "^1.0.0"
   },
   "devDependencies": {
+    "@docusaurus/eslint-plugin": "^3.9.2",
     "@docusaurus/faster": "^3.9.2",
     "@docusaurus/module-type-aliases": "3.9.2",
+    "@eslint/js": "^10.0.1",
     "chalk": "^5.6.2",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.3.0",
     "gray-matter": "^4.0.3",
+    "husky": "^9.1.7",
     "inquirer": "^12.11.1",
-    "prettier": "^3.7.4"
+    "lint-staged": "^16.2.7",
+    "mdxlint": "^1.0.0",
+    "prettier": "^3.8.1",
+    "unist-util-visit": "^5.1.0"
   },
   "browserslist": {
     "production": [

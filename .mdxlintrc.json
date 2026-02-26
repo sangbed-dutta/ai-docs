@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "remark-gfm",
+    ["remark-frontmatter", ["yaml", "toml"]],
+    "./scripts/lint-scripts/remark-final-newline.mjs",
+    "./scripts/lint-scripts/remark-wavemaker.mjs"
+  ],
+  "settings": {
+    "bullet": "-",
+    "rule": "-"
+  }
+}

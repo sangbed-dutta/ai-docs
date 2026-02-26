@@ -1,5 +1,3 @@
-import { link } from 'framer-motion/client';
-
 /** @type {import('@docusaurus/plugin-content-docs').SidebarConfig} */
 export default [
   {
@@ -31,8 +29,6 @@ export default [
       type: 'doc',
       id: 'design-system/design-system-project/index',
     },
-    items: [
-      'design-system/design-system-project/features'
-    ],
+    items: ['design-system/design-system-project/features'],
   },
 ];

@@ -6,7 +6,6 @@ function transformImgClassName(className) {
 }
 export default function MDXImg(props) {
   return (
-    // eslint-disable-next-line jsx-a11y/alt-text
     <img
       decoding="async"
       loading="lazy"

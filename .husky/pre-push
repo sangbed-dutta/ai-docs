@@ -1,0 +1,41 @@
+#!/bin/sh
+
+CACHE_FILE=".husky/.build-cache"
+
+# Get the commit we're currently on
+CURRENT_COMMIT=$(git rev-parse HEAD)
+
+# Check if we have a cached build
+if [ -f "$CACHE_FILE" ]; then
+  LAST_BUILD_COMMIT=$(cat "$CACHE_FILE")
+  
+  # Check if there are any changes between last build and current commit
+  CHANGES=$(git diff --name-only "$LAST_BUILD_COMMIT" "$CURRENT_COMMIT" 2>/dev/null)
+  DIFF_EXIT=$?
+  
+  if [ $DIFF_EXIT -eq 0 ] && [ -z "$CHANGES" ]; then
+    echo "✅ No changes since last build (commit $LAST_BUILD_COMMIT), skipping"
+    exit 0
+  fi
+  
+  if [ $DIFF_EXIT -ne 0 ]; then
+    # Last build commit doesn't exist (rebased/reset), rebuild
+    echo "⚠️  Last build commit not found, rebuilding..."
+  else
+    echo "📝 Changes detected since last build:"
+    echo "$CHANGES" | head -5
+    [ $(echo "$CHANGES" | wc -l) -gt 5 ] && echo "... and more"
+  fi
+else
+  echo "🆕 First build, no cache found"
+fi
+
+# Run build
+echo "🔨 Building..."
+if npm run build; then
+  echo "$CURRENT_COMMIT" > "$CACHE_FILE"
+  echo "✅ Build successful and cached"
+else
+  echo "❌ Build failed - push aborted"
+  exit 1
+fi
