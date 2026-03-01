@@ -13,7 +13,8 @@ const config = {
   tagline: 'Welcome to the Learning Center',
   url: 'https://docs.wavemaker.ai',
   organizationName: 'WaveMaker, Inc.',
-  favicon: 'https://dev-ecosystem.s3.us-east-1.amazonaws.com/menu-icon/docs-icon.png',
+  favicon:
+    'https://dev-ecosystem.s3.us-east-1.amazonaws.com/menu-icon/docs-icon.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -31,6 +32,36 @@ const config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
+  },
+
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap',
+      },
+    },
+  ],
+
+  customFields: {
+    ecosystemAgentUrl:
+      process.env.WAVEMAKER_AGENT_URL || 'http://localhost:8000',
   },
 
   presets: [
