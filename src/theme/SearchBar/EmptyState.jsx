@@ -1,48 +1,67 @@
+import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 
-const STARTERS_BY_CATEGORY = {
-  'ui-components': [
-    { icon: '🔗', text: 'How do I bind a form to a REST API variable?' },
-    { icon: '📁', text: 'What components are available for file upload?' },
-    { icon: '🔐', text: 'How do I add Twilio OTP to my login form?' },
-    { icon: '🎨', text: 'How to apply a design system from Marketplace?' },
-  ],
-  widgets: [
-    { icon: '📊', text: 'How to use the Data Table widget?' },
-    { icon: '📝', text: 'How to create a multi-step wizard form?' },
-    { icon: '🔍', text: 'How to add search and filter to a list?' },
-    { icon: '📱', text: 'How to make widgets responsive on mobile?' },
-  ],
-  deployment: [
-    { icon: '🚀', text: 'How to deploy a WaveMaker app to AWS?' },
-    { icon: '🔧', text: 'How to configure CI/CD for WaveMaker?' },
-    { icon: '📦', text: 'How to build a WAR file for deployment?' },
-    { icon: '☁️', text: 'How to set up WaveMaker on Azure?' },
-  ],
-  default: [
-    { icon: '🔗', text: 'How do I bind a form to a REST API variable?' },
-    { icon: '📁', text: 'What components are available for file upload?' },
-    { icon: '🔐', text: 'How do I add Twilio OTP to my login form?' },
-    { icon: '🎨', text: 'How to apply a design system from Marketplace?' },
-  ],
-};
+const FALLBACK_STARTERS = [
+  { icon: '🔗', text: 'How do I bind a form to a REST API variable?' },
+  { icon: '📁', text: 'What components are available for file upload?' },
+  { icon: '🔐', text: 'How do I add Twilio OTP to my login form?' },
+  { icon: '🎨', text: 'How to apply a design system from Marketplace?' },
+];
 
-function getCategoryFromPath(category) {
-  if (!category) return 'default';
-  const lower = category.toLowerCase();
-  if (
-    lower.includes('widget') ||
-    lower.includes('ui') ||
-    lower.includes('component')
-  )
-    return 'ui-components';
-  if (lower.includes('deploy') || lower.includes('build')) return 'deployment';
-  return 'default';
-}
+const ICONS = ['💡', '🔍', '⚙️', '📦', '🧩', '🚀'];
 
-export default function EmptyState({ onSelect, pageCategory }) {
-  const key = getCategoryFromPath(pageCategory);
-  const starters = STARTERS_BY_CATEGORY[key] || STARTERS_BY_CATEGORY.default;
+export default function EmptyState({ onSelect, pageContext, apiUrl }) {
+  const [starters, setStarters] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!apiUrl) return;
+
+    let cancelled = false;
+    setLoading(true);
+
+    fetch(`${apiUrl}/api/v1/chat/suggestions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        context: pageContext
+          ? {
+              pageTitle: pageContext.pageTitle || '',
+              pageSlug: pageContext.pageSlug || '',
+              pageCategory: pageContext.pageCategory || '',
+              pageSummary: pageContext.pageSummary || '',
+              pageHeadings: pageContext.pageHeadings || [],
+            }
+          : null,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch suggestions');
+        return res.json();
+      })
+      .then((data) => {
+        if (!cancelled && data.suggestions?.length) {
+          setStarters(
+            data.suggestions.map((text, i) => ({
+              icon: ICONS[i % ICONS.length],
+              text,
+            })),
+          );
+        }
+      })
+      .catch(() => {
+        // Silently fall back to static starters
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [apiUrl, pageContext?.pageSlug]);
+
+  const items = starters || FALLBACK_STARTERS;
 
   return (
     <div className={styles.emptyState}>
@@ -51,9 +70,11 @@ export default function EmptyState({ onSelect, pageCategory }) {
         <strong>Storybook</strong>, <strong>Marketplace</strong>, and{' '}
         <strong>Academy</strong> to give you the best answer.
       </div>
-      <div className={styles.startersLabel}>Try asking</div>
+      <div className={styles.startersLabel}>
+        {loading ? 'Loading suggestions…' : 'Try asking'}
+      </div>
       <div className={styles.startersGrid}>
-        {starters.map((s, i) => (
+        {items.map((s, i) => (
           <button
             key={i}
             className={styles.starterCard}

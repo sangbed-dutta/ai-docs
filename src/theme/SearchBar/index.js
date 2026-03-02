@@ -40,14 +40,46 @@ let globalModalOpen = false;
  */
 function getPageContext() {
   if (typeof document === 'undefined') {
-    return { pageTitle: '', pageSlug: '', pageCategory: '' };
+    return {
+      pageTitle: '',
+      pageSlug: '',
+      pageCategory: '',
+      pageHeadings: [],
+      pageSummary: '',
+    };
   }
   const path = window.location.pathname;
   const segments = path.split('/').filter(Boolean);
+
+  // Extract headings from the article content
+  const article =
+    document.querySelector('article') || document.querySelector('.markdown');
+  const headings = [];
+  if (article) {
+    article.querySelectorAll('h2, h3').forEach((h) => {
+      const text = h.textContent?.trim();
+      if (text) headings.push(text);
+    });
+  }
+
+  // Extract a brief content summary (first ~300 chars of article text)
+  let pageSummary = '';
+  if (article) {
+    const firstParagraphs = article.querySelectorAll('p');
+    const parts = [];
+    for (const p of firstParagraphs) {
+      parts.push(p.textContent?.trim() || '');
+      if (parts.join(' ').length > 300) break;
+    }
+    pageSummary = parts.join(' ').slice(0, 500);
+  }
+
   return {
     pageTitle: document.title?.replace(/ \| .*$/, '') || '',
     pageSlug: path,
     pageCategory: segments[0] || '',
+    pageHeadings: headings.slice(0, 15),
+    pageSummary,
   };
 }
 
@@ -246,7 +278,8 @@ function AskAIPanel({
         ) : (
           <EmptyState
             onSelect={(q) => chat.sendMessage(q)}
-            pageCategory={pageContext.pageCategory}
+            pageContext={pageContext}
+            apiUrl={apiUrl}
           />
         )}
 
