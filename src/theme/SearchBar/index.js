@@ -171,11 +171,46 @@ function AskAIPanel({
 
   const hasMessages = chat.messages.length > 0 || chat.isStreaming;
 
-  // Collect all source cards
-  const allSourceCards = [
-    ...chat.messages.flatMap((m) => m.sourceCards || []),
-    ...chat.currentSourceCards,
-  ];
+  // Compute active source cards — per-message, not accumulated
+  const assistantMessages = chat.messages.filter((m) => m.role === 'assistant');
+  const totalAssistantMessages = assistantMessages.length;
+
+  let activeCards = [];
+  let activeIndex = 0;
+
+  if (chat.activeMessageId === '__streaming__') {
+    // Currently streaming — show in-progress source cards
+    activeCards = chat.currentSourceCards;
+    activeIndex = totalAssistantMessages + 1; // next after all complete ones
+  } else if (chat.activeMessageId) {
+    const activeMsg = assistantMessages.find(
+      (m) => m.id === chat.activeMessageId,
+    );
+    if (activeMsg) {
+      activeCards = activeMsg.sourceCards || [];
+      activeIndex =
+        assistantMessages.findIndex((m) => m.id === chat.activeMessageId) + 1;
+    }
+  }
+
+  // Navigate ← → between assistant messages
+  const handlePrevMessage = useCallback(() => {
+    const idx = assistantMessages.findIndex(
+      (m) => m.id === chat.activeMessageId,
+    );
+    if (idx > 0) {
+      chat.setActiveMessageId(assistantMessages[idx - 1].id);
+    }
+  }, [assistantMessages, chat]);
+
+  const handleNextMessage = useCallback(() => {
+    const idx = assistantMessages.findIndex(
+      (m) => m.id === chat.activeMessageId,
+    );
+    if (idx < assistantMessages.length - 1) {
+      chat.setActiveMessageId(assistantMessages[idx + 1].id);
+    }
+  }, [assistantMessages, chat]);
 
   return (
     <div className="DocSearch-AskAI-Fullscreen">
@@ -203,7 +238,8 @@ function AskAIPanel({
             currentFragments={chat.currentFragments}
             currentTraceSteps={chat.currentTraceSteps}
             followups={chat.followups}
-            activeActions={chat.activeActions}
+            activeMessageId={chat.activeMessageId}
+            onSelectMessage={chat.setActiveMessageId}
             onFollowup={handleFollowup}
             onAction={handleAction}
           />
@@ -214,8 +250,20 @@ function AskAIPanel({
           />
         )}
 
-        {/* Source cards panel (right column) */}
-        {hasMessages && <SourceCards cards={allSourceCards} />}
+        {/* Source cards panel (right column) — per active message */}
+        {hasMessages && (
+          <SourceCards
+            cards={activeCards}
+            activeIndex={activeIndex}
+            totalMessages={
+              chat.isStreaming
+                ? totalAssistantMessages + 1
+                : totalAssistantMessages
+            }
+            onPrev={handlePrevMessage}
+            onNext={handleNextMessage}
+          />
+        )}
       </div>
 
       {/* Footer with keyboard hints + clear */}

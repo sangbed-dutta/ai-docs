@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import DocusaurusCodeBlock from '@theme/CodeBlock';
@@ -26,22 +26,6 @@ function getBadgeClass(source) {
   }
 }
 
-function getDotClass(source) {
-  switch (source) {
-    case 'docs':
-      return styles.srcChipDotDocs;
-    case 'storybook':
-      return styles.srcChipDotStorybook;
-    case 'marketplace':
-      return styles.srcChipDotMarketplace;
-    case 'academy':
-      return styles.srcChipDotAcademy;
-    default:
-      return styles.srcChipDotDocs;
-  }
-}
-
-/** Custom markdown components for rendering inside the AI panel */
 const markdownComponents = {
   code({ node: _node, inline, className, children, ...props }) {
     const match = /language-(\w+)/.exec(className || '');
@@ -91,7 +75,6 @@ const markdownComponents = {
   },
 };
 
-/** Render fragments: markdown text blocks + inline source badges */
 function renderFragments(fragments) {
   const rendered = [];
   let textBuffer = '';
@@ -131,24 +114,72 @@ function renderFragments(fragments) {
   return rendered;
 }
 
+/** Inline mini source card for mobile */
+function MiniSourceCard({ card }) {
+  const getIconClass = (source) => {
+    switch (source) {
+      case 'docs':
+        return styles.srcCardIconDocs;
+      case 'storybook':
+        return styles.srcCardIconStorybook;
+      case 'marketplace':
+        return styles.srcCardIconMarketplace;
+      case 'academy':
+        return styles.srcCardIconAcademy;
+      default:
+        return styles.srcCardIconDocs;
+    }
+  };
+  const icons = { docs: '📄', storybook: '◈', marketplace: '⬡', academy: '✦' };
+
+  return (
+    <a
+      className={styles.srcCard}
+      href={card.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ fontSize: '11px' }}
+    >
+      <div className={styles.srcCardHeader}>
+        <div className={`${styles.srcCardIcon} ${getIconClass(card.source)}`}>
+          {icons[card.source] || '📄'}
+        </div>
+        <div className={styles.srcCardMeta}>
+          <div className={styles.srcCardSource}>
+            {card.source.charAt(0).toUpperCase() + card.source.slice(1)}
+          </div>
+          <div className={styles.srcCardTitle}>{card.title}</div>
+        </div>
+      </div>
+      {card.excerpt && <div className={styles.srcCardBody}>{card.excerpt}</div>}
+    </a>
+  );
+}
+
 export default function AIConversation({
   messages,
   isStreaming,
   currentFragments,
   currentTraceSteps,
   followups,
-  activeActions: _activeActions,
+  activeMessageId,
+  onSelectMessage,
   onFollowup,
   onAction,
 }) {
   const scrollRef = useRef(null);
+  // Mobile: only one message's sources can be expanded at a time
+  const [expandedMobileId, setExpandedMobileId] = useState(null);
 
-  // Auto-scroll on new content
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, currentFragments, currentTraceSteps]);
+
+  const toggleMobileSources = (msgId) => {
+    setExpandedMobileId((prev) => (prev === msgId ? null : msgId));
+  };
 
   return (
     <div className={styles.conversationCol}>
@@ -166,7 +197,9 @@ export default function AIConversation({
             );
           }
 
-          // Assistant message
+          const isActive = activeMessageId === msg.id;
+          const sourceCount = msg.sourceCards?.length || 0;
+
           return (
             <React.Fragment key={msg.id}>
               {/* Trace block */}
@@ -188,8 +221,14 @@ export default function AIConversation({
                 </div>
               )}
 
-              {/* AI response */}
-              <div className={styles.msgAi}>
+              {/* AI response — clickable to select as active */}
+              <div
+                className={`${styles.msgAi} ${isActive ? styles.msgAiActive : ''}`}
+                onClick={() => onSelectMessage(msg.id)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && onSelectMessage(msg.id)}
+              >
                 <div className={styles.aiRow}>
                   <div className={styles.aiIcon}>W</div>
                   <div className={styles.aiText}>
@@ -200,24 +239,41 @@ export default function AIConversation({
                 </div>
               </div>
 
-              {/* Sources row */}
-              {msg.sourceCards && msg.sourceCards.length > 0 && (
-                <div className={styles.sourcesRow}>
-                  <span style={{ fontSize: '11px', color: 'var(--text4)' }}>
-                    From:
-                  </span>
-                  {[...new Set(msg.sourceCards.map((c) => c.source))].map(
-                    (src) => (
-                      <div key={src} className={styles.srcChip}>
-                        <div
-                          className={`${styles.srcChipDot} ${getDotClass(src)}`}
-                        />
-                        <span>
-                          {src.charAt(0).toUpperCase() + src.slice(1)}
-                        </span>
-                      </div>
-                    ),
-                  )}
+              {/* Source count badge (desktop only, hidden on mobile via CSS) */}
+              {sourceCount > 0 && (
+                <div
+                  className={styles.sourceCountBadge}
+                  onClick={() => onSelectMessage(msg.id)}
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                  >
+                    <path d="M2 3h12v1.5H2zM2 7h12v1.5H2zM2 11h8v1.5H2z" />
+                  </svg>
+                  {sourceCount} source{sourceCount !== 1 ? 's' : ''}
+                </div>
+              )}
+
+              {/* Mobile inline source toggle (shown only on mobile via CSS) */}
+              {sourceCount > 0 && (
+                <button
+                  className={styles.mobileSourceToggle}
+                  onClick={() => toggleMobileSources(msg.id)}
+                >
+                  Sources ({sourceCount}){' '}
+                  {expandedMobileId === msg.id ? '▾' : '▸'}
+                </button>
+              )}
+
+              {/* Mobile inline source cards */}
+              {expandedMobileId === msg.id && msg.sourceCards && (
+                <div className={styles.mobileSourceCards}>
+                  {msg.sourceCards.map((card, ci) => (
+                    <MiniSourceCard key={ci} card={card} />
+                  ))}
                 </div>
               )}
 
@@ -238,7 +294,7 @@ export default function AIConversation({
                 </div>
               )}
 
-              {/* Divider between exchanges */}
+              {/* Divider */}
               {idx < messages.length - 1 && (
                 <div className={styles.convDivider} />
               )}
@@ -268,7 +324,7 @@ export default function AIConversation({
             )}
 
             {currentFragments.length > 0 && (
-              <div className={styles.msgAi}>
+              <div className={`${styles.msgAi} ${styles.msgAiActive}`}>
                 <div className={styles.aiRow}>
                   <div className={styles.aiIcon}>W</div>
                   <div className={styles.aiText}>

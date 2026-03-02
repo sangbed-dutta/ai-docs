@@ -42,6 +42,7 @@ export function useAIChat(pageContext, apiUrl) {
   const [currentSourceCards, setCurrentSourceCards] = useState([]);
   const [followups, setFollowups] = useState([]);
   const [activeActions, setActiveActions] = useState([]);
+  const [activeMessageId, setActiveMessageId] = useState(null);
   const abortRef = useRef(null);
 
   // Persist messages on change
@@ -62,6 +63,7 @@ export function useAIChat(pageContext, apiUrl) {
 
       setMessages((prev) => [...prev, userMsg]);
       setIsStreaming(true);
+      setActiveMessageId('__streaming__');
       setCurrentTraceSteps([]);
       setCurrentFragments([]);
       setCurrentSourceCards([]);
@@ -198,6 +200,7 @@ export function useAIChat(pageContext, apiUrl) {
         };
 
         setMessages((prev) => [...prev, assistantMsg]);
+        setActiveMessageId(assistantMsg.id);
       } catch (err) {
         if (err.name !== 'AbortError') {
           const errorMsg = {
@@ -224,6 +227,7 @@ export function useAIChat(pageContext, apiUrl) {
     setCurrentFragments([]);
     setCurrentTraceSteps([]);
     setCurrentSourceCards([]);
+    setActiveMessageId(null);
     sessionStorage.removeItem(SESSION_KEY_PREFIX + 'messages');
   }, []);
 
@@ -239,6 +243,8 @@ export function useAIChat(pageContext, apiUrl) {
     currentSourceCards,
     followups,
     activeActions,
+    activeMessageId,
+    setActiveMessageId,
     sendMessage,
     clearHistory,
     cancelStream,

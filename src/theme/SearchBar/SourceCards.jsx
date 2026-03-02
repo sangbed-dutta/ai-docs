@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import styles from './styles.module.css';
 
 const SOURCE_ICONS = {
@@ -29,14 +30,55 @@ function getIconClass(source) {
   }
 }
 
-export default function SourceCards({ cards }) {
+export default function SourceCards({
+  cards,
+  activeIndex,
+  totalMessages,
+  onPrev,
+  onNext,
+}) {
+  const scrollRef = useRef(null);
+
+  // Reset scroll position when active message changes
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [cards]);
+
   if (cards.length === 0) {
     return (
       <div className={styles.sourcesCol}>
-        <div className={styles.sourcesColHeader}>Sources Used</div>
-        <div className={styles.sourcesColScroll}>
+        <div className={styles.sourcesNavHeader}>
+          <span className={styles.sourcesNavLabel}>
+            {totalMessages > 0 ? `Sources · Q${activeIndex}` : 'Sources'}
+          </span>
+          {totalMessages > 1 && (
+            <div className={styles.sourcesNavArrows}>
+              <button
+                className={styles.sourcesNavArrow}
+                onClick={onPrev}
+                disabled={activeIndex <= 1}
+                aria-label="Previous message sources"
+              >
+                ←
+              </button>
+              <button
+                className={styles.sourcesNavArrow}
+                onClick={onNext}
+                disabled={activeIndex >= totalMessages}
+                aria-label="Next message sources"
+              >
+                →
+              </button>
+            </div>
+          )}
+        </div>
+        <div className={styles.sourcesColScroll} ref={scrollRef}>
           <div className={styles.sourcesEmpty}>
-            Sources will appear here after you ask a question.
+            {totalMessages > 0
+              ? 'No sources for this message.'
+              : 'Sources will appear here after you ask a question.'}
           </div>
         </div>
       </div>
@@ -45,8 +87,30 @@ export default function SourceCards({ cards }) {
 
   return (
     <div className={styles.sourcesCol}>
-      <div className={styles.sourcesColHeader}>Sources Used</div>
-      <div className={styles.sourcesColScroll}>
+      <div className={styles.sourcesNavHeader}>
+        <span className={styles.sourcesNavLabel}>Sources · Q{activeIndex}</span>
+        {totalMessages > 1 && (
+          <div className={styles.sourcesNavArrows}>
+            <button
+              className={styles.sourcesNavArrow}
+              onClick={onPrev}
+              disabled={activeIndex <= 1}
+              aria-label="Previous message sources"
+            >
+              ←
+            </button>
+            <button
+              className={styles.sourcesNavArrow}
+              onClick={onNext}
+              disabled={activeIndex >= totalMessages}
+              aria-label="Next message sources"
+            >
+              →
+            </button>
+          </div>
+        )}
+      </div>
+      <div className={styles.sourcesColScroll} ref={scrollRef}>
         {cards.map((card, i) => {
           const props = card.meta?.props;
 
