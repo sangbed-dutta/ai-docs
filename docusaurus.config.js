@@ -69,7 +69,7 @@ const config = {
         theme: {
           customCss: [
             './src/css/custom.css',
-            ...(process.env.AWS_BRANCH === 'main'
+            ...(process.env.AWS_BRANCH === 'prod'
               ? []
               : ['./src/css/non-prod.css']),
           ],

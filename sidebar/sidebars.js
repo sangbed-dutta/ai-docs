@@ -74,7 +74,7 @@ let sidebars = {
   releaseNotesSidebar,
 };
 
-if (process.env.AWS_BRANCH !== 'main') {
+if (process.env.AWS_BRANCH !== 'prod') {
   for (const key in sidebars) {
     // @ts-ignore
     sidebars[key] = highlightMissing(sidebars[key]);
