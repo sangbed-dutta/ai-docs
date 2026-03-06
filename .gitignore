@@ -21,6 +21,7 @@ yarn-error.log*
 yarn.lock
 /scripts/metrics.json
 /data/tech-stack-data/versionDataMap.js
+/scripts/domain-metrics/domain-usage.json
 
 # Husky build tracking (local only)
 .husky/.build-cache
