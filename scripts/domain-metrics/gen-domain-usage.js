@@ -8,6 +8,7 @@ const featureAnnouncementsDir = path.join(
   __dirname,
   '../../blogs/feature-announcements',
 );
+const srcDir = path.join(__dirname, '../../src');
 
 const oldDomains = [
   'wavemaker.com',
@@ -40,6 +41,16 @@ const results = {
   },
 };
 
+const relevantExtensions = [
+  '.md',
+  '.mdx',
+  '.js',
+  '.jsx',
+  '.ts',
+  '.tsx',
+  '.css',
+];
+
 function walk(dir) {
   if (!fs.existsSync(dir)) return;
 
@@ -50,15 +61,23 @@ function walk(dir) {
       walk(fullPath);
     } else {
       const ext = path.extname(file);
-      if (ext === '.md' || ext === '.mdx') {
+      if (relevantExtensions.includes(ext)) {
         try {
           const fileContents = fs.readFileSync(fullPath, 'utf8');
-          const { data, content } = matter(fileContents);
+          let content = fileContents;
+          let author = 'Unknown';
 
-          const author =
-            (data.last_update && data.last_update.author) ||
-            data.author ||
-            'Unknown';
+          if (ext === '.md' || ext === '.mdx') {
+            const { data, content: markdownContent } = matter(fileContents);
+            content = markdownContent;
+            author =
+              (data.last_update && data.last_update.author) ||
+              data.author ||
+              'Unknown';
+          } else {
+            author = 'Codebase';
+          }
+
           const relativePath = path.relative(
             path.join(__dirname, '../../'),
             fullPath,
@@ -101,6 +120,7 @@ console.log('Scanning for old domain usage...');
 walk(docsDir);
 walk(blogsDir);
 walk(featureAnnouncementsDir);
+walk(srcDir);
 
 const outputPath = path.join(__dirname, 'domain-usage.json');
 fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
