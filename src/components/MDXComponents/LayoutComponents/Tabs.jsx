@@ -7,7 +7,10 @@ import './Tabs.css';
  */
 export function TabItem({ children, name, active }) {
   return (
-    <div className={`tab-pane ${active ? 'active' : ''}`} style={{ display: active ? 'block' : 'none' }}>
+    <div
+      className={`tab-pane ${active ? 'active' : ''}`}
+      style={{ display: active ? 'block' : 'none' }}
+    >
       {children}
     </div>
   );
@@ -17,15 +20,21 @@ export function TabItem({ children, name, active }) {
  * TabsWrapper Component
  * Manages the state and rendering of tabs.
  */
-export function TabsWrapper({ children }) {
+export function TabsWrapper({ children, type }) {
   // Extract children and filter out non-TabItem components if necessary
   const tabs = React.Children.toArray(children).filter(
-    (child) => child.props && child.props.name
+    (child) => child.props && child.props.name,
   );
 
   const [activeIndex, setActiveIndex] = useState(0);
 
   if (tabs.length === 0) return null;
+
+  const content = tabs.map((tab, index) => (
+    <React.Fragment key={index}>
+      {React.cloneElement(tab, { active: activeIndex === index })}
+    </React.Fragment>
+  ));
 
   return (
     <div className="tabs-wrapper">
@@ -41,11 +50,11 @@ export function TabsWrapper({ children }) {
         ))}
       </div>
       <div className="tab-content">
-        {tabs.map((tab, index) => (
-          <React.Fragment key={index}>
-            {React.cloneElement(tab, { active: activeIndex === index })}
-          </React.Fragment>
-        ))}
+        {type === 'release-notes' ? (
+          <div className="release-notes-container">{content}</div>
+        ) : (
+          content
+        )}
       </div>
     </div>
   );

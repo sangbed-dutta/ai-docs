@@ -57,9 +57,165 @@
   .tabs-nav {
     padding: 0 4px;
   }
-  
+
   .tab-btn {
     padding: 0.6rem 1rem;
     font-size: 0.85rem;
+  }
+}
+
+/* 
+ * Release Notes Styles
+ * Automatically applied when TabsWrapper receives type="release-notes"
+ * Targets standard MDX/HTML elements inside the .release-notes-container
+ */
+
+.release-notes-container {
+  padding: 0.5rem 0;
+}
+
+/* Categories (h2 elements) */
+.release-notes-container .tab-pane > h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  padding-bottom: 0.5rem;
+  color: var(--ifm-color-primary) !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-size: 1.1rem;
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+}
+
+.release-notes-container .tab-pane > h2::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  background: var(--ifm-color-primary);
+  border-radius: 2px;
+}
+
+/* Feature Lists (ul elements) */
+.release-notes-container .tab-pane > ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 2rem;
+  border-left: 2px solid var(--ifm-color-emphasis-200);
+  margin-left: 0.5rem;
+}
+
+/* Feature Items (li elements) */
+.release-notes-container .tab-pane > ul > li {
+  padding: 1.25rem 1.5rem;
+  position: relative;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.release-notes-container .tab-pane > ul > li:last-child {
+  border-bottom: none;
+}
+
+.release-notes-container .tab-pane > ul > li::before {
+  content: '';
+  position: absolute;
+  left: -10px; /* Perfectly centered on the 2px border line */
+  top: 50%; /* Vertically centered in the feature item block */
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  background-color: var(--ifm-background-color) !important;
+  border: 2px solid var(--ifm-color-emphasis-400);
+  border-radius: 50%;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+[data-theme='light'] .release-notes-container .tab-pane > ul > li::before {
+  background-color: #ffffff !important;
+}
+
+[data-theme='dark'] .release-notes-container .tab-pane > ul > li::before {
+  background-color: var(--ifm-background-color) !important;
+}
+
+.release-notes-container .tab-pane > ul > li:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.release-notes-container .tab-pane > ul > li:hover::before {
+  border-color: var(--ifm-color-primary);
+  background-color: var(--ifm-color-primary) !important;
+}
+
+/* Feature Titles (h3 elements) */
+.release-notes-container .tab-pane > ul > li > h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  margin-top: 0;
+  color: var(--ifm-heading-color);
+  line-height: 1.4;
+}
+
+.release-notes-container .tab-pane > ul > li > h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.release-notes-container .tab-pane > ul > li > h3 a:hover {
+  color: var(--ifm-color-primary);
+}
+
+/* Feature Descriptions (p elements) */
+.release-notes-container .tab-pane > ul > li > p {
+  font-size: 0.925rem;
+  color: var(--ifm-font-color-base);
+  line-height: 1.5;
+  opacity: 0.85;
+  margin: 0;
+}
+
+/* Sub-lists inside descriptions (ul inside li) */
+.release-notes-container .tab-pane > ul > li > p + ul,
+.release-notes-container .tab-pane > ul > li > div > ul {
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  font-size: 0.925rem;
+  color: var(--ifm-font-color-base);
+  opacity: 0.85;
+}
+
+/* Feature Footer / Documentation Links */
+/* Standard MDX generates paragraphs for links if placed on a new line. We target standalone links or links at end of item */
+.release-notes-container .tab-pane > ul > li > p:last-child:has(a),
+.release-notes-container .tab-pane > ul > li > a {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.release-notes-container .tab-pane > ul > li a {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.release-notes-container .tab-pane > ul > li a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .release-notes-container .tab-pane > ul > li {
+    padding: 1rem 1.25rem;
   }
 }
