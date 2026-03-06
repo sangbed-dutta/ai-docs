@@ -1,7 +1,14 @@
 import React from 'react';
 import clsx from 'clsx';
-import { useThemeConfig, ErrorCauseBoundary, ThemeClassNames } from '@docusaurus/theme-common';
-import { splitNavbarItems, useNavbarMobileSidebar } from '@docusaurus/theme-common/internal';
+import {
+  useThemeConfig,
+  ErrorCauseBoundary,
+  ThemeClassNames,
+} from '@docusaurus/theme-common';
+import {
+  splitNavbarItems,
+  useNavbarMobileSidebar,
+} from '@docusaurus/theme-common/internal';
 import Link from '@docusaurus/Link';
 import NavbarItem from '@theme/NavbarItem';
 import NavbarColorModeToggle from '@theme/Navbar/ColorModeToggle';
@@ -10,9 +17,8 @@ import NavbarMobileSidebarToggle from '@theme/Navbar/MobileSidebar/Toggle';
 import NavbarLogo from '@theme/Navbar/Logo';
 import NavbarSearch from '@theme/Navbar/Search';
 import styles from './styles.module.css';
-import { AppLauncher } from "wm-ui-components"
+import { AppLauncher } from 'wm-ui-components';
 // import MenuSection from './menu';
-
 
 function useNavbarItems() {
   // TODO temporary casting until ThemeConfig type is improved
@@ -24,7 +30,7 @@ function NavbarItems({ items }) {
       {items.map((item, i) => (
         <ErrorCauseBoundary
           key={i}
-          onError={error =>
+          onError={(error) =>
             new Error(
               `A theme navbar item failed to render.
 Please double-check the following navbar item (themeConfig.navbar.items) of your Docusaurus config:
@@ -42,7 +48,12 @@ ${JSON.stringify(item, null, 2)}`,
 function NavbarContentLayout({ left, right }) {
   return (
     <div className="navbar__inner">
-      <div className={clsx(ThemeClassNames.layout.navbar.containerLeft, 'navbar__items')}>
+      <div
+        className={clsx(
+          ThemeClassNames.layout.navbar.containerLeft,
+          'navbar__items',
+        )}
+      >
         {left}
       </div>
       <div
@@ -60,7 +71,7 @@ export default function NavbarContent() {
   const mobileSidebar = useNavbarMobileSidebar();
   const items = useNavbarItems();
   const [leftItems, rightItems] = splitNavbarItems(items);
-  const searchBarItem = items.find(item => item.type === 'search');
+  const searchBarItem = items.find((item) => item.type === 'search');
   return (
     <NavbarContentLayout
       left={
@@ -84,9 +95,12 @@ export default function NavbarContent() {
         <>
           <NavbarItems items={rightItems} />
           <NavbarColorModeToggle className={styles.colorModeToggle} />
-           <AppLauncher excludeId="docs" />
+          <AppLauncher excludeId="docs" />
           {/* <MenuSection /> */}
-          <Link to="https://www.wavemaker.com/get-demo/" className="button button--primary">
+          <Link
+            to="https://wavemaker.ai/ai-early-bird/"
+            className="button button--primary"
+          >
             Schedule Demo
           </Link>
         </>
