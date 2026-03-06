@@ -67,7 +67,12 @@ const config = {
           path: 'blogs/blog',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: [
+            './src/css/custom.css',
+            ...(process.env.AWS_BRANCH === 'main'
+              ? []
+              : ['./src/css/non-prod.css']),
+          ],
         },
         gtag: {
           trackingID: 'G-QMMNM743FK',
