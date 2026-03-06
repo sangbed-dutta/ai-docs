@@ -13,7 +13,8 @@ const config = {
   tagline: 'Welcome to the Learning Center',
   url: 'https://docs.wavemaker.ai',
   organizationName: 'WaveMaker, Inc.',
-  favicon: 'https://dev-ecosystem.s3.us-east-1.amazonaws.com/menu-icon/docs-icon.png',
+  favicon:
+    'https://dev-ecosystem.s3.us-east-1.amazonaws.com/menu-icon/docs-icon.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -43,7 +44,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           //TODO: Update the editUrl to point to correct branch
-          editUrl: 'https://github.com/wavemaker/docs/tree/release-12/',
+          editUrl: 'https://github.com/wavemaker/ai-docs/tree/main/',
           showLastUpdateTime: true,
           showLastUpdateAuthor: true,
         },
@@ -55,8 +56,7 @@ const config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/wavemaker/ai-docs/tree/main/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'ignore',
