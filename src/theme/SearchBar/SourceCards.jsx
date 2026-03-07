@@ -1,12 +1,7 @@
 import { useEffect, useRef } from 'react';
 import styles from './styles.module.css';
 
-const SOURCE_ICONS = {
-  docs: '📄',
-  storybook: '◈',
-  marketplace: '⬡',
-  academy: '🎬',
-};
+import { SOURCE_ICONS, DocsIcon } from './SourceIcons';
 
 const SOURCE_CTA = {
   docs: 'View in Docs',
@@ -147,7 +142,10 @@ export default function SourceCards({
                 <div
                   className={`${styles.srcCardIcon} ${getIconClass(card.source)}`}
                 >
-                  {SOURCE_ICONS[card.source] || '📄'}
+                  {(() => {
+                    const IconComponent = SOURCE_ICONS[card.source] || DocsIcon;
+                    return <IconComponent width="24" height="24" />;
+                  })()}
                 </div>
                 <div className={styles.srcCardMeta}>
                   <div className={styles.srcCardSource}>
@@ -189,11 +187,16 @@ export default function SourceCards({
               )}
               <div
                 className={styles.srcCardAction}
-                style={
-                  card.source === 'marketplace'
-                    ? { color: 'var(--purple)' }
-                    : undefined
-                }
+                style={{
+                  color:
+                    card.source === 'marketplace'
+                      ? 'var(--purple)'
+                      : card.source === 'storybook'
+                        ? 'var(--amber)'
+                        : card.source === 'academy'
+                          ? 'var(--green)'
+                          : 'var(--wm-blue)',
+                }}
               >
                 <svg
                   width="11"

@@ -39,7 +39,7 @@
 
 /* MODAL */
 .modal {
-  width: 860px;
+  width: 1024px;
   max-width: calc(100vw - 32px);
   background: var(--bg-modal);
   border-radius: var(--radius);
@@ -289,14 +289,15 @@
 }
 
 .msgUserBubble {
-  background: var(--wm-blue);
+  background: linear-gradient(135deg, var(--wm-blue), var(--wm-blue-dark));
   color: white;
   border-radius: 12px 12px 3px 12px;
   padding: 10px 14px;
   max-width: 80%;
   font-size: 13.5px;
   line-height: 1.55;
-  font-weight: 400;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(27, 123, 228, 0.2);
 }
 
 .msgAi {
@@ -467,41 +468,47 @@
 .sbadge {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 1px 6px 1px 5px;
-  border-radius: 4px;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 12px;
   font-size: 10.5px;
   font-weight: 600;
   vertical-align: middle;
-  margin: 0 2px;
+  margin: 0 3px;
   cursor: pointer;
   font-family: var(--sans);
-  transition: opacity 0.15s;
+  transition: all 0.2s;
   letter-spacing: 0.01em;
+  border: 1px solid transparent;
 }
 
 .sbadge:hover {
-  opacity: 0.7;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .sbadgeDocs {
-  background: #e8f1fd;
+  background: var(--wm-blue-light);
   color: var(--wm-blue-dark);
+  border-color: rgba(27, 123, 228, 0.2);
 }
 
 .sbadgeStorybook {
   background: #fef3c7;
   color: #92400e;
+  border-color: rgba(217, 119, 6, 0.2);
 }
 
 .sbadgeMarketplace {
-  background: #ede9fe;
-  color: #5b21b6;
+  background: #f3e8ff;
+  color: #6b21a8;
+  border-color: rgba(124, 58, 237, 0.2);
 }
 
 .sbadgeAcademy {
   background: #d1fae5;
   color: #065f46;
+  border-color: rgba(18, 160, 92, 0.2);
 }
 
 /* AGENT TRACE */
@@ -635,40 +642,77 @@
   margin-left: 33px;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 2px;
+  gap: 8px;
+  margin-top: 6px;
+  margin-bottom: 4px;
 }
 
 .qaBtn {
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 6px 11px;
-  border-radius: 7px;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
   font-size: 12px;
   font-family: var(--sans);
   cursor: pointer;
   border: 1px solid var(--border);
   background: var(--bg-modal);
   color: var(--text2);
-  transition: all 0.15s;
-  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
 }
 
-.qaBtn:hover {
+.qaBtnIcon {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.qaBtnDocs:hover {
   border-color: var(--wm-blue);
   color: var(--wm-blue);
   background: var(--wm-blue-light);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(27, 123, 228, 0.12);
 }
 
-.qaBtnPrimary {
-  border-color: var(--purple);
-  color: var(--purple);
-  background: #f5f3ff;
+.qaBtnMarketplace {
+  border-color: rgba(124, 58, 237, 0.3);
+  color: #6b21a8;
+  background: #f3e8ff;
 }
 
-.qaBtnPrimary:hover {
+.qaBtnMarketplace:hover {
   background: #ede9fe;
+  border-color: #7c3aed;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.15);
+}
+
+.qaBtnStorybook {
+  border-color: rgba(217, 119, 6, 0.3);
+  color: #92400e;
+  background: #fef3c7;
+}
+
+.qaBtnStorybook:hover {
+  background: #fde68a;
+  border-color: #d97706;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.15);
+}
+
+.qaBtnAcademy {
+  border-color: rgba(18, 160, 92, 0.3);
+  color: #065f46;
+  background: #d1fae5;
+}
+
+.qaBtnAcademy:hover {
+  background: #a7f3d0;
+  border-color: #12a05c;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(18, 160, 92, 0.15);
 }
 
 /* THINKING */
@@ -754,31 +798,48 @@
 
 .followupsChips {
   display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .followupChip {
-  padding: 5px 10px;
-  border-radius: 20px;
-  border: 1px solid var(--border);
-  background: var(--bg-modal);
-  font-size: 12px;
-  color: var(--text2);
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 13px;
+  color: var(--wm-blue);
   cursor: pointer;
   transition: all 0.15s;
   font-family: var(--sans);
+  text-align: left;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.followupChip::before {
+  content: '→';
+  margin-right: 8px;
+  font-size: 14px;
+  opacity: 0.6;
+  transition: transform 0.2s;
 }
 
 .followupChip:hover {
-  border-color: var(--wm-blue);
-  color: var(--wm-blue);
   background: var(--wm-blue-light);
+  color: var(--wm-blue-dark);
+}
+
+.followupChip:hover::before {
+  transform: translateX(2px);
+  opacity: 1;
 }
 
 /* RIGHT: SOURCE CARDS PANEL */
 .sourcesCol {
-  width: 280px;
+  width: 320px;
   border-left: 1px solid var(--border);
   background: var(--bg-panel);
   display: flex;
@@ -930,18 +991,23 @@
   overflow: hidden;
 }
 
+/* Source action link */
 .srcCardAction {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 12px 8px;
-  font-size: 11px;
+  gap: 6px;
+  font-size: 11.5px;
   font-weight: 600;
   color: var(--wm-blue);
-  transition: color 0.15s;
+  margin-top: 14px;
+  opacity: 0.8;
+  transition: all 0.2s;
+  font-family: var(--sans);
 }
 
 .srcCard:hover .srcCardAction {
+  opacity: 1;
+  transform: translateX(4px);
   text-decoration: underline;
 }
 
@@ -950,36 +1016,44 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 11px;
-  margin-top: 6px;
+  font-family: var(--mono);
 }
 
 .propTable th {
   text-align: left;
-  color: var(--text3);
+  padding: 8px 10px;
+  background: var(--bg-panel);
   font-weight: 600;
-  padding: 4px 6px;
+  color: var(--text3);
   border-bottom: 1px solid var(--border);
-  font-size: 10px;
-  letter-spacing: 0.04em;
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 .propTable td {
-  padding: 4px 6px;
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
   color: var(--text2);
-  border-bottom: 1px solid var(--bg-panel);
-  font-size: 11px;
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.propTable tr:last-child td {
+  border-bottom: none;
 }
 
 .propTable td:first-child {
-  font-family: var(--mono);
-  font-size: 10.5px;
+  color: var(--amber);
+  font-weight: 500;
+}
+
+.propTable td:nth-child(2) {
   color: var(--purple);
 }
 
 .propTable td:last-child {
-  font-family: var(--mono);
-  font-size: 10.5px;
   color: var(--green);
 }
 

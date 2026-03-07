@@ -28,6 +28,7 @@ import AIConversation from './AIConversation';
 import SourceCards from './SourceCards';
 import EmptyState from './EmptyState';
 import askAiStyles from './styles.module.css';
+import { DocsIcon } from './SourceIcons';
 
 // Default API URL for ecosystem agent
 const DEFAULT_API_URL = 'http://localhost:8000';
@@ -75,7 +76,14 @@ function getPageContext() {
   }
 
   return {
-    pageTitle: document.title?.replace(/ \| .*$/, '') || '',
+    // pageTitle: document.title?.replace(/ \| .*$/, '') || '',
+    pageTitle:
+      document.URL.match(/\/docs\/(.+)/)?.[1]
+        ?.split('/')
+        .map((p) =>
+          p.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+        )
+        .join(' > ') || '',
     pageSlug: path,
     pageCategory: segments[0] || '',
     pageHeadings: headings.slice(0, 15),
@@ -292,7 +300,7 @@ function AskAIPanel({
             <strong>Context:</strong> {pageContext.pageTitle}
           </span>
           <span className={askAiStyles.contextPageTag}>
-            📄 {pageContext.pageCategory || 'docs'}
+            {pageContext.pageCategory || 'docs'}
           </span>
         </div>
       )}

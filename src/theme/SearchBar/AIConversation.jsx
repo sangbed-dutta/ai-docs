@@ -2,6 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import DocusaurusCodeBlock from '@theme/CodeBlock';
+
+import {
+  SOURCE_ICONS,
+  DocsIcon,
+  MarketplaceIcon,
+  StorybookIcon,
+  AcademyIcon,
+} from './SourceIcons';
 import styles from './styles.module.css';
 
 const BADGE_ICONS = {
@@ -130,7 +138,7 @@ function MiniSourceCard({ card }) {
         return styles.srcCardIconDocs;
     }
   };
-  const icons = { docs: '📄', storybook: '◈', marketplace: '⬡', academy: '✦' };
+  const IconComponent = SOURCE_ICONS[card.source] || DocsIcon;
 
   return (
     <a
@@ -142,7 +150,7 @@ function MiniSourceCard({ card }) {
     >
       <div className={styles.srcCardHeader}>
         <div className={`${styles.srcCardIcon} ${getIconClass(card.source)}`}>
-          {icons[card.source] || '📄'}
+          <IconComponent width="16" height="16" />
         </div>
         <div className={styles.srcCardMeta}>
           <div className={styles.srcCardSource}>
@@ -202,22 +210,13 @@ export default function AIConversation({
 
           return (
             <React.Fragment key={msg.id}>
-              {/* Trace block */}
-              {msg.traceSteps && msg.traceSteps.length > 0 && (
+              {/* Trace block (Only show when streaming) */}
+              {isStreaming && isActive && currentTraceSteps.length > 0 && (
                 <div className={styles.agentTrace}>
-                  {msg.traceSteps.map((t, j) => (
-                    <div
-                      key={j}
-                      className={`${styles.traceLine} ${
-                        t.status === 'done'
-                          ? styles.traceLineDone
-                          : styles.traceLineActive
-                      }`}
-                    >
-                      <div className={styles.traceDot} />
-                      {t.step}
-                    </div>
-                  ))}
+                  <div className={styles.traceLineActive}>
+                    <div className={styles.traceDot} />
+                    Searching sources...
+                  </div>
                 </div>
               )}
 
@@ -280,17 +279,35 @@ export default function AIConversation({
               {/* Quick actions */}
               {msg.actions && msg.actions.length > 0 && (
                 <div className={styles.quickActions}>
-                  {msg.actions.map((a, j) => (
-                    <button
-                      key={j}
-                      className={`${styles.qaBtn} ${
-                        a.variant === 'primary' ? styles.qaBtnPrimary : ''
-                      }`}
-                      onClick={() => onAction(a.url)}
-                    >
-                      {a.label}
-                    </button>
-                  ))}
+                  {msg.actions.map((a, j) => {
+                    let actionClass = styles.qaBtn;
+                    let icon = <DocsIcon width="14" height="14" />;
+
+                    if (a.url?.includes('marketplace')) {
+                      actionClass = `${styles.qaBtn} ${styles.qaBtnMarketplace}`;
+                      icon = <MarketplaceIcon width="14" height="14" />;
+                    } else if (a.url?.includes('storybook')) {
+                      actionClass = `${styles.qaBtn} ${styles.qaBtnStorybook}`;
+                      icon = <StorybookIcon width="14" height="14" />;
+                    } else if (a.url?.includes('academy')) {
+                      actionClass = `${styles.qaBtn} ${styles.qaBtnAcademy}`;
+                      icon = <AcademyIcon width="14" height="14" />;
+                    } else if (a.url?.includes('/docs/')) {
+                      actionClass = `${styles.qaBtn} ${styles.qaBtnDocs}`;
+                      icon = <DocsIcon width="14" height="14" />;
+                    }
+
+                    return (
+                      <button
+                        key={j}
+                        className={actionClass}
+                        onClick={() => onAction(a.url)}
+                      >
+                        <span className={styles.qaBtnIcon}>{icon}</span>
+                        {a.label}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
 
@@ -307,19 +324,10 @@ export default function AIConversation({
           <>
             {currentTraceSteps.length > 0 && (
               <div className={styles.agentTrace}>
-                {currentTraceSteps.map((t, j) => (
-                  <div
-                    key={j}
-                    className={`${styles.traceLine} ${
-                      t.status === 'done'
-                        ? styles.traceLineDone
-                        : styles.traceLineActive
-                    }`}
-                  >
-                    <div className={styles.traceDot} />
-                    {t.step}
-                  </div>
-                ))}
+                <div className={styles.traceLineActive}>
+                  <div className={styles.traceDot} />
+                  Searching sources...
+                </div>
               </div>
             )}
 
