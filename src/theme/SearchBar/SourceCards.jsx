@@ -5,14 +5,21 @@ const SOURCE_ICONS = {
   docs: '📄',
   storybook: '◈',
   marketplace: '⬡',
-  academy: '✦',
+  academy: '🎬',
 };
 
 const SOURCE_CTA = {
   docs: 'View in Docs',
   storybook: 'Open in Storybook',
   marketplace: 'Install from Marketplace',
-  academy: 'View course',
+  academy: 'Watch in Academy',
+};
+
+const ACTION_CTA = {
+  'view-docs': 'View in Docs',
+  'open-storybook': 'Open in Storybook',
+  'install-marketplace': 'Install from Marketplace',
+  'view-academy': 'Watch in Academy',
 };
 
 function getIconClass(source) {
@@ -113,6 +120,20 @@ export default function SourceCards({
       <div className={styles.sourcesColScroll} ref={scrollRef}>
         {cards.map((card, i) => {
           const props = card.meta?.props;
+          // Detect and extract academy timestamp badge from excerpt prefix
+          // Format produced by backend: "▶ MM:SS  rest of excerpt"
+          let timestampBadge = null;
+          let bodyExcerpt = card.excerpt;
+          if (card.source === 'academy' && card.excerpt?.startsWith('▶ ')) {
+            const spaceIdx = card.excerpt.indexOf('  ');
+            if (spaceIdx > 0) {
+              timestampBadge = card.excerpt.slice(0, spaceIdx).trim();
+              bodyExcerpt = card.excerpt.slice(spaceIdx).trim();
+            }
+          }
+          // Prefer meta.action label for CTA if provided
+          const ctaLabel =
+            ACTION_CTA[card.meta?.action] || SOURCE_CTA[card.source] || 'View';
 
           return (
             <a
@@ -131,6 +152,11 @@ export default function SourceCards({
                 <div className={styles.srcCardMeta}>
                   <div className={styles.srcCardSource}>
                     {card.source.charAt(0).toUpperCase() + card.source.slice(1)}
+                    {timestampBadge && (
+                      <span className={styles.timestampBadge}>
+                        {timestampBadge}
+                      </span>
+                    )}
                   </div>
                   <div className={styles.srcCardTitle}>{card.title}</div>
                 </div>
@@ -157,8 +183,8 @@ export default function SourceCards({
                   </table>
                 </div>
               ) : (
-                card.excerpt && (
-                  <div className={styles.srcCardBody}>{card.excerpt}</div>
+                bodyExcerpt && (
+                  <div className={styles.srcCardBody}>{bodyExcerpt}</div>
                 )
               )}
               <div
@@ -177,7 +203,7 @@ export default function SourceCards({
                 >
                   <path d="M6 3l6 5-6 5V3z" />
                 </svg>
-                {SOURCE_CTA[card.source] || 'View'}
+                {ctaLabel}
               </div>
             </a>
           );

@@ -182,7 +182,7 @@ export default function AIConversation({
   };
 
   return (
-    <div className={styles.conversationCol}>
+    <>
       <div
         className={styles.conversationScroll}
         ref={scrollRef}
@@ -370,6 +370,6 @@ export default function AIConversation({
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

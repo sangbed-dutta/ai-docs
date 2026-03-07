@@ -182,6 +182,8 @@ function AskAIPanel({
 }) {
   const pageContext = getPageContext();
   const chat = useAIChat(pageContext, apiUrl);
+  const chatInputRef = useRef(null);
+  const [chatInput, setChatInput] = useState('');
 
   // Listen for manual trigger (e.g. Enter key from DocSearch input)
   useEffect(() => {
@@ -189,6 +191,44 @@ function AskAIPanel({
       chat.sendMessage(query);
     }
   }, [triggerSearch]);
+
+  const hasMessages = chat.messages.length > 0 || chat.isStreaming;
+
+  // Hide DocSearch top form ONLY when AI tab is active AND has messages
+  const shouldHideForm = hasMessages && isVisible;
+  useEffect(() => {
+    const form = document.querySelector('.DocSearch-Form');
+    if (!form) return;
+    if (shouldHideForm) {
+      form.classList.add('DocSearch-Form--hidden');
+    } else {
+      form.classList.remove('DocSearch-Form--hidden');
+    }
+    // Focus bottom input when chat activates
+    if (shouldHideForm && chatInputRef.current) {
+      setTimeout(() => chatInputRef.current?.focus(), 100);
+    }
+    // Always clean up on unmount or when switching away
+    return () => {
+      form.classList.remove('DocSearch-Form--hidden');
+    };
+  }, [shouldHideForm]);
+
+  const handleChatSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const text = chatInput.trim();
+      if (!text || chat.isStreaming) return;
+      chat.sendMessage(text);
+      setChatInput('');
+    },
+    [chatInput, chat],
+  );
+
+  const handleClearHistory = useCallback(() => {
+    chat.clearHistory();
+    setChatInput('');
+  }, [chat]);
 
   const handleFollowup = useCallback(
     (text) => {
@@ -201,8 +241,6 @@ function AskAIPanel({
     window.open(url, '_blank', 'noopener');
   }, []);
 
-  const hasMessages = chat.messages.length > 0 || chat.isStreaming;
-
   // Compute active source cards — per-message, not accumulated
   const assistantMessages = chat.messages.filter((m) => m.role === 'assistant');
   const totalAssistantMessages = assistantMessages.length;
@@ -211,9 +249,8 @@ function AskAIPanel({
   let activeIndex = 0;
 
   if (chat.activeMessageId === '__streaming__') {
-    // Currently streaming — show in-progress source cards
     activeCards = chat.currentSourceCards;
-    activeIndex = totalAssistantMessages + 1; // next after all complete ones
+    activeIndex = totalAssistantMessages + 1;
   } else if (chat.activeMessageId) {
     const activeMsg = assistantMessages.find(
       (m) => m.id === chat.activeMessageId,
@@ -225,7 +262,6 @@ function AskAIPanel({
     }
   }
 
-  // Navigate ← → between assistant messages
   const handlePrevMessage = useCallback(() => {
     const idx = assistantMessages.findIndex(
       (m) => m.id === chat.activeMessageId,
@@ -263,25 +299,86 @@ function AskAIPanel({
 
       {/* Two-column layout */}
       <div className={askAiStyles.modalBody}>
-        {hasMessages ? (
-          <AIConversation
-            messages={chat.messages}
-            isStreaming={chat.isStreaming}
-            currentFragments={chat.currentFragments}
-            currentTraceSteps={chat.currentTraceSteps}
-            followups={chat.followups}
-            activeMessageId={chat.activeMessageId}
-            onSelectMessage={chat.setActiveMessageId}
-            onFollowup={handleFollowup}
-            onAction={handleAction}
-          />
-        ) : (
-          <EmptyState
-            onSelect={(q) => chat.sendMessage(q)}
-            pageContext={pageContext}
-            apiUrl={apiUrl}
-          />
-        )}
+        {/* Left column: conversation + bottom input */}
+        <div className={askAiStyles.conversationCol}>
+          {hasMessages ? (
+            <AIConversation
+              messages={chat.messages}
+              isStreaming={chat.isStreaming}
+              currentFragments={chat.currentFragments}
+              currentTraceSteps={chat.currentTraceSteps}
+              followups={chat.followups}
+              activeMessageId={chat.activeMessageId}
+              onSelectMessage={chat.setActiveMessageId}
+              onFollowup={handleFollowup}
+              onAction={handleAction}
+            />
+          ) : (
+            <EmptyState
+              onSelect={(q) => chat.sendMessage(q)}
+              pageContext={pageContext}
+              apiUrl={apiUrl}
+            />
+          )}
+
+          {/* Bottom chat input — inside conversation column */}
+          {hasMessages && (
+            <form
+              className={askAiStyles.chatInputBar}
+              onSubmit={handleChatSubmit}
+            >
+              <input
+                ref={chatInputRef}
+                className={askAiStyles.chatInputField}
+                type="text"
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                placeholder="Ask a follow-up..."
+                disabled={chat.isStreaming}
+                autoComplete="off"
+              />
+              <button
+                type="submit"
+                className={askAiStyles.chatSendBtn}
+                disabled={!chatInput.trim() || chat.isStreaming}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className={askAiStyles.chatClearBtn}
+                onClick={handleClearHistory}
+                title="Clear history"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="1 4 1 10 7 10" />
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                </svg>
+              </button>
+            </form>
+          )}
+        </div>
 
         {/* Source cards panel (right column) — per active message */}
         {hasMessages && (
@@ -299,30 +396,14 @@ function AskAIPanel({
         )}
       </div>
 
-      {/* Footer with keyboard hints + clear */}
-      <div className={askAiStyles.modalFooter}>
-        <div className={askAiStyles.kbdHint}>
-          <kbd className={askAiStyles.kbd}>↵</kbd> to send
-        </div>
-        {chat.messages.length > 0 && (
-          <div className={`${askAiStyles.kbdHint} ${askAiStyles.kbdHintRight}`}>
-            <button
-              onClick={chat.clearHistory}
-              style={{
-                background: 'none',
-                border: '1px solid var(--ifm-color-emphasis-300)',
-                borderRadius: '5px',
-                padding: '2px 8px',
-                fontSize: '11px',
-                color: 'var(--ifm-color-emphasis-600)',
-                cursor: 'pointer',
-              }}
-            >
-              Clear history
-            </button>
+      {/* Footer with keyboard hints (only in empty state) */}
+      {!hasMessages && (
+        <div className={askAiStyles.modalFooter}>
+          <div className={askAiStyles.kbdHint}>
+            <kbd className={askAiStyles.kbd}>↵</kbd> to send
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
