@@ -1,35 +1,167 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.css';
-
 import { SOURCE_ICONS, DocsIcon } from './SourceIcons';
 
-const SOURCE_CTA = {
-  docs: 'View in Docs',
-  storybook: 'Open in Storybook',
-  marketplace: 'Install from Marketplace',
-  academy: 'Watch in Academy',
+const getPlatform = (meta) => {
+  const p = meta?.path || meta?.url_path || '';
+  if (p.includes('/mobile/')) return 'mobile';
+  if (p.includes('/web/')) return 'web';
+  return null;
 };
 
-const ACTION_CTA = {
-  'view-docs': 'View in Docs',
-  'open-storybook': 'Open in Storybook',
-  'install-marketplace': 'Install from Marketplace',
-  'view-academy': 'Watch in Academy',
+// Docs URLs are relative paths (e.g. "user-interfaces/web/...");
+// academy/marketplace/storybook are already absolute.
+const resolveUrl = (url, source) => {
+  if (!url) return '#';
+  if (source !== 'docs') return url; // absolute already
+  if (url.startsWith('http') || url.startsWith('/')) return url;
+  return `/docs/${url}`;
 };
 
-function getIconClass(source) {
-  switch (source) {
-    case 'docs':
-      return styles.srcCardIconDocs;
-    case 'storybook':
-      return styles.srcCardIconStorybook;
-    case 'marketplace':
-      return styles.srcCardIconMarketplace;
-    case 'academy':
-      return styles.srcCardIconAcademy;
-    default:
-      return styles.srcCardIconDocs;
-  }
+const ICON_CLASS = {
+  docs: 'srcCardIconDocs',
+  storybook: 'srcCardIconStorybook',
+  marketplace: 'srcCardIconMarketplace',
+  academy: 'srcCardIconAcademy',
+};
+
+function ChunkRow({ chunk, isAcademy, onVideoOpen }) {
+  const [hovered, setHovered] = useState(false);
+
+  const rowTitle = chunk.meta?.section_title || chunk.title || 'Section';
+  const timeBadge =
+    isAcademy && chunk.meta?.display_time ? chunk.meta.display_time : null;
+  // For docs: resolve relative path to /docs/... For academy: url is already absolute.
+  const chunkHref = resolveUrl(
+    chunk.meta?.url_path || chunk.url,
+    chunk.source || (isAcademy ? 'academy' : 'docs'),
+  );
+  const excerpt = chunk.excerpt || '';
+
+  const handleClick = (e) => {
+    if (isAcademy && chunk.meta?.embed_link) {
+      e.preventDefault();
+      let embedUrl = chunk.meta.embed_link;
+      if (chunk.meta.start_timestamp) {
+        const sep = embedUrl.includes('?') ? '&' : '?';
+        embedUrl = `${embedUrl}${sep}start=${chunk.meta.start_timestamp}`;
+      }
+      onVideoOpen(embedUrl);
+    }
+  };
+
+  return (
+    <a
+      href={chunkHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={styles.chunkRow}
+      onClick={handleClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div className={styles.chunkRowInner}>
+        <div className={styles.chunkRowTitle}>
+          {timeBadge && (
+            <span className={styles.timestampBadge}>{timeBadge}</span>
+          )}
+          <span className={styles.chunkRowTitleText}>{rowTitle}</span>
+        </div>
+        {!isAcademy && <span className={styles.chunkRowArrow}>↗</span>}
+      </div>
+      {excerpt && hovered && (
+        <div
+          className={styles.chunkRowExcerpt}
+          style={{ maxHeight: '100px', opacity: 1, marginTop: '5px' }}
+        >
+          {excerpt}
+        </div>
+      )}
+    </a>
+  );
+}
+
+function GroupCard({ group }) {
+  const [activeVideoUrl, setActiveVideoUrl] = useState(null);
+
+  const isAcademy = group.source === 'academy';
+  const IconComponent = SOURCE_ICONS[group.source] || DocsIcon;
+  const iconClass = styles[ICON_CLASS[group.source] || 'srcCardIconDocs'];
+
+  const displayTitle = group.platform
+    ? `${group.title} · ${group.platform === 'mobile' ? 'Mobile' : 'Web'}`
+    : group.title;
+
+  const chunkLabel = isAcademy
+    ? group.chunks.length === 1
+      ? 'timestamp'
+      : 'timestamps'
+    : group.chunks.length === 1
+      ? 'section'
+      : 'sections';
+
+  return (
+    <div className={styles.groupedCard}>
+      <div className={styles.groupedCardHeader}>
+        <div className={`${styles.srcCardIcon} ${iconClass}`}>
+          <IconComponent width="20" height="20" />
+        </div>
+        <div className={styles.srcCardMeta}>
+          <div className={styles.srcCardSource}>
+            {group.source.charAt(0).toUpperCase() + group.source.slice(1)}
+            <span className={styles.chunkCountBadge}>
+              {group.chunks.length} {chunkLabel}
+            </span>
+          </div>
+          <div className={styles.srcCardTitle}>
+            {group.url ? (
+              <a
+                href={resolveUrl(group.url, group.source)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {displayTitle}
+              </a>
+            ) : (
+              displayTitle
+            )}
+          </div>
+        </div>
+      </div>
+
+      {activeVideoUrl && (
+        <div className={styles.inlinePlayerWrapper}>
+          <div className={styles.inlinePlayerHeader}>
+            <span>Now Playing</span>
+            <button
+              onClick={() => setActiveVideoUrl(null)}
+              aria-label="Close Video"
+            >
+              ✕
+            </button>
+          </div>
+          <iframe
+            src={activeVideoUrl}
+            allowFullScreen
+            className={styles.inlinePlayer}
+            title="Academy Video Player"
+          />
+        </div>
+      )}
+
+      <div className={styles.chunkList}>
+        {group.chunks.map((chunk, idx) => (
+          <ChunkRow
+            key={idx}
+            chunk={chunk}
+            isAcademy={isAcademy}
+            onVideoOpen={setActiveVideoUrl}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default function SourceCards({
@@ -41,46 +173,76 @@ export default function SourceCards({
 }) {
   const scrollRef = useRef(null);
 
-  // Reset scroll position when active message changes
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = 0;
     }
   }, [cards]);
 
+  // GROUPING LOGIC: group chunks by parent_doc_id
+  const groupedCardsMap = cards.reduce((acc, card) => {
+    const parentId =
+      card.meta?.parent_doc_id ||
+      card.url ||
+      `fallback-${card.title}-${Math.random()}`;
+    if (!acc[parentId]) {
+      acc[parentId] = {
+        id: parentId,
+        source: card.source || 'docs',
+        title: card.title || 'Source',
+        url: card.url,
+        platform: getPlatform(card.meta),
+        chunks: [],
+      };
+    }
+    acc[parentId].chunks.push(card);
+    return acc;
+  }, {});
+
+  const groupedCards = Object.values(groupedCardsMap).map((group) => {
+    group.chunks.sort((a, b) => {
+      const scoreA = a.meta?.relevanceScore ?? 0;
+      const scoreB = b.meta?.relevanceScore ?? 0;
+      return scoreB - scoreA;
+    });
+    return group;
+  });
+
+  const navHeader = (
+    <div className={styles.sourcesNavHeader}>
+      <span className={styles.sourcesNavLabel}>
+        {cards.length > 0 ? `Sources · Q${activeIndex}` : 'Sources'}
+      </span>
+      {totalMessages > 1 && (
+        <div className={styles.sourcesNavArrows}>
+          <button
+            className={styles.sourcesNavArrow}
+            onClick={onPrev}
+            disabled={activeIndex <= 1}
+            aria-label="Previous message sources"
+          >
+            ←
+          </button>
+          <button
+            className={styles.sourcesNavArrow}
+            onClick={onNext}
+            disabled={activeIndex >= totalMessages}
+            aria-label="Next message sources"
+          >
+            →
+          </button>
+        </div>
+      )}
+    </div>
+  );
+
   if (cards.length === 0) {
     return (
       <div className={styles.sourcesCol}>
-        <div className={styles.sourcesNavHeader}>
-          <span className={styles.sourcesNavLabel}>
-            {totalMessages > 0 ? `Sources · Q${activeIndex}` : 'Sources'}
-          </span>
-          {totalMessages > 1 && (
-            <div className={styles.sourcesNavArrows}>
-              <button
-                className={styles.sourcesNavArrow}
-                onClick={onPrev}
-                disabled={activeIndex <= 1}
-                aria-label="Previous message sources"
-              >
-                ←
-              </button>
-              <button
-                className={styles.sourcesNavArrow}
-                onClick={onNext}
-                disabled={activeIndex >= totalMessages}
-                aria-label="Next message sources"
-              >
-                →
-              </button>
-            </div>
-          )}
-        </div>
+        {navHeader}
         <div className={styles.sourcesColScroll} ref={scrollRef}>
           <div className={styles.sourcesEmpty}>
-            {totalMessages > 0
-              ? 'No sources for this message.'
-              : 'Sources will appear here after you ask a question.'}
+            Sources will appear here after you ask a question.
           </div>
         </div>
       </div>
@@ -89,128 +251,11 @@ export default function SourceCards({
 
   return (
     <div className={styles.sourcesCol}>
-      <div className={styles.sourcesNavHeader}>
-        <span className={styles.sourcesNavLabel}>Sources · Q{activeIndex}</span>
-        {totalMessages > 1 && (
-          <div className={styles.sourcesNavArrows}>
-            <button
-              className={styles.sourcesNavArrow}
-              onClick={onPrev}
-              disabled={activeIndex <= 1}
-              aria-label="Previous message sources"
-            >
-              ←
-            </button>
-            <button
-              className={styles.sourcesNavArrow}
-              onClick={onNext}
-              disabled={activeIndex >= totalMessages}
-              aria-label="Next message sources"
-            >
-              →
-            </button>
-          </div>
-        )}
-      </div>
+      {navHeader}
       <div className={styles.sourcesColScroll} ref={scrollRef}>
-        {cards.map((card, i) => {
-          const props = card.meta?.props;
-          // Detect and extract academy timestamp badge from excerpt prefix
-          // Format produced by backend: "▶ MM:SS  rest of excerpt"
-          let timestampBadge = null;
-          let bodyExcerpt = card.excerpt;
-          if (card.source === 'academy' && card.excerpt?.startsWith('▶ ')) {
-            const spaceIdx = card.excerpt.indexOf('  ');
-            if (spaceIdx > 0) {
-              timestampBadge = card.excerpt.slice(0, spaceIdx).trim();
-              bodyExcerpt = card.excerpt.slice(spaceIdx).trim();
-            }
-          }
-          // Prefer meta.action label for CTA if provided
-          const ctaLabel =
-            ACTION_CTA[card.meta?.action] || SOURCE_CTA[card.source] || 'View';
-
-          return (
-            <a
-              key={i}
-              className={styles.srcCard}
-              href={card.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className={styles.srcCardHeader}>
-                <div
-                  className={`${styles.srcCardIcon} ${getIconClass(card.source)}`}
-                >
-                  {(() => {
-                    const IconComponent = SOURCE_ICONS[card.source] || DocsIcon;
-                    return <IconComponent width="24" height="24" />;
-                  })()}
-                </div>
-                <div className={styles.srcCardMeta}>
-                  <div className={styles.srcCardSource}>
-                    {card.source.charAt(0).toUpperCase() + card.source.slice(1)}
-                    {timestampBadge && (
-                      <span className={styles.timestampBadge}>
-                        {timestampBadge}
-                      </span>
-                    )}
-                  </div>
-                  <div className={styles.srcCardTitle}>{card.title}</div>
-                </div>
-              </div>
-              {props && props.length > 0 ? (
-                <div className={styles.srcCardBody}>
-                  <table className={styles.propTable}>
-                    <thead>
-                      <tr>
-                        <th>Prop</th>
-                        <th>Type</th>
-                        <th>Default</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {props.map((p, j) => (
-                        <tr key={j}>
-                          <td>{p.name}</td>
-                          <td>{p.type}</td>
-                          <td>{p.default}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ) : (
-                bodyExcerpt && (
-                  <div className={styles.srcCardBody}>{bodyExcerpt}</div>
-                )
-              )}
-              <div
-                className={styles.srcCardAction}
-                style={{
-                  color:
-                    card.source === 'marketplace'
-                      ? 'var(--purple)'
-                      : card.source === 'storybook'
-                        ? 'var(--amber)'
-                        : card.source === 'academy'
-                          ? 'var(--green)'
-                          : 'var(--wm-blue)',
-                }}
-              >
-                <svg
-                  width="11"
-                  height="11"
-                  viewBox="0 0 16 16"
-                  fill="currentColor"
-                >
-                  <path d="M6 3l6 5-6 5V3z" />
-                </svg>
-                {ctaLabel}
-              </div>
-            </a>
-          );
-        })}
+        {groupedCards.map((group, i) => (
+          <GroupCard key={group.id || i} group={group} />
+        ))}
       </div>
     </div>
   );
