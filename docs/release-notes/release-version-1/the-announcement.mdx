@@ -13,44 +13,9 @@ import ReactSupport from './assets/images/4-ReactApp.png'
 import AutoLayoutContainers from './assets/images/6-Autolayout.png'
 import ProductEcosystem from './assets/images/7-Ecosystem.png'
 
+<Common.WaveMakerAIHeading scale={2} />
 
-<div
-  style={{
-    fontSize: "calc(var(--ifm-h1-font-size) * 2)",
-    fontWeight: 800,
-    letterSpacing: "0.02em",
-    background:
-      "linear-gradient(120deg, #4fd1ff, #3b82f6, #1d4ed8, #4fd1ff)",
-    backgroundSize: "300% 300%",
-    WebkitBackgroundClip: "text",
-    backgroundClip: "text",
-    color: "transparent",
-    animation: "waveGradient 4s ease-in-out infinite",
-    textShadow: "0 0 25px rgba(59,130,246,0.25)",
-	marginTop: "calc(var(--ifm-spacing-vertical) * -1)",
-	marginBottom: "calc(var(--ifm-spacing-vertical) * -2)",
-  }}
->
-  WaveMaker <span style={{ fontWeight: 900 }}>AI</span>
-
-  <style>{`
-    @keyframes waveGradient {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-  `}</style>
-</div>
 ## A New Era of AI-Accelerated Application Development
-
-
-
 
 WaveMaker AI represents a significant evolution of the platform. It marks a shift from traditional low-code development toward a modern, AI-accelerated approach to building applications.
 
@@ -64,13 +29,16 @@ WaveMaker AI supports three complementary modes of development, designed to work
 
 ![Three Pillars](./assets/images/1-ThreePillar.png)
 
-### Visual Development  
+### Visual Development
+
 Developers can continue to use the visual canvas to design pages, configure components, and fine-tune application behaviour. Studio improvements make it easier to focus on layout, navigation, and structure while maintaining control over generated code.
 
-### Agent-Based Development ([AIRA](../../developing-with-agents/concepts))  
+### Agent-Based Development ([AIRA](../../developing-with-agents/concepts))
+
 AI agents assist developers with common and repetitive development tasks using natural language prompts. These agents operate within the platform, helping accelerate development while keeping developers fully in control of outcomes.
 
-### Design to Code ([Autocode](../../design-system/figma-autocode-plugin/working-with-autocode-plugin.md))  
+### Design to Code ([Autocode](../../design-system/figma-autocode-plugin/working-with-autocode-plugin.md))
+
 Autocode enables direct conversion of supported design systems into working applications. Layout, styling, and components are generated automatically, allowing teams to move from design to implementation with minimal manual effort.
 
 ---
@@ -82,6 +50,7 @@ WaveMaker AI introduces [Design System](../../design-system/concepts/index.mdx) 
 With this all WaveMaker components now align with the WaveMaker UI Kit, ensuring consistency across projects and teams. Styling is driven by design tokens rather than custom CSS, enabling predictable theming and easier maintenance.
 
 Key capabilities :
+
 - Design System–based project creation for both web and mobile apps
 - Design Tokens for global and component-level styling
 - A dedicated Style Workspace for managing tokens and creating component variants
@@ -90,7 +59,6 @@ This approach significantly reduces styling overhead while improving consistency
 
 ![](./assets/images/2-DesignSystemApp.png)
 
-
 ---
 
 ## Autocode: Converts designs into production ready Code
@@ -98,6 +66,7 @@ This approach significantly reduces styling overhead while improving consistency
 [Autocode](../../design-system/figma-autocode-plugin/working-with-autocode-plugin.md) is a figma plugin that converts supported designs into WaveMaker applications using a design-first approach.
 
 Generated output includes:
+
 - WaveMaker UI components aligned with the design system
 - Design Tokens for theming and customization
 - Auto Layout–based responsive containers
@@ -106,7 +75,6 @@ Autocode currently supports designs built using the WaveMaker UI Kit and Materia
 
 ![Autocode](./assets/images/5-Autocode.png)
 
-
 ---
 
 ## Aira: AI Agents for Application Development
@@ -114,6 +82,7 @@ Autocode currently supports designs built using the WaveMaker UI Kit and Materia
 WaveMaker AI introduces [Aira](../../developing-with-agents/concepts), an AI agent framework designed to assist across the application development lifecycle.
 
 Aira agents can help with tasks such as:
+
 - API binding and integration
 - Internationalization support
 - Security configuration
@@ -133,21 +102,20 @@ WaveMaker AI adds **React code generation** alongside Angular support for web ap
 
 Applications are built using the same WaveMaker markup, visual tools, and AI-assisted workflows, and can now be exported as **React application code** without any change to the developer experience.
 
-![ReactApps](./assets/images/4-ReactApp.png)
----
+## ![ReactApps](./assets/images/4-ReactApp.png)
 
 ## Auto Layout
 
 WaveMaker AI introduces [Auto Layout](../../user-interfaces/web/develop/working-with-layouts/auto-layout), a visual layout system for building structured and responsive UIs without writing CSS. It aligns with design-first thinking while giving developers precise control over layout behavior.
 
 **Key capabilities**
-- Visual configuration for direction, alignment, spacing, wrapping, and sizing  
-- Support for both component-first and layout-first design workflows  
-- Consistent layout behavior across pages and sections  
-- Responsive layouts using configurable width, height, gap, and padding controls  
+
+- Visual configuration for direction, alignment, spacing, wrapping, and sizing
+- Support for both component-first and layout-first design workflows
+- Consistent layout behavior across pages and sections
+- Responsive layouts using configurable width, height, gap, and padding controls
 
 ![AutoLayout](./assets/images/6-Autolayout.png)
-
 
 ---
 
@@ -155,20 +123,23 @@ WaveMaker AI introduces [Auto Layout](../../user-interfaces/web/develop/working-
 
 With WM12, we are consciously bringing all of these together and deeply integrating them into a single, cohesive Product Ecosystem. This ecosystem aligns with our product strategy and is closely tied to the current WaveMaker platform, as we recreate and develop relevant content and features that directly support the product experience.
 
-### Documentation  
+### Documentation
+
 The documentation experience has been restructured with new information architecture around developer personas and workflows. Deeplinking with Academy and Storybook ensures relevant content is easily discoverable.
 
-### Academy  
+### Academy
+
 Now [WaveMaker Academy](https://academy.wavemaker.ai) evolves into a developer onboarding platform with mentor-led learning paths, and certification-oriented programs backed by latest videos explaining the development concepts.
 
-### Component Storybook  
+### Component Storybook
+
 Detailed component documentation is now available through Storybook, enabling interactive exploration and live property manipulation for both web ([React](https://react-components.wavemaker.ai)) and mobile ([React Native](https://reactnative-components.wavemaker.ai)) components.
 
-### Marketplace  
+### Marketplace
+
 A new [Product Marketplace](https://marketplace.wavemaker.ai) being introduced to support reusable components, connectors, prefabs, design systems and industry-specific solutions.
 
 ![ProductEcosystem](./assets/images/7-Ecosystem.png)
-
 
 ---
 
@@ -177,6 +148,7 @@ A new [Product Marketplace](https://marketplace.wavemaker.ai) being introduced t
 WaveMaker Studio has been refined to support modern workflows and reduce friction during development.
 
 Enhancements include:
+
 - A more focused page workspace with increased canvas area
 - Easier access to the page component tree and page switcher
 - Page tree actions for updating and deleting elements
@@ -190,10 +162,10 @@ WaveMaker AI is not just an incremental update. It reflects a clear direction to
 
 By combining visual tools, AI agents, and design-led workflows, WaveMaker AI enables teams to build applications faster, maintain consistency at scale, and adapt to modern development needs with confidence.
 
-
-
-<style>{`
-.announcement-image-wrapper { text-align: center; margin: 0.5rem 0; }
-.announcement-image { display: inline-block; width: 600px; height: 400px; object-fit: contain; max-width: 100%; border-radius: 6px; }
-@media (max-width: 768px) { .announcement-image { width: 100%; height: auto; } }
-`}</style>
+<style>
+  {`
+    .announcement-image-wrapper { text-align: center; margin: 0.5rem 0; }
+    .announcement-image { display: inline-block; width: 600px; height: 400px; object-fit: contain; max-width: 100%; border-radius: 6px; }
+    @media (max-width: 768px) { .announcement-image { width: 100%; height: auto; } }
+    `}
+</style>

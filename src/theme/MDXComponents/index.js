@@ -17,8 +17,10 @@ import AcademyCard from '@site/src/components/MDXComponents/AcademyCard/AcademyC
 import {
   TabsWrapper,
   TabItem,
-} from '@site/src/components/MDXComponents/LayoutComponents/Tabs';
+} from '@site/src/components/MDXComponents/LayoutComponents/Tabs/Tabs';
 import { Pill } from '@site/src/components/MDXComponents/Pills/Pills';
+import { Accordian } from '@site/src/components/MDXComponents/LayoutComponents/Accordian/Accordian';
+import * as Common from '@site/src/components/MDXComponents/Common/Common';
 
 const MDXComponents = {
   Head,
@@ -45,5 +47,7 @@ const MDXComponents = {
   TabsWrapper,
   TabItem,
   Pill,
+  Accordian,
+  Common,
 };
 export default MDXComponents;

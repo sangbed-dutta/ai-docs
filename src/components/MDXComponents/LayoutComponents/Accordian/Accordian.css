@@ -1,0 +1,165 @@
+.wm-accordian {
+  border: 1px solid #f1f5f9;
+  border-radius: 8px;
+  background-color: #ffffff;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.wm-accordian:last-child {
+  margin-bottom: 0;
+}
+
+.wm-accordian-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 12px 12px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.wm-accordian-header:hover {
+  background-color: #f8fafc;
+}
+
+.wm-accordian--open .wm-accordian-header {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.wm-accordian-title {
+  flex: 1;
+  font-weight: bold;
+}
+
+.wm-accordian-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #fafafa;
+  color: #1a1a1a;
+  flex-shrink: 0;
+  margin-left: 16px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wm-accordian-icon--open {
+  transform: rotate(90deg);
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+.wm-accordian-header:hover .wm-accordian-icon {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+.wm-accordian-content {
+  padding: 24px;
+  color: #475569;
+  background-color: #ffffff;
+}
+
+/* Style for sections inside the accordion separators */
+.wm-accordian-content > ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wm-accordian-content > ul > li {
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #f1f5f9;
+  list-style: none;
+}
+
+.wm-accordian-content > ul > li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.wm-accordian-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #3a3a3a;
+  margin-top: 0;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wm-accordian-content p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.wm-accordian-content a {
+  color: #1794ef;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 14px;
+  text-underline-offset: 2px;
+}
+
+/* Dark Mode Styles */
+[data-theme='dark'] .wm-accordian {
+  border-color: var(--ifm-color-emphasis-200);
+  background-color: var(--ifm-background-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='dark'] .wm-accordian-header {
+  color: var(--ifm-color-content);
+}
+
+[data-theme='dark'] .wm-accordian-header:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='dark'] .wm-accordian--open .wm-accordian-header {
+  border-bottom-color: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .wm-accordian-icon {
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-content);
+}
+
+[data-theme='dark'] .wm-accordian-icon--open,
+[data-theme='dark'] .wm-accordian-header:hover .wm-accordian-icon {
+  background-color: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-primary);
+}
+
+[data-theme='dark'] .wm-accordian-content {
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+}
+
+[data-theme='dark'] .wm-accordian-content > ul > li {
+  border-bottom-color: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .wm-accordian-content h3 {
+  color: var(--ifm-color-content);
+}
+
+[data-theme='dark'] .wm-accordian-content a {
+  color: var(--ifm-color-primary);
+}

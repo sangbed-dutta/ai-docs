@@ -1,91 +1,93 @@
 ---
 last_update: { author: 'Shahnawaz Ahmed' }
 hide_table_of_contents: true
+hide_title: true
+
 ---
 
-# WaveMaker AI Beta - Release date: 09 March 2026
+<Common.WaveMakerAIHeading scale={1.5}>
+  <Pill type="beta" />
+</Common.WaveMakerAIHeading>
+
+*Release date: 09 March 2026*
 
 WaveMaker announces the release of WaveMaker AI 1.0.0 Beta. This release is intended for early adopters and developers who want to explore the capabilities of the WaveMaker platform.
 
 For details about the technology stack upgrades, refer to [Technology Stack](/tech-stack).
 
-<TabsWrapper type="release-notes">
+<TabsWrapper>
   <TabItem name="Features">
-    ## User Interfaces
+    <Accordian title="User Interface">
+      - ### Design System based projects <Pill type="web" /> <Pill type="mobile" />
 
-    - ### Design System based projects <Pill type="web" /> <Pill type="mobile" />
+        Build web and mobile apps using design tokens and standardized component variants for consistent, scalable theming.
 
-      Build web and mobile apps using design tokens and standardized component variants for consistent, scalable theming.
+        [Documentation](../../../design-system/concepts)
 
-      [Documentation →](../../../design-system/concepts)
+      - ### Auto Layout for responsive UIs <Pill type="web" /> <Pill type="mobile" />
 
-    - ### Auto Layout for responsive UIs <Pill type="web" /> <Pill type="mobile" />
+        Create structured, responsive layouts visually with precise control over alignment, spacing, orientation and sizing—without writing CSS.
 
-      Create structured, responsive layouts visually with precise control over alignment, spacing, orientation and sizing—without writing CSS.
+        [Documentation](../../../user-interfaces/web/develop/working-with-layouts/auto-layout)
 
-      [Documentation →](../../../user-interfaces/web/develop/working-with-layouts/auto-layout)
+      - ### Autocode for converting Design-to-code <Pill type="web" />
 
-    - ### Autocode for converting Design-to-code <Pill type="web" />
+        Convert supported Figma designs into working WaveMaker applications with layouts, components, and auto-generated tokens.
 
-      Convert supported Figma designs into working WaveMaker applications with layouts, components, and auto-generated tokens.
+        [Documentation](../../../design-system/figma-autocode-plugin/working-with-autocode-plugin.md)
 
-      [Documentation →](../../../design-system/figma-autocode-plugin/working-with-autocode-plugin.md)
+      - ### Web Applications <Pill type="web" />
+        - **Angular (Default)**: Build robust enterprise grade web applications with our optimized Angular-based output.
+        - **React (Beta)**: **React as a build output for Web**. This beta feature allows you to export production-ready React code while using the same visual development experience.
 
-    - ### Web Applications <Pill type="web" />
-      - **Angular (Default)**: Build robust enterprise grade web applications with our optimized Angular-based output.
-      - **React (Beta)**: **React as a build output for Web**. This beta feature allows you to export production-ready React code while using the same visual development experience.
+      - ### Mobile Applications <Pill type="mobile" />
+        - **React Native (Default)**: Build and deploy high-performance, native mobile applications for iOS and Android using **React Native** as the primary target framework.
+    </Accordian>
 
-    - ### Mobile Applications <Pill type="mobile" />
-      - **React Native (Default)**: Build and deploy high-performance, native mobile applications for iOS and Android using **React Native** as the primary target framework.
+    <Accordian title="Backend">
+      - Build scaleable microservices with Java and Spring. Connect to any data source, import API endpoints, and create custom APIs (BFF), and implement complex business logic with ease.
+    </Accordian>
 
-    ## Backend
+    <Accordian title="Platform">
+      - ### AI agents for application development <Pill type="web" />
 
-    - Build scaleable microservices with Java and Spring. Connect to any data source, import API endpoints, and create custom APIs (BFF), and implement complex business logic with ease.
+        Use prompt-driven AI agents for API integration, backend creation, JavaScript generation, security configuration, and screenshot-to-code workflows, where the most relevant agents are automatically selected for your requested task.
 
-    ## Platform
+        [Documentation](../../../developing-with-agents/overview.md)
 
-    - ### AI agents for application development <Pill type="web" />
+      - ### Style Workspace for design tokens <Pill type="web" />
 
-      Use prompt-driven AI agents for API integration, backend creation, JavaScript generation, security configuration, and screenshot-to-code workflows, where the most relevant agents are automatically selected for your requested task.
+        Manage global and component-level design tokens, themes, and variants from a dedicated styling workspace.
 
-      [Documentation →](../../../developing-with-agents/overview.md)
+        [Documentation](../../../user-interfaces/web/develop/styling-with-design-tokens/working-with-style-workspace.mdx)
+    </Accordian>
 
-    - ### Style Workspace for design tokens <Pill type="web" />
+    <Accordian title="Product Ecosystem">
+      - ### Clean documentation experience
+        Documentation reorganized around developer personas and workflows, with deep linking across Academy and Storybook.
 
-      Manage global and component-level design tokens, themes, and variants from a dedicated styling workspace.
+      - ### WaveMaker Academy as a learning platform
 
-      [Documentation →](../../../user-interfaces/web/develop/styling-with-design-tokens/working-with-style-workspace.mdx)
+        Mentor-led learning paths, self-paced tutorial videos, and certification-oriented programs for faster developer onboarding.
 
-    ## Product Ecosystem
+        [Academy](https://academy.wavemaker.ai)
 
-    - ### Clean documentation experience
-      Documentation reorganized around developer personas and workflows, with deep linking across Academy and Storybook.
+      - ### Component Storybook for Web and Mobile
 
-    - ### WaveMaker Academy as a learning platform
+        Interactive component documentation with live property manipulation for React and React Native components.
 
-      Mentor-led learning paths, self-paced tutorial videos, and certification-oriented programs for faster developer onboarding.
+        [Web Storybook](https://react-components.wavemaker.ai)
+        [Mobile Storybook](https://reactnative-components.wavemaker.ai)
 
-      [Academy →](https://academy.wavemaker.ai)
+      - ### Product Marketplace for reusable assets
 
-    - ### Component Storybook for Web and Mobile
+        Discover and reuse components, prefabs, connectors, design systems, and industry-specific solutions.
 
-      Interactive component documentation with live property manipulation for React and React Native components.
-
-      [Web Storybook →](https://react-components.wavemaker.ai)
-      [Mobile Storybook →](https://reactnative-components.wavemaker.ai)
-
-    - ### Product Marketplace for reusable assets
-
-      Discover and reuse components, prefabs, connectors, design systems, and industry-specific solutions.
-
-      [Marketplace →](https://marketplace.wavemaker.ai)
+        [Marketplace](https://marketplace.wavemaker.ai)
+    </Accordian>
   </TabItem>
 
-  <TabItem name="Enhancements">
-    - In this inaugural release, every feature is a brand-new enhancement! We've packed the core with everything you need to start building, and we're already dreaming up the next set of upgrades. Stay tuned!
-  </TabItem>
+  <TabItem name="Enhancements" />
 
-  <TabItem name="Bug Fixes">
-    - Starting with a clean slate! Since this is Version 1.0.0, there are no legacy bugs to squash—just a pristine, bug-free environment waiting for your first masterpiece.
-  </TabItem>
+  <TabItem name="Bug Fixes" />
 </TabsWrapper>

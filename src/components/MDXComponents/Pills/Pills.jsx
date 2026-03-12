@@ -41,6 +41,7 @@ const pillConfig = {
   backend: { icon: Server, label: 'Backend' },
   platform: { icon: Layers, label: 'Platform' },
   design: { icon: Palette, label: 'Design' },
+  beta: { icon: null, label: 'Beta' },
 };
 
 export function Pill({ type, text, icon: CustomIcon, children }) {

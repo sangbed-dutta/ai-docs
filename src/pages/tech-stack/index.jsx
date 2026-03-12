@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Layout from '@theme/Layout';
-import { versions, versionDataMap } from '../../../data/tech-stack-data/versionDataMap';
+import {
+  versions,
+  versionDataMap,
+} from '../../../data/tech-stack-data/versionDataMap';
 import styles from './styles.module.css';
 import Link from '@docusaurus/Link';
 import { useLocation, useHistory } from '@docusaurus/router';
-import { TabsWrapper, TabItem } from '../../components/MDXComponents/LayoutComponents/Tabs';
+import {
+  TabsWrapper,
+  TabItem,
+} from '../../components/MDXComponents/LayoutComponents/Tabs/Tabs';
 
 function formatVersion(v) {
   return 'v' + v.replace(/-/g, '.');
@@ -15,7 +21,7 @@ export default function TechStackPage() {
   const history = useHistory();
   const query = new URLSearchParams(location.search);
   const initialVersion = query.get('v') || versions[0];
-  
+
   const [selectedVersion, setSelectedVersion] = useState(initialVersion);
   const [sections, setSections] = useState(null);
   const [prevSections, setPrevSections] = useState(null);
@@ -41,7 +47,10 @@ export default function TechStackPage() {
         setSections(currentData);
 
         const currentIndex = versions.indexOf(selectedVersion);
-        const prevV = currentIndex < versions.length - 1 ? versions[currentIndex + 1] : null;
+        const prevV =
+          currentIndex < versions.length - 1
+            ? versions[currentIndex + 1]
+            : null;
         setPreviousVersion(prevV);
 
         if (prevV) {
@@ -84,7 +93,7 @@ export default function TechStackPage() {
     if (prevSections) {
       const traverse = (category, content, path = []) => {
         if (Array.isArray(content)) {
-          content.forEach(item => {
+          content.forEach((item) => {
             // Use category, the immediate parent key, and item name for comparison
             const parentKey = path.length > 0 ? path[path.length - 1] : '';
             const key = `${category}|${parentKey}|${item.name}`;
@@ -126,7 +135,10 @@ export default function TechStackPage() {
       <Layout title="Tech Stack">
         <div className="container margin-vert--lg">
           <h1>Version not found</h1>
-          <p>The selected version <strong>{selectedVersion}</strong> could not be loaded.</p>
+          <p>
+            The selected version <strong>{selectedVersion}</strong> could not be
+            loaded.
+          </p>
           <Link to="/tech-stack">Back to latest</Link>
         </div>
       </Layout>
@@ -134,17 +146,25 @@ export default function TechStackPage() {
   }
 
   // Filter categories and subcategories based on visibility rules
-  const visibleCategories = Object.entries(sections).filter(([category, subCats]) => {
-    return isNonEmpty(subCats);
-  });
+  const visibleCategories = Object.entries(sections).filter(
+    ([category, subCats]) => {
+      return isNonEmpty(subCats);
+    },
+  );
 
   return (
-    <Layout title="Tech Stack" description="WaveMaker Tech Stack versions and libraries">
+    <Layout
+      title="Tech Stack"
+      description="WaveMaker Tech Stack versions and libraries"
+    >
       <main className="container margin-vert--lg">
         <div className={styles.header}>
           <div>
             <h1 className={styles.title}>Tech Stack</h1>
-            <p className={styles.subtitle}>Detailed information about the frameworks and libraries used in WaveMaker.</p>
+            <p className={styles.subtitle}>
+              Detailed information about the frameworks and libraries used in
+              WaveMaker.
+            </p>
           </div>
           <div className={styles.versionSelector}>
             <label htmlFor="version-select">Select Version:</label>
@@ -172,9 +192,10 @@ export default function TechStackPage() {
           <TabsWrapper>
             {visibleCategories.map(([category, subCats], cIdx) => {
               const handleAccordionToggle = (accordionId) => {
-                setOpenAccordion(prev => ({
+                setOpenAccordion((prev) => ({
                   ...prev,
-                  [category]: prev[category] === accordionId ? null : accordionId
+                  [category]:
+                    prev[category] === accordionId ? null : accordionId,
                 }));
               };
 
@@ -185,18 +206,22 @@ export default function TechStackPage() {
                       const renderContent = (content, path = []) => {
                         const entries = Object.entries(content);
                         // Check if any sibling at this level is an object (representing a subsection)
-                        const hasSubsectionsAtThisLevel = entries.some(([_, v]) => v && typeof v === 'object' && !Array.isArray(v));
+                        const hasSubsectionsAtThisLevel = entries.some(
+                          ([_, v]) =>
+                            v && typeof v === 'object' && !Array.isArray(v),
+                        );
 
                         return entries.map(([name, value], idx) => {
                           if (!isNonEmpty(value)) return null;
 
                           if (Array.isArray(value)) {
                             const accordionId = `${category}-${path.join('-')}-${name}`;
-                            const isOpen = openAccordion[category] === accordionId;
+                            const isOpen =
+                              openAccordion[category] === accordionId;
 
                             const accordion = (
-                              <details 
-                                key={idx} 
+                              <details
+                                key={idx}
                                 className={styles.accordion}
                                 open={isOpen}
                                 onClick={(e) => {
@@ -210,24 +235,65 @@ export default function TechStackPage() {
                                 <div className={styles.accordionContent}>
                                   <ul className={styles.list}>
                                     {value.map((item, iIdx) => {
-                                      const isChanged = hasVersionChanged(category, name, item.name, item.version);
+                                      const isChanged = hasVersionChanged(
+                                        category,
+                                        name,
+                                        item.name,
+                                        item.version,
+                                      );
                                       return (
-                                        <li key={iIdx} className={isChanged ? styles.itemChanged : ''}>
+                                        <li
+                                          key={iIdx}
+                                          className={
+                                            isChanged ? styles.itemChanged : ''
+                                          }
+                                        >
                                           <div className={styles.libraryInfo}>
                                             {item.link && item.link !== '#' ? (
-                                              <Link to={item.link} className={styles.libraryLink}>
+                                              <Link
+                                                to={item.link}
+                                                className={styles.libraryLink}
+                                              >
                                                 {item.name}
-                                                {isChanged && <span className={styles.updateBadge}>Updated</span>}
+                                                {isChanged && (
+                                                  <span
+                                                    className={
+                                                      styles.updateBadge
+                                                    }
+                                                  >
+                                                    Updated
+                                                  </span>
+                                                )}
                                               </Link>
                                             ) : (
-                                              <span className={styles.libraryName}>
+                                              <span
+                                                className={styles.libraryName}
+                                              >
                                                 {item.name}
-                                                {isChanged && <span className={styles.updateBadge}>Updated</span>}
+                                                {isChanged && (
+                                                  <span
+                                                    className={
+                                                      styles.updateBadge
+                                                    }
+                                                  >
+                                                    Updated
+                                                  </span>
+                                                )}
                                               </span>
                                             )}
-                                            {item.description && <span className={styles.libraryDesc}>{item.description}</span>}
+                                            {item.description && (
+                                              <span
+                                                className={styles.libraryDesc}
+                                              >
+                                                {item.description}
+                                              </span>
+                                            )}
                                           </div>
-                                          <span className={styles.libraryVersion}>{item.version || 'N/A'}</span>
+                                          <span
+                                            className={styles.libraryVersion}
+                                          >
+                                            {item.version || 'N/A'}
+                                          </span>
                                         </li>
                                       );
                                     })}
@@ -240,7 +306,9 @@ export default function TechStackPage() {
                             if (hasSubsectionsAtThisLevel) {
                               return (
                                 <div key={idx} className={styles.subsection}>
-                                  <h3 className={styles.subsectionTitle}>{name}</h3>
+                                  <h3 className={styles.subsectionTitle}>
+                                    {name}
+                                  </h3>
                                   {accordion}
                                 </div>
                               );
@@ -250,7 +318,9 @@ export default function TechStackPage() {
                             // Render Subsection header and recurse
                             return (
                               <div key={idx} className={styles.subsection}>
-                                <h3 className={styles.subsectionTitle}>{name}</h3>
+                                <h3 className={styles.subsectionTitle}>
+                                  {name}
+                                </h3>
                                 {renderContent(value, [...path, name])}
                               </div>
                             );

@@ -83,3 +83,8 @@
   color: rgba(194, 24, 91);
   --wm-pill-icon-color: rgba(194, 24, 91);
 }
+
+.wm-pill-beta {
+  background: rgba(85, 119, 238, 0.2);
+  color: rgba(85, 119, 238, 1);
+}

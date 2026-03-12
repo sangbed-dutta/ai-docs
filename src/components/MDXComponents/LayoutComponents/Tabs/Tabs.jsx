@@ -2,17 +2,58 @@ import React, { useState, useId } from 'react';
 import { motion } from 'framer-motion';
 import './Tabs.css';
 
+const FALLBACK_DATA = {
+  features: {
+    icon: '/img/icon/no-enhancements.svg',
+    title: 'Waiting for the sequel.',
+    description: 'No new stars today, but the current cast is killing it.',
+  },
+  enhancements: {
+    icon: '/img/icon/no-enhancements.svg',
+    title: 'Tuned to perfection.',
+    description: 'We reached peak polish. For now.',
+  },
+  'bug fixes': {
+    icon: '/img/icon/no-bugs.svg',
+    title: 'No bugs to squash!',
+    description: 'We looked under the rug. It’s spotless.',
+  },
+};
+
+function FallbackState({ data }) {
+  return (
+    <motion.div
+      className="empty-state-container"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      <img src={data.icon} alt={data.title} className="empty-state-icon" />
+      <h3 className="empty-state-title">{data.title}</h3>
+      <p className="empty-state-text">{data.description}</p>
+    </motion.div>
+  );
+}
+
 /**
  * TabItem Component
  * Used inside TabsWrapper to define individual tabs.
  */
 export function TabItem({ children, name, active }) {
+  const isEmpty = React.Children.count(children) === 0;
+  const fallbackKey = name?.toLowerCase();
+  const fallbackData = FALLBACK_DATA[fallbackKey];
+
   return (
     <div
-      className={`tab-pane ${active ? 'active' : ''}`}
+      className={`tab-pane ${active ? 'active' : ''} ${active && isEmpty && fallbackData ? 'has-empty-state' : ''}`}
       style={{ display: active ? 'block' : 'none' }}
     >
-      {children}
+      {isEmpty && fallbackData ? (
+        <FallbackState data={fallbackData} />
+      ) : (
+        children
+      )}
     </div>
   );
 }
@@ -21,7 +62,7 @@ export function TabItem({ children, name, active }) {
  * TabsWrapper Component
  * Manages the state and rendering of tabs.
  */
-export function TabsWrapper({ children, type }) {
+export function TabsWrapper({ children }) {
   // Extract children and filter out non-TabItem components if necessary
   const tabs = React.Children.toArray(children).filter(
     (child) => child.props && child.props.name,
@@ -63,13 +104,7 @@ export function TabsWrapper({ children, type }) {
           );
         })}
       </div>
-      <div className="tab-content">
-        {type === 'release-notes' ? (
-          <div className="release-notes-container">{content}</div>
-        ) : (
-          content
-        )}
-      </div>
+      <div className="tab-content">{content}</div>
     </div>
   );
 }
