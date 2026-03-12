@@ -292,7 +292,7 @@
           "name": "Android Gradle Plugin (AGP)",
           "description": "Build system for Android applications.",
           "link": "https://developer.android.com/build",
-          "version": "8.14.3"
+          "version": "8.11.0"
         },
         {
           "name": "SDK Build Tools",
@@ -304,7 +304,7 @@
           "name": "wm-reactnative-cli",
           "description": "WaveMaker CLI for React Native projects.",
           "link": "https://www.npmjs.com/package/@wavemaker/wm-reactnative-cli",
-          "version": "1.9.5"
+          "version": "1.9.6"
         },
         {
           "name": "Maven",
@@ -393,7 +393,7 @@
           "name": "Xcode",
           "description": "Integrated Development Environment (IDE) for macOS/iOS.",
           "link": "https://developer.apple.com/xcode/",
-          "version": "26"
+          "version": "26.2"
         }
       ]
     },
