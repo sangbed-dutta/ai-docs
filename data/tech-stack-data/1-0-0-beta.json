@@ -387,7 +387,7 @@
           "name": "Android Studio",
           "description": "Integrated Development Environment (IDE) for Android app development.",
           "link": "https://developer.android.com/studio",
-          "version": "Narwhal 4 2025.1.4"
+          "version": "Otter 3 Feature Drop | 2025.2.3"
         },
         {
           "name": "Xcode",
