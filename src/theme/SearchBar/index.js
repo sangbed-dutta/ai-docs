@@ -70,9 +70,10 @@ function getPageContext() {
     const parts = [];
     for (const p of firstParagraphs) {
       parts.push(p.textContent?.trim() || '');
-      if (parts.join(' ').length > 300) break;
+      // if (parts.join(' ').length > 300) break;
     }
-    pageSummary = parts.join(' ').slice(0, 500);
+    // pageSummary = parts.join(' ').slice(0, 500);
+    pageSummary = parts.join(' ');
   }
 
   return {

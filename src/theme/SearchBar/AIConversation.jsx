@@ -75,11 +75,7 @@ const markdownComponents = {
     );
   },
   table({ node: _node, children, ...props }) {
-    return (
-      <table className="md-table" {...props}>
-        {children}
-      </table>
-    );
+    return <table {...props}>{children}</table>;
   },
 };
 
