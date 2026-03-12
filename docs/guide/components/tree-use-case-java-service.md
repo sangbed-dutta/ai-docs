@@ -4,9 +4,10 @@ id: "tree-use-case-java-service"
 sidebar_label: "Tree using Java Service"
 last_update: { author: "WaveMaker" }
 ---
+
 ---
 
-1. Create the source structure for Tree as a <!-- <!-- [Java Service](/learn/app-development/services/java-services/java-service/) --> --> by name _TreeData_.
+1. Create the source structure for Tree as a [Java Service](#) by name *TreeData*.
 2. The following code needs to be added to the Java service.
 
 - Import the ArrayList utility:
@@ -114,6 +115,6 @@ public List<TreeData> sampleJavaOperation(String name) {
 
 ## See Also
 
-[Tree Widget Cases](../../user-interfaces/web/components/angular-components/basic/tree.md)  
-[How to build a tree from static variable](./tree-use-case-static-variable.md)  
-[How to build a dynamic tree](./tree-use-case-dynamic-tree.md)  
+[Tree Widget Cases](#)\
+[How to build a tree from static variable](./tree-use-case-static-variable.md)\
+[How to build a dynamic tree](./tree-use-case-dynamic-tree.md)

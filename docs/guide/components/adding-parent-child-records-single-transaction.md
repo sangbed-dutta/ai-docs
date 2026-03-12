@@ -3,6 +3,7 @@ title: "Submit Parent and Child Records in a Single Transaction"
 id: "adding-parent-child-records-single-transaction"
 last_update: { author: "WaveMaker" }
 ---
+
 ---
 
 This topic describes how to add Parent and Child records in a single transaction, where a Parent is the master record, and the Child is the extension or the details of the master record using repeatable Forms.
@@ -16,10 +17,10 @@ Assume that a Pizza is a Parent entity, the Types of Pizzas are the Child entit
 
 ## Database Configuration
 
-Navigate to the Databases section and create your own database. For more information, see <!-- <!-- [Working with Databases](/learn/app-development/services/database-services/working-with-databases/) --> -->.
+Navigate to the Databases section and create your own database. For more information, see [Working with Databases](#).
 
 - Step-1: In the database designer, add a one-to-many relation for the Parent and Child tables.
-- Step-2: Enable the **Cascade Option** for the one-to-many relation as shown in the image below. For more information, see <!-- <!-- [Working with Database Schema](/learn/app-development/services/database-services/working-database-schema/) --> -->.
+- Step-2: Enable the **Cascade Option** for the one-to-many relation as shown in the image below. For more information, see [Working with Database Schema](#).
 
 [![](./assets/img/db-cascade.png)](./assets/img/db-cascade.png)
 
@@ -70,10 +71,11 @@ Ensure that the List widget naming convention is same as the related Child entit
 :::
 
 The page tree structure should be as below.
-   - Parent LiveForm (bound to Employee Entity)
-      - List Widget (bound to model variable)
-         - Form Widget(bound to model Variable)
-      - Button (to add Child objects)
+
+- Parent LiveForm (bound to Employee Entity)
+  - List Widget (bound to model variable)
+    - Form Widget(bound to model Variable)
+  - Button (to add Child objects)
 
 ### App in Preview
 

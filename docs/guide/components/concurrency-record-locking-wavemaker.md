@@ -3,6 +3,7 @@ title: "Concurrency and Record Locking in WaveMaker"
 id: "concurrency-record-locking-wavemaker"
 last_update: { author: "WaveMaker" }
 ---
+
 ---
 
 ## Use Case
@@ -13,19 +14,19 @@ The document explains the implementation for obtaining concurrency and record lo
 
 ## Steps
 
-1. <!-- <!-- [Create a MariaDB database](/learn/app-development/services/database-services/working-with-databases/) --> -->. See the following the <!-- <!-- [documentation link](/learn/app-development/services/database-services/working-with-databases/#integrating-database) --> --> for details
+1. [Create a MariaDB database](#). See the following the [documentation link](#) for details
 2. Add a table with the following columns:
-    - ID - type integer,
-    - Name - type String name, and
-    - Version - type long.
+   - ID - type integer,
+   - Name - type String name, and
+   - Version - type long.
 3. Go to the File Explorer and navigate to the following directory:
 
 ```
 <project_name>/services/<database_name>/src/com/<project_name>/<database_name>/<table_name>
 ```
-    
+
 - Add @Version annotation for the version column as shown below.
-    
+
 [![](./assets/img/concurrency_annot.png)](./assets/img/concurrency_annot.png)
 
 - Add the below import statement.
@@ -40,7 +41,7 @@ Please note the @Version annotation added in the above step might get reverted e
 
 4. Create a Page in the app.
 5. Drag and drop a Data Table widget into the page and set the data source as the table/entity designed in Step #2.
-6. Open the Advanced Settings of the Data Table widget and uncheck the Show property for the version column. 
+6. Open the Advanced Settings of the Data Table widget and uncheck the Show property for the version column.
 
 [![](./assets/img/concurrency_DTAS.png)](./assets/img/concurrency_DTAS.png)
 

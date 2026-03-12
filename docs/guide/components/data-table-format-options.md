@@ -3,6 +3,7 @@ title: "Formatting Data Table Columns"
 id: "data-table-format-options"
 last_update: { author: "WaveMaker" }
 ---
+
 **Scenario**: To change the display format of columns in a Data Table. We will customise the Data Table to display:
 
 1. Zip with a prefix of ‘US-‘
@@ -10,11 +11,11 @@ last_update: { author: "WaveMaker" }
 3. Department Name with a suffix of ‘Dept’
 4. Department Budget formatted as toCurrency with ‘USD’ symbol and Fraction Size ‘2’
 
-<iframe width="708" height="560" src="https://docs.google.com/presentation/d/e/2PACX-1vQBoIoP6HLO3rPgdbmRbwDEWQ_eJ0W24PcjwC8UoeMBIqjG3D3u8sk980v2MHx5zmxIj7ppzHMMaSqb/embed?start=false&amp;loop=false&amp;delayms=3000" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>
+<iframe width="708" height="560" src="https://docs.google.com/presentation/d/e/2PACX-1vQBoIoP6HLO3rPgdbmRbwDEWQ_eJ0W24PcjwC8UoeMBIqjG3D3u8sk980v2MHx5zmxIj7ppzHMMaSqb/embed?start=false&loop=false&delayms=3000" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" />
 
-[Data Table Use Cases](../../user-interfaces/web/components/angular-components/datalive/datatable/data-table-use-cases.md)
+[Data Table Use Cases](#)
 
-- [1. Basic Table Usage](../../user-interfaces/web/components/angular-components/datalive/datatable/data-table-basic-usage.md)
+- [1. Basic Table Usage](#)
 - [2. How to customise table actions](./data-table-actions.md)
 - [3. How to represent data table columns using widgets](./data-table-widget-representations.md)
 - [4. How to format data table column](./data-table-format-options.md)

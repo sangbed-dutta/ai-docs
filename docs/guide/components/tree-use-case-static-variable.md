@@ -4,13 +4,14 @@ id: "tree-use-case-static-variable"
 sidebar_label: "Tree using Static Variable"
 last_update: { author: "WaveMaker" }
 ---
+
 ---
 
 We will build a tree using a simple static structure
 
-1. Drag and drop a _Tree_ widget in your canvas. Tree widget comes with multiple nodes
-2. [Create a Model Variable](./how-tos/assets/img/var_sel.png), say staticTree, giving the structure of the data to be displayed in the tree. Ensure that the _IsList_ check box is selected.
-3. In the _Text Editor_ enter the following code:
+1. Drag and drop a *Tree* widget in your canvas. Tree widget comes with multiple nodes
+2. [Create a Model Variable](./how-tos/assets/img/var_sel.png), say staticTree, giving the structure of the data to be displayed in the tree. Ensure that the *IsList* check box is selected.
+3. In the *Text Editor* enter the following code:
 
 ```json
 [
@@ -47,7 +48,7 @@ We will build a tree using a simple static structure
 ]
 ```
 
-In this code, we are specifying the node structure - the _label_ on each node, _icon_ to be displayed at each node and any _child-level nodes_. Icons can be [halflings from glyphicons](https://getbootstrap.com/docs/3.3/components/) or [font awesome](https://fortawesome.github.io/Font-Awesome/cheatsheet/) icons.
+In this code, we are specifying the node structure - the *label* on each node, *icon* to be displayed at each node and any *child-level nodes*. Icons can be [halflings from glyphicons](https://getbootstrap.com/docs/3.3/components/) or [font awesome](https://fortawesome.github.io/Font-Awesome/cheatsheet/) icons.
 
 :::note
 If you follow this structure, the label, icon, link, and children tags are picked automatically. If you are using different tag names, then you need to specify them while binding.
@@ -60,6 +61,6 @@ If you follow this structure, the label, icon, link, and children tags are picke
 
 ## See Also
 
-[Tree Widget Cases](../../user-interfaces/web/components/angular-components/basic/tree.md)  
-[How to build tree from java service](./tree-use-case-java-service.md)  
+[Tree Widget Cases](#)\
+[How to build tree from java service](./tree-use-case-java-service.md)\
 [How to build a dynamic tree](./tree-use-case-dynamic-tree.md)

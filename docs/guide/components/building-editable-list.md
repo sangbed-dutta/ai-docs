@@ -3,6 +3,7 @@ title: "Building an Editable List"
 id: "building-editable-list"
 last_update: { author: "WaveMaker" }
 ---
+
 **Scenario**: To make List editable.
 
 We will see how a Live Form can be added to a List to make it editable.
@@ -10,9 +11,9 @@ We will see how a Live Form can be added to a List to make it editable.
 1. Live form Form Data will be bound to selected item in a list.
 2. Selected item in the List will show that record in Live Form which allows for editing the record and saving it.
 
-<iframe width="708" height="560" src="https://docs.google.com/presentation/d/e/2PACX-1vSMIBR7pbcpMiOkKBNk4C1VwkD9LbQC6-1P7beGoVAGXXCYT950NRjRMjWpQi7Ok6caWTZogkt2kR2P/embed?start=false&amp;loop=false&amp;delayms=3000" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>
+<iframe width="708" height="560" src="https://docs.google.com/presentation/d/e/2PACX-1vSMIBR7pbcpMiOkKBNk4C1VwkD9LbQC6-1P7beGoVAGXXCYT950NRjRMjWpQi7Ok6caWTZogkt2kR2P/embed?start=false&loop=false&delayms=3000" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" />
 
-[List Use Cases](../../user-interfaces/web/components/angular-components/datalive/list/list-use-cases.md)
+[List Use Cases](#)
 
 - [1. List Basic Usage](./list-basic-usage.md)
 - [2. How to group list items](./list-grouped.md)

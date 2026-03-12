@@ -4,6 +4,7 @@ id: "export-data-data-table-2"
 sidebar_label: "Export Data from Data Table - 2"
 last_update: { author: "WaveMaker" }
 ---
+
 ##### 9.4 release
 
 **Scenario**: To export data from a Data Table to excel or CSV format. We will be using the Export option of Data Table to export data from a Database CRUD Variable.
@@ -12,9 +13,9 @@ last_update: { author: "WaveMaker" }
 
 - Earlier the entire contents of the underlying database table were being exported, post rel 9.4, only the contents displayed in the Data Table will be exported.
 - Also, for each column selected for display, columns can be customized either by
-    - column selection can be done from the Advanced Settings, column show/hide checkbox,
-    - configuring the **Export Options** using Value Expressions from the Advanced Settings of the Data Table (NOTE: Value Expression **has** to be set for custom fields), or
-    - writing JavaScript code for the **on Before Export** callback event for the Data Table.
+  - column selection can be done from the Advanced Settings, column show/hide checkbox,
+  - configuring the **Export Options** using Value Expressions from the Advanced Settings of the Data Table (NOTE: Value Expression **has** to be set for custom fields), or
+  - writing JavaScript code for the **on Before Export** callback event for the Data Table.
 - These features are available ONLY for Data Table bound to a Database CRUD variable, Live Filter result, or Query API Variable.
 
 ## Prerequisites
@@ -25,14 +26,14 @@ last_update: { author: "WaveMaker" }
 ## Steps
 
 1. Open the **Advanced Settings** of the Data Table.
-2. From the Data Table tab, scroll down to locate **Export Format** option and select required format. 
-[![](./assets/img/dt_export.png)](./assets/img/dt_export.png)
+2. From the Data Table tab, scroll down to locate **Export Format** option and select required format.
+   [![](./assets/img/dt_export.png)](./assets/img/dt_export.png)
 3. **Export Data Size** property can be used to specify the number of records to be exported.  By default, the value is set to 100, the maximum export size. To export more than 100 records, the max size in the [profile](#) needs to be changed from the Project Configurations menu of [Project Workspace](#).
-4. Navigate to Columns tab and note that for each column **Export Options** tab is visible. Use this to customize the data to be exported. NOTE: If you have any custom columns, value expression has to be given here, else the export will fail. 
-[![](./assets/img/dt_cols_export.png)](./assets/img/dt_cols_export.png)
+4. Navigate to Columns tab and note that for each column **Export Options** tab is visible. Use this to customize the data to be exported. NOTE: If you have any custom columns, value expression has to be given here, else the export will fail.
+   [![](./assets/img/dt_cols_export.png)](./assets/img/dt_cols_export.png)
 5. Save and close the Advanced Settings.
-6. You can further customize the data being exported using the **on Before Export** callback event of the Data Table. 
-[![](./assets/img/dt_export_event.png)](./assets/img/dt_export_event.png)
+6. You can further customize the data being exported using the **on Before Export** callback event of the Data Table.
+   [![](./assets/img/dt_export_event.png)](./assets/img/dt_export_event.png)
 7. You can use the following script:
 
 ```js
@@ -64,9 +65,9 @@ Page.EmployeeTable1Beforeexport = function($data) {
 };
 ```
 
-[Data Table Use Cases](../../user-interfaces/web/components/angular-components/datalive/datatable/data-table-use-cases.md)
+[Data Table Use Cases](#)
 
-- [1. Basic Table Usage](../../user-interfaces/web/components/angular-components/datalive/datatable/data-table-basic-usage.md)
+- [1. Basic Table Usage](#)
 - [2. How to customise table actions](./data-table-actions.md)
 - [3. How to represent data table columns using widgets](./data-table-widget-representations.md)
 - [4. How to format data table column](./data-table-format-options.md)

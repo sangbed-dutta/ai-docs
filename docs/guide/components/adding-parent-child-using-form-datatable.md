@@ -3,23 +3,24 @@ title: "Submit Parent and Child Records in a Single Transaction using Form and D
 id: "adding-parent-child-using-form-datatable"
 last_update: { author: "WaveMaker" }
 ---
+
 ---
 
-This topic describes how to add Parent and Child records in a single transaction, where a Parent is the master record, and the Child is the extension or the details of the master record using form and Data Table. 
+This topic describes how to add Parent and Child records in a single transaction, where a Parent is the master record, and the Child is the extension or the details of the master record using form and Data Table.
 
 **Example:**
 Assume that a Pizza is a Parent entity, the Types of Pizzas are the Child entity type.  When you enter the Parent record, you want to add the child records at the same time, too. To do this, follow the step-by-step instructions as below. Also, achieve this topic's agenda of:
 
 - Adding parent/child or master-detail's records in a single action.
 - Using database CURD and a Model variable.
-- Using a Data Table inside a Form. 
+- Using a Data Table inside a Form.
 
 ## Database Configuration
 
-Navigate to the Databases section and create your own database. For more information, see <!-- <!-- [Working with Databases](/learn/app-development/services/database-services/working-with-databases/) --> -->.
+Navigate to the Databases section and create your own database. For more information, see [Working with Databases](#).
 
 - Step-1: In the database designer, add a one-to-many relation for the parent and child tables.
-- Step-2: Enable the **Cascade Option** for the one-to-many relation as shown in the image below. For more information, see <!-- <!-- [Working with Database Schema](/learn/app-development/services/database-services/working-database-schema/) --> -->.
+- Step-2: Enable the **Cascade Option** for the one-to-many relation as shown in the image below. For more information, see [Working with Database Schema](#).
 
 [![DB cascade](./assets/img/db-cascade.png)](./assets/img/db-cascade.png)
 

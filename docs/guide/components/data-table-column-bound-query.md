@@ -3,6 +3,7 @@ title: "Data Table Column bound to Query"
 id: "data-table-column-bound-query"
 last_update: { author: "WaveMaker" }
 ---
+
 # Scenario
 
 Data Table is build using a single table from an imported Database. You might want to enable user selection for one column of the Data Table from values of a query result.
@@ -26,9 +27,9 @@ This document shows how a column for the editable Data Table can be bound to out
 
 [![](./assets/img/DT_query.png)](./assets/img/DT_query.png)
 
-[Data Table Use Cases](../../user-interfaces/web/components/angular-components/datalive/datatable/data-table-use-cases.md)
+[Data Table Use Cases](#)
 
-- [1. Basic Table Usage](../../user-interfaces/web/components/angular-components/datalive/datatable/data-table-basic-usage.md)
+- [1. Basic Table Usage](#)
 - [2. How to customise table actions](./data-table-actions.md)
 - [3. How to represent data table columns using widgets](./data-table-widget-representations.md)
 - [4. How to format data table column](./data-table-format-options.md)

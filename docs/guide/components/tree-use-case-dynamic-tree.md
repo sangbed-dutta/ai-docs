@@ -4,9 +4,10 @@ id: "tree-use-case-dynamic-tree"
 sidebar_label: "Tree using Dynamic Tree"
 last_update: { author: "WaveMaker" }
 ---
+
 ---
 
-Using the Tree widget, you can build a folder-file structure, and user can decide how many folder and files to include in a tree. 
+Using the Tree widget, you can build a folder-file structure, and user can decide how many folder and files to include in a tree.
 
 1. Drag and drop a Tree widget, and add two buttons including **Add File** and **Add Folder**.
 
@@ -30,7 +31,7 @@ Page.treeData = [{
         "icon": "fa fa-folder",
         "children": []
     }];
-```    
+```
 
 4. Select JavaScript for the `onSelect` event of the tree widget as following:
 
@@ -77,6 +78,6 @@ Page.Widgets.tree1.redraw();
 
 ## See Also
 
-[Tree Widget Cases](../../user-interfaces/web/components/angular-components/basic/tree.md)  
-[How to build a tree from static variable](./tree-use-case-static-variable.md)  
-[How to build tree from java service](./tree-use-case-java-service.md)  
+[Tree Widget Cases](#)\
+[How to build a tree from static variable](./tree-use-case-static-variable.md)\
+[How to build tree from java service](./tree-use-case-java-service.md)
