@@ -167,6 +167,7 @@ function GroupCard({ group }) {
 export default function SourceCards({
   cards,
   activeIndex,
+  activeQuestion,
   totalMessages,
   onPrev,
   onNext,
@@ -210,8 +211,10 @@ export default function SourceCards({
 
   const navHeader = (
     <div className={styles.sourcesNavHeader}>
-      <span className={styles.sourcesNavLabel}>
-        {cards.length > 0 ? `Sources · Q${activeIndex}` : 'Sources'}
+      <span className={styles.sourcesNavLabel} title={activeQuestion || ''}>
+        {cards.length > 0 && activeQuestion
+          ? `Sources · ${activeQuestion}`
+          : 'Sources'}
       </span>
       {totalMessages > 1 && (
         <div className={styles.sourcesNavArrows}>

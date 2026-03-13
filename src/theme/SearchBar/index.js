@@ -256,18 +256,34 @@ function AskAIPanel({
 
   let activeCards = [];
   let activeIndex = 0;
+  let activeQuestion = '';
 
   if (chat.activeMessageId === '__streaming__') {
     activeCards = chat.currentSourceCards;
     activeIndex = totalAssistantMessages + 1;
+    // The last user message is the current question
+    const lastUser = [...chat.messages]
+      .reverse()
+      .find((m) => m.role === 'user');
+    activeQuestion = lastUser?.content || '';
   } else if (chat.activeMessageId) {
     const activeMsg = assistantMessages.find(
       (m) => m.id === chat.activeMessageId,
     );
     if (activeMsg) {
       activeCards = activeMsg.sourceCards || [];
+      const msgIdx = chat.messages.findIndex(
+        (m) => m.id === chat.activeMessageId,
+      );
       activeIndex =
         assistantMessages.findIndex((m) => m.id === chat.activeMessageId) + 1;
+      // Find the user message just before this assistant message
+      for (let i = msgIdx - 1; i >= 0; i--) {
+        if (chat.messages[i].role === 'user') {
+          activeQuestion = chat.messages[i].content;
+          break;
+        }
+      }
     }
   }
 
@@ -394,6 +410,7 @@ function AskAIPanel({
           <SourceCards
             cards={activeCards}
             activeIndex={activeIndex}
+            activeQuestion={activeQuestion}
             totalMessages={
               chat.isStreaming
                 ? totalAssistantMessages + 1
