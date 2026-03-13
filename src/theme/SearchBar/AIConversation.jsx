@@ -122,6 +122,14 @@ function renderFragments(fragments, mdComponents) {
   return rendered;
 }
 
+// Same logic as SourceCards — docs URLs are relative, others are absolute.
+const resolveUrl = (url, source) => {
+  if (!url) return '#';
+  if (source !== 'docs') return url;
+  if (url.startsWith('http') || url.startsWith('/')) return url;
+  return `/docs/${url}`;
+};
+
 /** Inline mini source card for mobile */
 function MiniSourceCard({ card }) {
   const getIconClass = (source) => {
@@ -143,7 +151,7 @@ function MiniSourceCard({ card }) {
   return (
     <a
       className={styles.srcCard}
-      href={card.url}
+      href={resolveUrl(card.url, card.source)}
       target="_blank"
       rel="noopener noreferrer"
       style={{ fontSize: '11px' }}
