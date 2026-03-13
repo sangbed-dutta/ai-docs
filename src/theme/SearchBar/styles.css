@@ -399,9 +399,10 @@
   border-radius: 12px;
   overflow: hidden;
   text-decoration: none;
-  color: #1a1a2e;
+  color: var(--docsearch-text-color, #1a1a2e);
   transition: all 0.25s ease;
   background: linear-gradient(135deg, #f8f9ff 0%, #e8eeff 40%, #fef3f3 100%);
+  border: 1px solid rgba(128, 128, 128, 0.15);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
@@ -425,12 +426,12 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  color: #1a1a2e;
+  color: inherit;
 }
 
 .DocSearch-AskAI-VideoCard-Subtitle {
   font-size: 12px;
-  color: #666;
+  color: var(--docsearch-muted-color, #666);
   opacity: 0.8;
 }
 
@@ -445,7 +446,7 @@
   padding: 10px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 50%;
-  color: #4a7dff;
+  color: var(--docsearch-primary-color, #4a7dff);
   box-shadow: 0 2px 8px rgba(74, 125, 255, 0.2);
   transition: all 0.2s ease;
 }
@@ -465,7 +466,7 @@
   gap: 4px;
   font-size: 11px;
   font-weight: 500;
-  color: #4a7dff;
+  color: var(--docsearch-primary-color, #4a7dff);
 }
 
 /* ========================================
@@ -502,21 +503,18 @@
   padding: 6px 12px;
   border-radius: 6px;
   border: none;
-  background: #f5f6f7;
-  color: #5e6b7b;
-  /* Neutral gray */
+  background: var(--docsearch-searchbox-background, #f5f6f7);
+  color: var(--docsearch-muted-color, #5e6b7b);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
-  /* line-height: 1; */
-  /* Fix vertical alignment */
 }
 
 .DocSearch-Tab:hover {
   color: var(--docsearch-text-color);
-  background: #d9dadc;
+  background: var(--docsearch-searchbox-focus-background, #d9dadc);
 }
 
 .DocSearch-Tab--active {
@@ -1039,7 +1037,7 @@
   position: relative;
   width: 100%;
   height: 180px;
-  background: #1a1a2e;
+  background: #0f1520;
   overflow: hidden;
 }
 
@@ -1103,7 +1101,7 @@
   gap: 4px;
   font-size: 11px;
   font-weight: 500;
-  color: #4285f4;
+  color: var(--docsearch-primary-color, #4285f4);
   flex-shrink: 0;
   margin-left: 12px;
 }
@@ -1130,4 +1128,212 @@
 
 .DocSearch-AskAI-SuggestionText {
   font-weight: 500;
+}
+
+/* =============================================
+   DARK MODE OVERRIDES
+   ============================================= */
+
+[data-theme='dark'] .DocSearch-Tabs {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='dark'] .DocSearch-Tab {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme='dark'] .DocSearch-Tab:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme='dark'] .DocSearch-Tab--active {
+  background: #4c8dff;
+  color: #fff !important;
+}
+
+[data-theme='dark'] .DocSearch-Tab--active:hover {
+  background: #4c8dff;
+}
+
+/* Video cards — dark gradient */
+[data-theme='dark'] .DocSearch-AskAI-VideoCard {
+  background: linear-gradient(135deg, #1a2d4a 0%, #1e3352 40%, #2a2040 100%);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-VideoCard:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-VideoCard-PlayIcon {
+  background: rgba(255, 255, 255, 0.15);
+  color: #4c8dff;
+  box-shadow: 0 2px 8px rgba(76, 141, 255, 0.3);
+}
+
+/* Academy cards */
+[data-theme='dark'] .DocSearch-AskAI-AcademyCard {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-AcademyCard:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-AcademyCard-PlayBtn {
+  background: rgba(76, 141, 255, 0.85);
+}
+
+[data-theme='dark']
+  .DocSearch-AskAI-AcademyCard:hover
+  .DocSearch-AskAI-AcademyCard-PlayBtn {
+  background: rgba(76, 141, 255, 1);
+}
+
+/* Source cards */
+[data-theme='dark'] .DocSearch-AskAI-SourceCard {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-SourceCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Marketplace cards */
+[data-theme='dark'] .DocSearch-AskAI-MarketplaceCard {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-MarketplaceCard:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Badges — softer on dark */
+[data-theme='dark'] .DocSearch-AskAI-Badge--ai {
+  background: rgba(52, 211, 153, 0.12);
+  color: #6ee7b7;
+  border-color: rgba(52, 211, 153, 0.25);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-Badge--marketplace {
+  background: rgba(234, 67, 53, 0.12);
+  color: #fca5a5;
+  border-color: rgba(234, 67, 53, 0.25);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-Badge--academy {
+  background: rgba(76, 141, 255, 0.12);
+  color: #93c5fd;
+  border-color: rgba(76, 141, 255, 0.25);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-Badge--storybook {
+  background: rgba(255, 71, 133, 0.12);
+  color: #fda4af;
+  border-color: rgba(255, 71, 133, 0.25);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-Badge--docs {
+  background: rgba(76, 141, 255, 0.12);
+  color: #93c5fd;
+  border-color: rgba(76, 141, 255, 0.25);
+}
+
+/* Citation badges */
+[data-theme='dark'] .DocSearch-AskAI-CitationBadge {
+  background: rgba(76, 141, 255, 0.12);
+  color: #93c5fd;
+  border-color: rgba(76, 141, 255, 0.25);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-CitationBadge:hover {
+  background: rgba(76, 141, 255, 0.2);
+  border-color: rgba(76, 141, 255, 0.4);
+}
+
+/* Feedback button */
+[data-theme='dark'] .DocSearch-AskAI-FeedbackBtn {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-FeedbackBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-FeedbackBtn.active {
+  background: rgba(76, 141, 255, 0.2);
+  border-color: rgba(76, 141, 255, 0.4);
+}
+
+/* Suggestion row */
+[data-theme='dark'] .DocSearch-AskAI-SuggestionRow {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Fullscreen AI panel background */
+[data-theme='dark'] .DocSearch-AskAI-Fullscreen {
+  background: var(--docsearch-modal-background);
+}
+
+/* Disclaimer bar */
+[data-theme='dark'] .DocSearch-AskAI-Disclaimer {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Button gradient for AI ask button */
+[data-theme='dark'] .DocSearch-AskAI-Button {
+  background: linear-gradient(
+    135deg,
+    rgba(76, 141, 255, 0.15) 0%,
+    rgba(167, 139, 250, 0.15) 100%
+  );
+  border-color: rgba(76, 141, 255, 0.3);
+}
+
+[data-theme='dark'] .DocSearch-AskAI-Button:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(76, 141, 255, 0.25) 0%,
+    rgba(167, 139, 250, 0.25) 100%
+  );
+  border-color: rgba(76, 141, 255, 0.5);
+}
+
+/* =============================================
+   RESPONSIVE — source/video/academy cards
+   ============================================= */
+
+@media (max-width: 768px) {
+  .DocSearch-AskAI-SourceCard {
+    flex: 0 0 100%;
+  }
+
+  .DocSearch-AskAI-VideoCard {
+    flex: 0 0 100%;
+  }
+
+  .DocSearch-AskAI-SourceCards,
+  .DocSearch-AskAI-VideoCards {
+    flex-direction: column;
+  }
+
+  .DocSearch-AskAI-MarketplaceCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .DocSearch-AskAI-MarketplaceCard-Icon {
+    margin-left: 0;
+  }
 }

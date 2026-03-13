@@ -175,7 +175,8 @@ export function useAIChat(pageContext, apiUrl) {
               case 'error':
                 fragments.push({
                   kind: 'text',
-                  content: `\n\n⚠️ Error: ${event.error}`,
+                  content:
+                    '\n\nSomething went wrong while generating a response. Please try again.',
                 });
                 setCurrentFragments([...fragments]);
                 break;
@@ -206,8 +207,14 @@ export function useAIChat(pageContext, apiUrl) {
           const errorMsg = {
             id: generateId(),
             role: 'assistant',
-            content: `Error: ${err.message}`,
-            fragments: [{ kind: 'text', content: `⚠️ ${err.message}` }],
+            content: 'Something went wrong. Please try again.',
+            fragments: [
+              {
+                kind: 'text',
+                content:
+                  'Something went wrong while generating a response. Please try again.',
+              },
+            ],
             timestamp: Date.now(),
           };
           setMessages((prev) => [...prev, errorMsg]);

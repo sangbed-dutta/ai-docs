@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import DocusaurusCodeBlock from '@theme/CodeBlock';
+import { useHistory } from '@docusaurus/router';
 
 import {
   SOURCE_ICONS,
@@ -34,52 +35,55 @@ function getBadgeClass(source) {
   }
 }
 
-const markdownComponents = {
-  code({ node: _node, inline, className, children, ...props }) {
-    const match = /language-(\w+)/.exec(className || '');
-    if (!inline && match) {
+function buildMarkdownComponents(navigate) {
+  return {
+    code({ node: _node, inline, className, children, ...props }) {
+      const match = /language-(\w+)/.exec(className || '');
+      if (!inline && match) {
+        return (
+          <DocusaurusCodeBlock language={match[1]} className={className}>
+            {String(children).replace(/\n$/, '')}
+          </DocusaurusCodeBlock>
+        );
+      }
       return (
-        <DocusaurusCodeBlock language={match[1]} className={className}>
-          {String(children).replace(/\n$/, '')}
-        </DocusaurusCodeBlock>
+        <code className={className} {...props}>
+          {children}
+        </code>
       );
-    }
-    return (
-      <code className={className} {...props}>
-        {children}
-      </code>
-    );
-  },
-  a({ node: _node, children, href, ...props }) {
-    const isInternal =
-      href &&
-      (href.startsWith('/') ||
-        (typeof window !== 'undefined' && href.includes(window.location.host)));
-    return (
-      <a
-        href={href}
-        onClick={
-          isInternal
-            ? (e) => {
-                e.preventDefault();
-                window.location.href = href;
-              }
-            : undefined
-        }
-        target={isInternal ? undefined : '_blank'}
-        rel={isInternal ? undefined : 'noopener noreferrer'}
-        {...props}
-      >
-        {children}
-      </a>
-    );
-  },
-  table({ node: _node, children, ...props }) {
-    return <table {...props}>{children}</table>;
-  },
-};
+    },
+    a({ node: _node, children, href, ...props }) {
+      const isInternal =
+        href &&
+        (href.startsWith('/') ||
+          (typeof window !== 'undefined' &&
+            href.includes(window.location.host)));
+      return (
+        <a
+          href={href}
+          onClick={
+            isInternal
+              ? (e) => {
+                  e.preventDefault();
+                  navigate(href);
+                }
+              : undefined
+          }
+          target={isInternal ? undefined : '_blank'}
+          rel={isInternal ? undefined : 'noopener noreferrer'}
+          {...props}
+        >
+          {children}
+        </a>
+      );
+    },
+    table({ node: _node, children, ...props }) {
+      return <table {...props}>{children}</table>;
+    },
+  };
+}
 
-function renderFragments(fragments) {
+function renderFragments(fragments, mdComponents) {
   const rendered = [];
   let textBuffer = '';
 
@@ -89,7 +93,7 @@ function renderFragments(fragments) {
         <ReactMarkdown
           key={key}
           remarkPlugins={[remarkGfm]}
-          components={markdownComponents}
+          components={mdComponents}
         >
           {textBuffer}
         </ReactMarkdown>,
@@ -171,6 +175,11 @@ export default function AIConversation({
   onFollowup,
   onAction,
 }) {
+  const history = useHistory();
+  const mdComponents = useMemo(
+    () => buildMarkdownComponents((url) => history.push(url)),
+    [history],
+  );
   const scrollRef = useRef(null);
   // Mobile: only one message's sources can be expanded at a time
   const [expandedMobileId, setExpandedMobileId] = useState(null);
@@ -228,7 +237,7 @@ export default function AIConversation({
                   <div className={styles.aiIcon}>W</div>
                   <div className={styles.aiText}>
                     {msg.fragments
-                      ? renderFragments(msg.fragments)
+                      ? renderFragments(msg.fragments, mdComponents)
                       : msg.content}
                   </div>
                 </div>
@@ -332,7 +341,7 @@ export default function AIConversation({
                 <div className={styles.aiRow}>
                   <div className={styles.aiIcon}>W</div>
                   <div className={styles.aiText}>
-                    {renderFragments(currentFragments)}
+                    {renderFragments(currentFragments, mdComponents)}
                     <span className={styles.streamCursor} />
                   </div>
                 </div>

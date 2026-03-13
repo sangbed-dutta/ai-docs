@@ -425,11 +425,21 @@ function CustomDocSearchModal({ onClose, apiUrl, ...props }) {
   const [activeTab, setActiveTab] = useState('search'); // 'search' | 'ask-ai'
   const [triggerSearch, setTriggerSearch] = useState(0);
 
-  // Listen for query changes from DocSearch
+  // Refs to avoid re-creating MutationObserver on every keystroke
+  const queryRef = useRef(query);
+  const activeTabRef = useRef(activeTab);
+  useEffect(() => {
+    queryRef.current = query;
+  }, [query]);
+  useEffect(() => {
+    activeTabRef.current = activeTab;
+  }, [activeTab]);
+
+  // Listen for query changes from DocSearch — stable effect, runs once
   useEffect(() => {
     const observer = new MutationObserver(() => {
       const input = document.querySelector('.DocSearch-Input');
-      if (input && input.value !== query) {
+      if (input && input.value !== queryRef.current) {
         setQuery(input.value);
       }
     });
@@ -452,7 +462,7 @@ function CustomDocSearchModal({ onClose, apiUrl, ...props }) {
 
     const handleKeyDown = (e) => {
       if (e.target.classList.contains('DocSearch-Input') && e.key === 'Enter') {
-        if (activeTab === 'ask-ai') {
+        if (activeTabRef.current === 'ask-ai') {
           // Prevent DocSearch form submission
           e.preventDefault();
           e.stopPropagation();
@@ -469,7 +479,7 @@ function CustomDocSearchModal({ onClose, apiUrl, ...props }) {
       document.removeEventListener('input', handleInput);
       document.removeEventListener('keydown', handleKeyDown, true);
     };
-  }, [query, activeTab]);
+  }, []);
 
   return (
     <>

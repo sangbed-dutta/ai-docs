@@ -24,6 +24,28 @@
   --shadow-card: 0 2px 8px rgba(27, 67, 130, 0.08);
 }
 
+/* Dark mode — follows Docusaurus [data-theme='dark'] convention */
+[data-theme='dark'] {
+  --wm-blue: #4c8dff;
+  --wm-blue-light: rgba(76, 141, 255, 0.12);
+  --wm-blue-mid: rgba(76, 141, 255, 0.25);
+  --wm-blue-dark: #8bb8ff;
+  --bg-modal: #1a2d4a;
+  --bg-panel: #15253f;
+  --bg-hover: rgba(76, 141, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-focus: #4c8dff;
+  --text: rgba(255, 255, 255, 0.92);
+  --text2: rgba(255, 255, 255, 0.72);
+  --text3: rgba(255, 255, 255, 0.48);
+  --text4: rgba(255, 255, 255, 0.28);
+  --green: #34d399;
+  --amber: #fbbf24;
+  --purple: #a78bfa;
+  --shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 2px 12px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
 /* OVERLAY */
 .overlay {
   position: fixed;
@@ -185,7 +207,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  background: white;
+  background: var(--bg-modal);
   border: 1px solid var(--wm-blue-mid);
   border-radius: 5px;
   padding: 2px 8px;
@@ -1010,7 +1032,7 @@
 
 /* SOURCE CARD */
 .srcCard {
-  background: white;
+  background: var(--bg-modal);
   border: 1px solid var(--border);
   border-radius: 10px;
   overflow: hidden;
@@ -1313,7 +1335,7 @@
 }
 
 .kbd {
-  background: white;
+  background: var(--bg-modal);
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 1px 5px;
@@ -1686,4 +1708,130 @@
   aspect-ratio: 16 / 9;
   border: none;
   display: block;
+}
+
+/* =============================================
+   DARK MODE OVERRIDES — element-level fixes
+   ============================================= */
+
+/* Source badges — softer tints on dark background */
+[data-theme='dark'] .sbadgeDocs {
+  background: rgba(76, 141, 255, 0.15);
+  color: #8bb8ff;
+  border-color: rgba(76, 141, 255, 0.3);
+}
+
+[data-theme='dark'] .sbadgeStorybook {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fcd34d;
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+[data-theme='dark'] .sbadgeMarketplace {
+  background: rgba(167, 139, 250, 0.15);
+  color: #c4b5fd;
+  border-color: rgba(167, 139, 250, 0.3);
+}
+
+[data-theme='dark'] .sbadgeAcademy {
+  background: rgba(52, 211, 153, 0.15);
+  color: #6ee7b7;
+  border-color: rgba(52, 211, 153, 0.3);
+}
+
+/* Source card icon backgrounds */
+[data-theme='dark'] .srcCardIconStorybook {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fcd34d;
+}
+
+[data-theme='dark'] .srcCardIconMarketplace {
+  background: rgba(167, 139, 250, 0.15);
+  color: #c4b5fd;
+}
+
+[data-theme='dark'] .srcCardIconAcademy {
+  background: rgba(52, 211, 153, 0.15);
+  color: #6ee7b7;
+}
+
+/* Result item icon backgrounds */
+[data-theme='dark'] .resultItemIconStorybook {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fcd34d;
+}
+
+[data-theme='dark'] .resultItemIconMarketplace {
+  background: rgba(167, 139, 250, 0.15);
+  color: #c4b5fd;
+}
+
+[data-theme='dark'] .resultItemIconAcademy {
+  background: rgba(52, 211, 153, 0.15);
+  color: #6ee7b7;
+}
+
+/* Timestamp badge */
+[data-theme='dark'] .timestampBadge {
+  background: rgba(52, 211, 153, 0.15);
+  color: #6ee7b7;
+}
+
+/* Quick-action buttons */
+[data-theme='dark'] .qaBtnMarketplace {
+  border-color: rgba(167, 139, 250, 0.3);
+  color: #c4b5fd;
+  background: rgba(167, 139, 250, 0.1);
+}
+
+[data-theme='dark'] .qaBtnMarketplace:hover {
+  background: rgba(167, 139, 250, 0.2);
+  border-color: #a78bfa;
+}
+
+[data-theme='dark'] .qaBtnStorybook {
+  border-color: rgba(251, 191, 36, 0.3);
+  color: #fcd34d;
+  background: rgba(251, 191, 36, 0.1);
+}
+
+[data-theme='dark'] .qaBtnStorybook:hover {
+  background: rgba(251, 191, 36, 0.2);
+  border-color: #fbbf24;
+}
+
+[data-theme='dark'] .qaBtnAcademy {
+  border-color: rgba(52, 211, 153, 0.3);
+  color: #6ee7b7;
+  background: rgba(52, 211, 153, 0.1);
+}
+
+[data-theme='dark'] .qaBtnAcademy:hover {
+  background: rgba(52, 211, 153, 0.2);
+  border-color: #34d399;
+}
+
+/* Overlay — deeper backdrop for dark */
+[data-theme='dark'] .overlay {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+/* Modal border */
+[data-theme='dark'] .modal {
+  border-color: rgba(76, 141, 255, 0.2);
+}
+
+/* Mini code block — already dark-ish, just align */
+[data-theme='dark'] .miniCode {
+  background: #0f1a2e;
+  color: #94a3c0;
+}
+
+/* Inline player header */
+[data-theme='dark'] .inlinePlayerWrapper {
+  background: #0a0a0a;
+}
+
+[data-theme='dark'] .inlinePlayerHeader {
+  background: #0f0f0f;
 }
