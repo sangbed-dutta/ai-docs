@@ -1,0 +1,168 @@
+---
+title: "Deploying WaveMaker Applications on Kubernetes"
+last_update: { author: "Tejaswini K" }
+sidebar_label: "Overview"
+---
+
+## Overview
+
+Kubernetes is an open-source container orchestration platform used to automate the deployment, scaling, and management of containerized applications.
+
+WaveMaker applications can be packaged as **Docker images**, which can then be deployed to container orchestration platforms.
+
+
+## Kubernetes Components Used for Deployment
+
+When deploying a WaveMaker application on Kubernetes, the following core components are involved.
+
+### Pod
+
+A **Pod** is the smallest deployable unit in Kubernetes.
+
+It contains one or more containers. For WaveMaker deployments, the container runs the **WaveMaker application Docker image**.
+
+```
+Pod
+ └── Container
+      └── WaveMaker Application
+```
+
+---
+
+### Deployment
+
+A **Deployment** manages application pods and ensures that the desired number of instances are running.
+
+It provides:
+
+- Automatic pod management
+- Rolling updates
+- Rollbacks
+
+---
+
+### Service
+
+A **Service** exposes the application to internal or external traffic.
+
+Common service types include:
+
+- **ClusterIP** – Internal communication within the cluster
+- **NodePort** – Exposes the service on each node’s IP and port
+- **LoadBalancer** – Exposes the service externally using a cloud provider load balancer
+
+The service routes incoming traffic to the application pods.
+
+---
+
+### ConfigMap and Secrets (Optional)
+
+ConfigMaps and Secrets allow you to provide configuration values to your application.
+
+Examples include:
+
+- Environment variables
+- API endpoints
+- Database configuration
+
+Secrets are used to securely store sensitive data such as:
+
+- Database credentials
+- API keys
+
+---
+
+### Ingress (Optional)
+
+Ingress provides **HTTP and HTTPS routing** to services inside the cluster.
+
+It allows domain-based routing such as:
+
+```
+app.example.com → WaveMaker Service
+```
+
+---
+
+## Creating Docker Images for WaveMaker Applications
+
+WaveMaker provides options to generate Docker images for applications.
+
+Once the image is built, it is usually pushed to a container registry such as:
+
+- Docker Hub
+- AWS Elastic Container Registry (ECR)
+- Azure Container Registry
+- Google Container Registry
+
+Example Docker image reference:
+
+```
+docker.io/example/wavemaker-app:latest
+```
+
+---
+
+## Deploying WaveMaker Docker Images on Kubernetes
+
+After generating the Docker image, Kubernetes can deploy the application using a **Deployment configuration**.
+
+### Example Deployment Configuration
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wavemaker-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wavemaker-app
+  template:
+    metadata:
+      labels:
+        app: wavemaker-app
+    spec:
+      containers:
+      - name: wavemaker-app
+        image: docker.io/example/wavemaker-app:latest
+        ports:
+        - containerPort: 8080
+```
+
+---
+
+### Example Service Configuration
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: wavemaker-service
+spec:
+  selector:
+    app: wavemaker-app
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: LoadBalancer
+```
+
+This service exposes the application externally and routes traffic to the running pods.
+
+---
+
+## Deployment Workflow
+
+The  workflow for deploying a WaveMaker application on Kubernetes is:
+
+1. Develop the application in WaveMaker.
+2. Generate a Docker image using WaveMaker build options.
+3. Push the Docker image to a container registry.
+4. Create Kubernetes deployment configuration files.
+5. Deploy the application to the Kubernetes cluster.
+6. Expose the application using a Service or Ingress.
+
+
+

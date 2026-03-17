@@ -248,7 +248,7 @@ export default [
             collapsible: true,
             collapsed: true,
             items: [
-              'build-and-deploy/pipeline/external-ci-cd-pipeline/jenkins/overview',
+              'build-and-deploy/pipeline/external-ci-cd-pipeline/jenkins/index',
             ],
           },
           {
@@ -257,7 +257,7 @@ export default [
             collapsible: true,
             collapsed: true,
             items: [
-              'build-and-deploy/pipeline/external-ci-cd-pipeline/kubernetes/overview',
+              'build-and-deploy/pipeline/external-ci-cd-pipeline/kubernetes/index',
             ],
           },
         ],
