@@ -18,7 +18,7 @@ This feature can be used in two approaches:
   </div>
 
   <div style={{ flex: 1 }}>
-    ![Auto layout](../../assets/layout-for-card-component.gif)
+    ![Auto layout](../../assets/component-first.gif)
   </div>
 </div>
 
@@ -35,10 +35,7 @@ This feature can be used in two approaches:
 Auto layout is provided in the WaveMaker component called Container. As soon as we select a Container in the canvas and shift our focus to the properties panel on the right, we have a section called “Layout”.
 Within Layout we have the following subsection with their respective configuration UI controls
 
-1. Direction
-   - Row(default)
-   - Column
-   - Wrap
+### 1. Direction
 
 <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
   <div style={{ flex: 1 }}>
@@ -50,10 +47,7 @@ Within Layout we have the following subsection with their respective configurati
   </div>
 </div>
 
-2. Width
-   - Fill(default)
-   - Hug
-   - User defined(takes an integer with or without units. If without unit, it assigns pixels in obscurity)
+### 2. Width
 
 <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
   <div style={{ flex: 1 }}>
@@ -65,10 +59,7 @@ Within Layout we have the following subsection with their respective configurati
   </div>
 </div>
 
-3. Height
-   -Fill(default)
-   - Hug
-   - User defined(takes an integer with or without units. If without unit, it assigns pixels in obscurity)
+### 3. Height
 
 <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
   <div style={{ flex: 1 }}>
@@ -81,21 +72,14 @@ Within Layout we have the following subsection with their respective configurati
   </div>
 </div>
 
-4. Clip Content(If enabled it provides options for various types of scrolling)
-   - No Scrolling(default)
-   - Vertical
-   - Horizontal
-   - Both Directions
-5. Alignment(Provides 9 options)
-   - Top Left(default)
-   - Top Center
-   - Top Right
-   - Middle Left
-   - Middle Center
-   - Middle Right
-   - Bottom Left
-   - Bottom Center
-   - Bottom Right
+### 4. Clip Content(If enabled it provides options for various types of scrolling)
+
+- No Scrolling(default)
+- Vertical
+- Horizontal
+- Both Directions
+
+### 5. Alignment
 
 <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
   <div style={{ flex: 1 }}>
@@ -108,10 +92,7 @@ Within Layout we have the following subsection with their respective configurati
   </div>
 </div>
 
-6. Gap(Accepts integer or Auto)
-   - Horizontal(default for Direction-row)
-   - Vertical(default for Direction-column)
-   - Auto
+### 6. Gap(Accepts integer or Auto)
 
 <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
   <div style={{ flex: 1 }}>
@@ -124,10 +105,7 @@ Within Layout we have the following subsection with their respective configurati
   </div>
 </div>
 
-7. Padding(Accepts horizontal/Vertical or individual padding)
-   - Left-Right(Horizontal)
-   - Top-Bottom(Vertical)
-   - Individual(four directions independently)
+### 7. Padding(Accepts horizontal/Vertical or individual padding)
 
 <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
   <div style={{ flex: 1 }}>
@@ -146,12 +124,12 @@ For a complete understanding of how Auto Layout works in practice, watch the **A
     <div style={{ position: "relative", paddingBottom: "56.25%" }}>
       <iframe
         style={{
-  width: "100%",
-  height: "100%",
-  position: "absolute",
-  left: 0,
-  top: 0,
-  borderRadius: 10
+width: "100%",
+height: "100%",
+position: "absolute",
+left: 0,
+top: 0,
+borderRadius: 10
 }}
         src="https://embed.app.guidde.com/playbooks/5o5iUfSnGjfTmySi58nwF8?mode=videoOnly"
         title="Auto Layout"
