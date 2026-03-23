@@ -1,4 +1,5 @@
 ---
+hide_table_of_contents: true
 last_update: { author: 'Shahnawaz Ahmed' }
 ---
 
@@ -14,7 +15,14 @@ This feature can be used in two approaches:
 
 <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
   <div style={{ flex: 1 }}>
-    1. **Component first approach**: In this approach you don't worry about layout first. You bring in all or a bunch of  your components into the canvas. And then you decide how you visually want to group them. Then you multiselect one group of components using the shift key and mouse click. Now you right click on any of the selected components and select “Add Auto Layout”. Remember multi select works for only sibling components. This action wraps these siblings into an Auto Layout container. And now you apply your preferred layout configurations
+    1. **Component first approach**:
+
+    <ol type="a">
+      <li>Drop all your components onto the canvas without focusing on layout initially.</li>
+      <li>Group what belongs together and multi-select siblings using Shift + click/tap.</li>
+      <li>Right-click and choose “Add Auto Layout.”</li>
+      <li>Fine-tune the layout settings inside the new Auto Layout container.</li>
+    </ol>
   </div>
 
   <div style={{ flex: 1 }}>
@@ -22,13 +30,20 @@ This feature can be used in two approaches:
   </div>
 </div>
 
-<div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
+<div style={{ display: "flex", gap: "2rem", alignItems: "flex-start", marginTop: "3rem", marginBottom: "3rem" }}>
   <div style={{ flex: 1 }}>
-    2. **Layout first approach**: This approach requires prior planning of the layout. You create layout containers first and then design your layout based on your visual design. And then you drop your children components, like, anchor, labels, picture etc and then create your page or sections of your page.
+    2. **Layout first approach**:
+
+    <ol type="a">
+      <li>Plan your layout structure in advance.</li>
+      <li>Create layout containers based on your design.</li>
+      <li>Add child components (e.g., anchors, labels, images) into the containers.</li>
+      <li>Assemble your page or sections using these structured layouts.</li>
+    </ol>
   </div>
 
   <div style={{ flex: 1 }}>
-    ![Auto layout](../../assets/layout-first-approach.gif)
+    ![Auto layout](../../assets/layout-first.gif)
   </div>
 </div>
 
