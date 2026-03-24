@@ -45,6 +45,17 @@ export function useAIChat(pageContext, apiUrl) {
   const [activeMessageId, setActiveMessageId] = useState(null);
   const abortRef = useRef(null);
 
+  const updateMessage = useCallback((messageId, updater) => {
+    setMessages((prev) =>
+      prev.map((message) => {
+        if (message.id !== messageId) return message;
+        return typeof updater === 'function'
+          ? updater(message)
+          : { ...message, ...updater };
+      }),
+    );
+  }, []);
+
   // Persist messages on change
   useEffect(() => {
     saveMessages(messages);
@@ -108,6 +119,7 @@ export function useAIChat(pageContext, apiUrl) {
         const sourceCards = [];
         let followupSuggestions = [];
         let actions = [];
+        let responseMeta = null;
 
         while (true) {
           const { done, value } = await reader.read();
@@ -172,6 +184,9 @@ export function useAIChat(pageContext, apiUrl) {
                 actions = event.actions;
                 setActiveActions(event.actions);
                 break;
+              case 'metadata':
+                responseMeta = event.data || null;
+                break;
               case 'error':
                 fragments.push({
                   kind: 'text',
@@ -197,6 +212,10 @@ export function useAIChat(pageContext, apiUrl) {
           sourceCards: [...sourceCards],
           followups: followupSuggestions,
           actions,
+          traceId: responseMeta?.trace_id || null,
+          feedbackStatus: 'idle',
+          feedbackHelpful: null,
+          feedbackReason: null,
           timestamp: Date.now(),
         };
 
@@ -242,6 +261,55 @@ export function useAIChat(pageContext, apiUrl) {
     abortRef.current?.abort();
   }, []);
 
+  const submitFeedback = useCallback(
+    async (messageId, { helpful, reason = null, comment = null } = {}) => {
+      const message = messages.find((item) => item.id === messageId);
+      if (!message?.traceId || message.feedbackStatus === 'submitting') {
+        return false;
+      }
+
+      updateMessage(messageId, {
+        feedbackStatus: 'submitting',
+        feedbackHelpful: helpful,
+        feedbackReason: reason,
+      });
+
+      try {
+        const response = await fetch(`${apiUrl}/api/v1/chat/feedback`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            traceId: message.traceId,
+            helpful,
+            reason,
+            comment,
+            sessionId: getSessionId(),
+            pageSlug: pageContext?.pageSlug || '',
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Feedback API error: ${response.status}`);
+        }
+
+        updateMessage(messageId, {
+          feedbackStatus: 'submitted',
+          feedbackHelpful: helpful,
+          feedbackReason: reason,
+        });
+        return true;
+      } catch {
+        updateMessage(messageId, {
+          feedbackStatus: 'failed',
+          feedbackHelpful: helpful,
+          feedbackReason: reason,
+        });
+        return false;
+      }
+    },
+    [apiUrl, messages, pageContext?.pageSlug, updateMessage],
+  );
+
   return {
     messages,
     isStreaming,
@@ -253,6 +321,7 @@ export function useAIChat(pageContext, apiUrl) {
     activeMessageId,
     setActiveMessageId,
     sendMessage,
+    submitFeedback,
     clearHistory,
     cancelStream,
   };

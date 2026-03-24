@@ -20,6 +20,14 @@ const BADGE_ICONS = {
   academy: '✦',
 };
 
+const FEEDBACK_REASONS = [
+  { value: 'incorrect', label: 'Incorrect' },
+  { value: 'incomplete', label: 'Incomplete' },
+  { value: 'not_relevant', label: 'Not relevant' },
+  { value: 'outdated', label: 'Outdated' },
+  { value: 'unclear', label: 'Unclear' },
+];
+
 function getBadgeClass(source) {
   switch (source) {
     case 'docs':
@@ -182,6 +190,7 @@ export default function AIConversation({
   onSelectMessage,
   onFollowup,
   onAction,
+  onFeedback,
 }) {
   const history = useHistory();
   const mdComponents = useMemo(
@@ -191,6 +200,8 @@ export default function AIConversation({
   const scrollRef = useRef(null);
   // Mobile: only one message's sources can be expanded at a time
   const [expandedMobileId, setExpandedMobileId] = useState(null);
+  const [feedbackPromptId, setFeedbackPromptId] = useState(null);
+  const [feedbackReasonByMessage, setFeedbackReasonByMessage] = useState({});
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -200,6 +211,17 @@ export default function AIConversation({
 
   const toggleMobileSources = (msgId) => {
     setExpandedMobileId((prev) => (prev === msgId ? null : msgId));
+  };
+
+  const selectFeedbackReason = (msgId, reason) => {
+    setFeedbackReasonByMessage((prev) => ({ ...prev, [msgId]: reason }));
+  };
+
+  const submitNegativeFeedback = async (msgId, reason = null) => {
+    const success = await onFeedback(msgId, { helpful: false, reason });
+    if (success) {
+      setFeedbackPromptId((prev) => (prev === msgId ? null : prev));
+    }
   };
 
   return (
@@ -220,6 +242,14 @@ export default function AIConversation({
 
           const isActive = activeMessageId === msg.id;
           const sourceCount = msg.sourceCards?.length || 0;
+          const selectedReason = feedbackReasonByMessage[msg.id] || null;
+          const showFeedbackPrompt =
+            feedbackPromptId === msg.id && msg.feedbackStatus !== 'submitted';
+          const canRateMessage =
+            msg.traceId &&
+            !isStreaming &&
+            msg.feedbackStatus !== 'submitted' &&
+            msg.feedbackStatus !== 'submitting';
 
           return (
             <React.Fragment key={msg.id}>
@@ -321,6 +351,104 @@ export default function AIConversation({
                       </button>
                     );
                   })}
+                </div>
+              )}
+
+              {msg.traceId && (
+                <div className={styles.feedbackBar}>
+                  {msg.feedbackStatus === 'submitted' ? (
+                    <div className={styles.feedbackThanks}>
+                      <span className={styles.feedbackThanksIcon}>
+                        {msg.feedbackHelpful ? '👍' : '👎'}
+                      </span>
+                      <span>
+                        Feedback recorded
+                        {!msg.feedbackHelpful && msg.feedbackReason
+                          ? ` • ${FEEDBACK_REASONS.find((item) => item.value === msg.feedbackReason)?.label || msg.feedbackReason}`
+                          : ''}
+                      </span>
+                    </div>
+                  ) : (
+                    <>
+                      <div className={styles.feedbackLabel}>
+                        Was this helpful?
+                      </div>
+                      <div className={styles.feedbackActions}>
+                        <button
+                          type="button"
+                          className={styles.feedbackBtn}
+                          onClick={() => onFeedback(msg.id, { helpful: true })}
+                          disabled={!canRateMessage}
+                        >
+                          👍 Helpful
+                        </button>
+                        <button
+                          type="button"
+                          className={styles.feedbackBtn}
+                          onClick={() =>
+                            setFeedbackPromptId((prev) =>
+                              prev === msg.id ? null : msg.id,
+                            )
+                          }
+                          disabled={msg.feedbackStatus === 'submitting'}
+                        >
+                          👎 Not helpful
+                        </button>
+                      </div>
+
+                      {showFeedbackPrompt && (
+                        <div className={styles.feedbackPrompt}>
+                          <div className={styles.feedbackPromptLabel}>
+                            What was wrong?
+                          </div>
+                          <div className={styles.feedbackReasonChips}>
+                            {FEEDBACK_REASONS.map((reason) => (
+                              <button
+                                key={reason.value}
+                                type="button"
+                                className={`${styles.feedbackChip} ${
+                                  selectedReason === reason.value
+                                    ? styles.feedbackChipActive
+                                    : ''
+                                }`}
+                                onClick={() =>
+                                  selectFeedbackReason(msg.id, reason.value)
+                                }
+                              >
+                                {reason.label}
+                              </button>
+                            ))}
+                          </div>
+                          <div className={styles.feedbackPromptActions}>
+                            <button
+                              type="button"
+                              className={styles.feedbackLinkBtn}
+                              onClick={() => submitNegativeFeedback(msg.id)}
+                              disabled={msg.feedbackStatus === 'submitting'}
+                            >
+                              Skip
+                            </button>
+                            <button
+                              type="button"
+                              className={styles.feedbackSubmitBtn}
+                              onClick={() =>
+                                submitNegativeFeedback(msg.id, selectedReason)
+                              }
+                              disabled={msg.feedbackStatus === 'submitting'}
+                            >
+                              Submit
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {msg.feedbackStatus === 'failed' && (
+                        <div className={styles.feedbackError}>
+                          Unable to record feedback. Please try again.
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
               )}
 

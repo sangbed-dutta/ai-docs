@@ -31,7 +31,8 @@ import askAiStyles from './styles.module.css';
 import { DocsIcon } from './SourceIcons';
 
 // Default API URL for ecosystem agent
-const DEFAULT_API_URL = 'http://localhost:8000';
+// const DEFAULT_API_URL = 'http://localhost:8000';
+const DEFAULT_API_URL = 'http://54.147.142.76:8069';
 
 // Global flag to prevent multiple DocSearch modals from opening
 let globalModalOpen = false;
@@ -337,6 +338,7 @@ function AskAIPanel({
               onSelectMessage={chat.setActiveMessageId}
               onFollowup={handleFollowup}
               onAction={handleAction}
+              onFeedback={chat.submitFeedback}
             />
           ) : (
             <EmptyState

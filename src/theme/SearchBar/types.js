@@ -23,11 +23,15 @@
  * @property {string} id
  * @property {'user' | 'assistant'} role
  * @property {string} content
+ * @property {string} [traceId]
  * @property {Array} [fragments]
  * @property {TraceStep[]} [traceSteps]
  * @property {SourceCard[]} [sourceCards]
  * @property {string[]} [followups]
  * @property {QuickAction[]} [actions]
+ * @property {'idle' | 'submitting' | 'submitted' | 'failed'} [feedbackStatus]
+ * @property {boolean | null} [feedbackHelpful]
+ * @property {string | null} [feedbackReason]
  * @property {number} timestamp
  *
  * @typedef {Object} PageContext
