@@ -20,7 +20,7 @@ const noAuthorIds = new Set(metrics.noAuthorIds);
  * @returns {any[]}
  */
 function highlightMissing(items) {
-  return items.map(item => {
+  return items.map((item) => {
     // If it's a shorthand doc (string), handle it
     if (typeof item === 'string') {
       if (authorNameIds.has(item)) {
@@ -74,9 +74,11 @@ let sidebars = {
   releaseNotesSidebar,
 };
 
-for (const key in sidebars) {
-  // @ts-ignore
-  sidebars[key] = highlightMissing(sidebars[key]);
+if (process.env.AWS_BRANCH !== 'prod') {
+  for (const key in sidebars) {
+    // @ts-ignore
+    sidebars[key] = highlightMissing(sidebars[key]);
+  }
 }
 
 export default sidebars;

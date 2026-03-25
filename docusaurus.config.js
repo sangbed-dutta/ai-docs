@@ -74,7 +74,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           //TODO: Update the editUrl to point to correct branch
-          editUrl: 'https://github.com/wavemaker/docs/tree/release-12/',
+          editUrl: 'https://github.com/wavemaker/ai-docs/tree/main/',
           showLastUpdateTime: true,
           showLastUpdateAuthor: true,
         },
@@ -86,8 +86,7 @@ const config = {
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/wavemaker/ai-docs/tree/main/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'ignore',
@@ -98,7 +97,12 @@ const config = {
           path: 'blogs/blog',
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: [
+            './src/css/custom.css',
+            ...(process.env.AWS_BRANCH === 'prod'
+              ? []
+              : ['./src/css/non-prod.css']),
+          ],
         },
         gtag: {
           trackingID: 'G-QMMNM743FK',

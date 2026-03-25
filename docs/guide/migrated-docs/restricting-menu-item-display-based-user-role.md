@@ -4,13 +4,14 @@ id: restricting-menu-item-display-based-user-role
 sidebar_label: Restricting Menu Items based on the User Role
 last_update: { author: "WaveMaker" }
 ---
+
 ---
 
 **Problem Statement**: How to restrict certain users from accessing pages, links based on their login credentials. Using the **User Role** property of a Menu or Nav widget, you can restrict user access to certain pages or links based on the User Role value.
 
 ## Restrict Users to access Admin Data
 
-To restrict 'user' role to access 'admin' related links (pages), use the following JSON structure for the Model Variable bound to the [Menu widget](/docs/user-interfaces/web/components/angular-components/navigation/dropdown-menu-use-cases).
+To restrict 'user' role to access 'admin' related links (pages), use the following JSON structure for the Model Variable bound to the [Menu widget](#).
 
 ```json
 [
@@ -64,5 +65,5 @@ The user role values should be the same as that given while [enabling Security f
 
 ## See Also
 
-[Dropdown Menu Basic Usage](/docs/user-interfaces/web/components/angular-components/navigation/dropdown-menu-use-cases)  
-[How to localize menu items](/docs/guide/migrated-docs/implementing-localization-dropdown-menu)  
+[Dropdown Menu Basic Usage](#)\
+[How to localize menu items](/docs/guide/migrated-docs/implementing-localization-dropdown-menu)

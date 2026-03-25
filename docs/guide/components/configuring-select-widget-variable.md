@@ -3,6 +3,7 @@ title: "Configuring Select Widget from a Variable"
 id: "configuring-select-widget-variable"
 last_update: { author: "WaveMaker" }
 ---
+
 A Select widget can be used in various ways based on the source of data. Each type of data source needs a different approach. WaveMaker Select widget works in any one of the following ways:
 
 - [Using static list of values](./configuring-select-widget-static-list-values.md)
@@ -20,7 +21,7 @@ Instead of having a [comma-separated list](./configuring-select-widget-static-li
 6. The selection made by the user is displayed in a Label widget, by binding the select datavalue to it. [![](./assets/img/sel_list_res.png)](./assets/img/sel_list_res.png)
 7. Preview the app and see the selected item from the Select widget displayed in the label.
 
-<!-- <!-- [Select Use Cases](/learn/app-development/widgets/form-widgets/select-use-cases/) --> -->
+[Select Use Cases](#)
 
 - [1. How to use list of values for select widget configuration](./configuring-select-widget-static-list-values.md)
 - [2. How to use variable for select widget configuration](#)

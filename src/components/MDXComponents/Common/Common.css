@@ -1,0 +1,45 @@
+.wm-ai-heading {
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: linear-gradient(120deg, #4fd1ff, #3b82f6, #1d4ed8, #4fd1ff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: waveGradient 4s ease-in-out infinite;
+  text-shadow: 0 0 25px rgba(59, 130, 246, 0.25);
+  font-size: calc(var(--ifm-h1-font-size) * var(--wm-ai-scale, 1));
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  line-height: 1;
+  gap: 16px;
+  width: fit-content;
+  margin-bottom: 1rem;
+}
+
+.wm-ai-heading .ai-bold {
+  font-weight: 900;
+}
+
+.wm-ai-heading-text {
+  white-space: nowrap;
+}
+
+.wm-ai-heading-children {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.14em; /* Nudges the pill to sit on the visual 'floor' of the capital letters */
+}
+
+@keyframes waveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

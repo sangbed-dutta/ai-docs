@@ -3,6 +3,7 @@ title: "Selection Widgets - Use Case"
 id: "selection-widgets-use-case"
 last_update: { author: "WaveMaker" }
 ---
+
 WaveMaker offers three ways of allowing user to choose from given options:
 
 - Select: **Select** widget lets the user to select values from an available list of options. The options are given in the form of a drop-down list from which the user can choose one option.
@@ -26,20 +27,20 @@ This document gives you the usage details of these three widgets. We will be:
 [![](./assets/img/selection_run2.png)](./assets/img/selection_run2.png)
 
 1. Open/Create a project.
-2. <!-- <!-- [Import the default hrdb database](/learn/app-development/services/database-services/working-with-databases/) --> -->.
-3. <!-- <!-- [Write and save a query](/learn/app-development/services/database-services/working-with-queries) --> --> to retrieve the total number of employees from a given city, state, zip. Save it as EmpTotal.
-    
-    select count(EMP_ID) as total
-    from employee
-    where city = :city and state = :state and zip = :zip
-    group by city, state, zip
-    
-    [![](./assets/img/selection_query.png)](./assets/img/selection_query.png)
+2. [Import the default hrdb database](#).
+3. [Write and save a query](#) to retrieve the total number of employees from a given city, state, zip. Save it as EmpTotal.
+
+   select count(EMP\_ID) as total
+   from employee
+   where city = :city and state = :state and zip = :zip
+   group by city, state, zip
+
+   [![](./assets/img/selection_query.png)](./assets/img/selection_query.png)
 4. Drag and drop a Select, Radioset, Checkboxset and a Label widget onto the canvas. [![](./assets/img/selection_design.png)](./assets/img/selection_design.png)
 5. Create a [Database Crud Variable](./how-tos/assets/img/var_sel.png) for the Employee entity [![](./assets/img/selection_lv.png)](./assets/img/selection_lv.png)
 6. Bind the widgets thus:
-    - **Select**: bind it to the Employee - Set the datafield property to city and display field also to city. The display field is the value that the user sees while the datafield is the value that is internally represents the display value. In this case both are the same. [![](./assets/img/selection_sel_prop.png)](./assets/img/selection_sel_prop.png)
-    - Repeat the above two steps for **Radioset** and **Checkboxset**. Choose the appropriate properties. [![](./assets/img/selection_check_prop.png)](./assets/img/selection_check_prop.png)       [![](./assets/img/selection_radio_prop.png)](./assets/img/selection_radio_prop.png)
+   - **Select**: bind it to the Employee - Set the datafield property to city and display field also to city. The display field is the value that the user sees while the datafield is the value that is internally represents the display value. In this case both are the same. [![](./assets/img/selection_sel_prop.png)](./assets/img/selection_sel_prop.png)
+   - Repeat the above two steps for **Radioset** and **Checkboxset**. Choose the appropriate properties. [![](./assets/img/selection_check_prop.png)](./assets/img/selection_check_prop.png)       [![](./assets/img/selection_radio_prop.png)](./assets/img/selection_radio_prop.png)
 7. Create a [Database API Variable](./how-tos/assets/img/var_sel.png) for the Query service [![](./assets/img/selection_sv.png)](./assets/img/selection_sv.png)
 8. Bind variable data city, state and zip to the selected values of Select, Checkboxset and Radioset widgets. [![](./assets/img/selection_SV_data.png)](./assets/img/selection_SV_data.png) [![](./assets/img/selection_SV_bind.png)](./assets/img/selection_SV_bind.png)
 9. Bind the caption property of the Label widget to the output from the query [![](./assets/img/selection_text.png)](./assets/img/selection_text.png)

@@ -14,7 +14,14 @@ import VideoCard from '@site/src/components/MDXComponents/VideoCard/VideoCard';
 import WMComponents from '@site/src/components/MDXComponents/WMComponents/WMComponents';
 import Link from '@docusaurus/Link';
 import AcademyCard from '@site/src/components/MDXComponents/AcademyCard/AcademyCard';
-import { TabsWrapper, TabItem } from '@site/src/components/MDXComponents/LayoutComponents/Tabs';
+import {
+  TabsWrapper,
+  TabItem,
+} from '@site/src/components/MDXComponents/LayoutComponents/Tabs/Tabs';
+import { Pill } from '@site/src/components/MDXComponents/Pills/Pills';
+import { Accordian } from '@site/src/components/MDXComponents/LayoutComponents/Accordian/Accordian';
+import * as Common from '@site/src/components/MDXComponents/Common/Common';
+
 const MDXComponents = {
   Head,
   details: MDXDetails, // For MD mode support, see https://github.com/facebook/docusaurus/issues/9092#issuecomment-1602902274
@@ -38,6 +45,9 @@ const MDXComponents = {
   Link,
   AcademyCard,
   TabsWrapper,
-  TabItem
+  TabItem,
+  Pill,
+  Accordian,
+  Common,
 };
 export default MDXComponents;

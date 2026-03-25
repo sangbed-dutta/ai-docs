@@ -13,7 +13,7 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "manage-docs": "node scripts/doc-manager.mjs",
-    "pre-build-scripts": "node scripts/gen-metrics.js && node scripts/gen-tech-stack-versions.js",
+    "pre-build-scripts": "node scripts/gen-metrics.js && node scripts/domain-metrics/gen-domain-usage.js && node scripts/gen-tech-stack-versions.js",
     "gen-metrics": "node scripts/gen-metrics.js",
     "prepare": "husky",
     "lint": "eslint . && mdxlint . --frail"

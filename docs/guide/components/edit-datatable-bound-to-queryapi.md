@@ -4,6 +4,7 @@ id: "edit-datatable-bound-to-queryapi"
 sidebar_label: "Edit DataTable records bound to Query API"
 last_update: { author: "WaveMaker" }
 ---
+
 ---
 
 Typically when the Data Table widget is bound to a query API, the Edit and Update operations are not supported by default. However, you can still achieve this functionality by customizing the Edit and Update properties using the following approach.
@@ -14,11 +15,11 @@ In this example, we are using an Employee table from the `HRDB` sample database.
 
 ### Create a Query
 
-1. Go to the database design and create a <!-- <!-- [query](/learn/app-development/services/database-services/working-with-queries#query-creation) --> --> to get the employee details.
+1. Go to the database design and create a [query](#) to get the employee details.
 
 ### Create a Database API Variable
 
-2. To create a **Database API** variable, go to <!-- <!-- [Variables](/learn/app-development/variables/variables) --> -->, select **New Variable** and click **Database APIs**.
+2. To create a **Database API** variable, go to [Variables](#), select **New Variable** and click **Database APIs**.
 
 3. Select the `HRDB` database from the dropdown and choose the **API Type** as **Query APIs**. **Select Query** *[the executed-query](#create-a-query)* from the dropdown. Name the variable and click **Done**.
 
@@ -26,7 +27,7 @@ In this example, we are using an Employee table from the `HRDB` sample database.
 
 ### Create a Data Table
 
-4. Drag and drop the [Data Table](../../user-interfaces/web/components/angular-components/datalive/datatable/data-table-basic-usage.md#configure-data-table) widget and bind the [Database API variable](#create-a-database-api-variable) created above.
+4. Drag and drop the [Data Table](##configure-data-table) widget and bind the [Database API variable](#create-a-database-api-variable) created above.
 
 ### Configure Actions
 
@@ -36,7 +37,7 @@ In this example, we are using an Employee table from the `HRDB` sample database.
 
 ### Create a Database CRUD Variable
 
-6. Create another variable for the Employee table to update the records. To create a **Database CRUD** variable, go to <!-- <!-- [Variables](/learn/app-development/variables/variables) --> -->, select **New Variable** and click **Database CRUD**.
+6. Create another variable for the Employee table to update the records. To create a **Database CRUD** variable, go to [Variables](#), select **New Variable** and click **Database CRUD**.
 
 7. Select the `HRDB` database from the dropdown and choose the **Employee** table (in this case). And, set the operation as **Update** from the dropdown. Name the variable and click **Done**.
 

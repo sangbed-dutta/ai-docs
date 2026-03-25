@@ -3,6 +3,7 @@ title: "Configuring Select Widget using Display and Data Fields"
 id: "configuring-select-widget-display-data-fields"
 last_update: { author: "WaveMaker" }
 ---
+
 A Select widget can be used in various ways based on the source of data. Each type of data source needs a different approach. WaveMaker Select widget works in any one of the following ways:
 
 - [Using static list of values](./configuring-select-widget-static-list-values.md)
@@ -19,30 +20,29 @@ Usually, when giving options to the user, one would want the option to make sens
 
 3. Select **Entry** as Type. Check the **Is List** property to confirm that the variable is storing the list and add the list values. You can use the text editor to enter the values in JSON format.
 
-![select_widget_values](./assets/img/configure-variable.png)
+![select\_widget\_values](./assets/img/configure-variable.png)
 
 ## Binding Select Widget with Variable
 
 1. Bind the dataset of the **Model** variable to the **Select** widget.
 
-![select_widget_values](./assets/img/bind-model-variable.png)
+![select\_widget\_values](./assets/img/bind-model-variable.png)
 
 2. Set the **Data field** property to the **dataValue** and **Display Field** to the **name** of the static variable.
 
-![select_widget_ValueProperties](./assets/img/select_widget_ValueProperties.png)
+![select\_widget\_ValueProperties](./assets/img/select_widget_ValueProperties.png)
 
 3. Drag and drop two **Label** widgets and bind them using the below **Use Expression** to show the Data value and display values.
 
-    ![select_widget_displayvalue](./assets/img/display-value.png)
+   ![select\_widget\_displayvalue](./assets/img/display-value.png)
 
-    ![select_widget_datavalue](./assets/img/select-widget-datavalue.png)
+   ![select\_widget\_datavalue](./assets/img/select-widget-datavalue.png)
 
 4. Preview the app and see the Display Value and Data Value of the selected item from the **Select** widget displayed on the screen with the use of the **Label** widget.
 
-     ![select_widget_ListResult](./assets/img/select_widget_ListResult.png)
+   ![select\_widget\_ListResult](./assets/img/select_widget_ListResult.png)
 
-
-<!-- <!-- [Select Use Cases](/learn/app-development/widgets/form-widgets/select-use-cases/) --> -->
+[Select Use Cases](#)
 
 - [1. How to use list of values for select widget configuration](./configuring-select-widget-static-list-values.md)
 - [2. How to use variable for select widget configuration](./configuring-select-widget-variable.md)

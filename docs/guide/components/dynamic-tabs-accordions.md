@@ -4,6 +4,7 @@ id: "dynamic-tabs-accordions"
 sidebar_label: "Dynamic Tabs and Accordions"
 last_update: { author: "WaveMaker" }
 ---
+
 ---
 
 ## Dynamic Tabs
@@ -13,7 +14,7 @@ Tab is an essential navigation element of every web application. WaveMaker provi
 Now you can bind a dataset to the Tabs widget. Based on the dataset, a number of Tab panes are generated.
 
 :::note
-To provide static values for the **dataset value**, we recommend you use a static tab widget. For example, comma-separated values. For more information, see [Static Tabs](../../user-interfaces/web/components/angular-components/container/tabs.md).
+To provide static values for the **dataset value**, we recommend you use a static tab widget. For example, comma-separated values. For more information, see [Static Tabs](#).
 :::
 
 ## Tabs Usecase
@@ -24,13 +25,13 @@ Dynamically open new tab pages based on user interaction. When you select a row 
 
 ### 1. Import DB
 
-- Navigate to the Databases section and import **Sample HR database**. For more information, see <!-- <!-- [Working with Databases](/learn/app-development/services/database-services/working-with-databases/) --> -->.
+- Navigate to the Databases section and import **Sample HR database**. For more information, see [Working with Databases](#).
 
 ### 2. Create a Partial and Configure Card Widget
 
-- Create a <!-- <!-- [Partial](/learn/app-development/ui-design/page-concepts/partial-pages) --> --> page and name it **PartialEmployee**.
+- Create a [Partial](#) page and name it **PartialEmployee**.
 
-- Drag and drop the **Card** widget. Bind it to the **Employee** Entity from the [imported database](./dynamic-tabs-accordions.md#1-import-db) and configure the **Card** widget. For more information, see [Configure Card](../../user-interfaces/web/components/angular-components/datalive/cards/card-basic-usage.md).
+- Drag and drop the **Card** widget. Bind it to the **Employee** Entity from the [imported database](./dynamic-tabs-accordions.md#1-import-db) and configure the **Card** widget. For more information, see [Configure Card](#).
 
 - Select Partial. Add a Partial param for the Partial page as **deptId** with an `integer` type.
 
@@ -48,7 +49,7 @@ Dynamically open new tab pages based on user interaction. When you select a row 
 
 ### 4. Configure Datatable
 
-- Drag and drop Datatable and set the datasource as **Department** Entity from the [imported database](./dynamic-tabs-accordions.md#1-import-db). For more information, see [Configure Datatable](../../user-interfaces/web/components/angular-components/datalive/datatable/data-table-basic-usage.md).
+- Drag and drop Datatable and set the datasource as **Department** Entity from the [imported database](./dynamic-tabs-accordions.md#1-import-db). For more information, see [Configure Datatable](#).
 
 ### 5. Configure Dynamic Tab
 
@@ -99,16 +100,15 @@ Page.DepartmentTable1Rowselect = function($event, widget, row) {
 - When you select the rows in the department table, a separate Tab Pane gets added dynamically to view Employee record.
 
 :::note
-You can also remove the Tab Panes added by removing the item from the Model Variable. For more information, see <!-- <!-- [Remove Item in Model Variable](/learn/app-development/variables/model-variable#removeitemindex) --> -->.
+You can also remove the Tab Panes added by removing the item from the Model Variable. For more information, see [Remove Item in Model Variable](#).
 :::
 
 ## Dynamic Accordion
 
 In the same way, you can create a fully dynamic and flexible Accordion without much efforts. Simply bind a dataset to the Accordion widget. Based on the dataset, a number of Accordion Panes will generate.
 
-An Accordion is an interactive component consisting of panels with headers and content sections. You can click these panels to expand and collapse to show the description area. 
+An Accordion is an interactive component consisting of panels with headers and content sections. You can click these panels to expand and collapse to show the description area.
 
 :::note
 The same usecase of the Dynamic Tabs can be implemented for the Dynamic Accordions as well.
 :::
-

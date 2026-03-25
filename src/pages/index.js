@@ -109,7 +109,7 @@ const resourcesData = [
 export function EnvList({ prop }) {
   return (
     <ul className="env-list-group">
-      {prop.map(item => {
+      {prop.map((item) => {
         const content = (
           <>
             <div className="icon-svg">
@@ -145,7 +145,7 @@ export function EnvList({ prop }) {
 export function ResourceList({ prop }) {
   return (
     <ul className="res-list-group">
-      {prop.map(item => {
+      {prop.map((item) => {
         return (
           <li className="res-list-item" key={item.id}>
             <div className="img-wrapper">{item.icon}</div>
@@ -216,10 +216,14 @@ export default function Home() {
                 <br /> Developer
               </h2>
               <p className="desc">
-                Discover the WaveMaker Academy and explore a curated set of expert-led courses. Gain
-                the knowledge you need to build confidently with WaveMaker.
+                Discover the WaveMaker Academy and explore a curated set of
+                expert-led courses. Gain the knowledge you need to build
+                confidently with WaveMaker.
               </p>
-              <Link to="https://academy.wavemaker.ai/" className="button button--primary">
+              <Link
+                to="https://academy.wavemaker.ai/"
+                className="button button--primary"
+              >
                 Go to Academy
               </Link>
             </div>
@@ -237,11 +241,12 @@ export default function Home() {
               <span className="highlight-span">What's New</span>
               <h2 className="title">Marketplace</h2>
               <p className="desc">
-                A library for developers in the WaveMaker community, where they can access
-                ready-to-use artifacts and also contribute back to the ecosystem.
+                A library for developers in the WaveMaker community, where they
+                can access ready-to-use artifacts and also contribute back to
+                the ecosystem.
               </p>
               <Link
-                to="https://next-marketplace.onwavemaker.com/"
+                to="https://marketplace.wavemaker.ai/"
                 className="button button--primary"
               >
                 Start Building
@@ -262,8 +267,9 @@ export default function Home() {
             <div className="right-content">
               <h2 className="title">WaveMaker UI Kit</h2>
               <p className="desc">
-                Discover the Wavemaker Academy and explore a curated set of expert-led courses. Gain
-                the knowledge you need to build confidently with Wavemaker.
+                Discover the Wavemaker Academy and explore a curated set of
+                expert-led courses. Gain the knowledge you need to build
+                confidently with Wavemaker.
               </p>
               <Link
                 to="https://www.figma.com/community/file/1463103184874870889"

@@ -3,13 +3,14 @@ title: "Export Data from Data Table"
 id: "export-data-data-table"
 last_update: { author: "WaveMaker" }
 ---
+
 **Scenario**: To export data from a Data Table to excel or csv format. We will be using the Export option of Data Table to export data from a Live/Service (Query) Variable.
 
-<iframe width="708" height="560" src="https://docs.google.com/presentation/d/e/2PACX-1vSiljwa8Xr9OBEsGw95cAdgWk0mU7jKncP0XiLGw8u4YTV2LAXUEXZjRmQ2oX2AQXUOqT0Hm1JFcwnY/embed?start=false&amp;loop=false&amp;delayms=3000" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen"></iframe>
+<iframe width="708" height="560" src="https://docs.google.com/presentation/d/e/2PACX-1vSiljwa8Xr9OBEsGw95cAdgWk0mU7jKncP0XiLGw8u4YTV2LAXUEXZjRmQ2oX2AQXUOqT0Hm1JFcwnY/embed?start=false&loop=false&delayms=3000" frameborder="0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" />
 
-[Data Table Use Cases](../../user-interfaces/web/components/angular-components/datalive/datatable/data-table-use-cases.md)
+[Data Table Use Cases](#)
 
-- [1. Basic Table Usage](../../user-interfaces/web/components/angular-components/datalive/datatable/data-table-basic-usage.md)
+- [1. Basic Table Usage](#)
 - [2. How to customise table actions](./data-table-actions.md)
 - [3. How to represent data table columns using widgets](./data-table-widget-representations.md)
 - [4. How to format data table column](./data-table-format-options.md)

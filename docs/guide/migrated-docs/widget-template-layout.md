@@ -4,9 +4,10 @@ id: widget-template-layout
 sidebar_label: Choose Widget Template and Layout
 last_update: { author: "WaveMaker" }
 ---
+
 ---
 
-For [Cards](/docs/user-interfaces/web/components/angular-components/datalive/cards), [List](/docs/user-interfaces/web/components/angular-components/datalive/list), [Wizard](/docs/user-interfaces/web/components/angular-components/container/wizard), and [Breadcrumb](/docs/user-interfaces/web/components/angular-components/navigation/breadcrumb) widgets, you can choose and apply alternative UI representation while you can visually see the changes on the canvas as you click on the template.
+For [Cards](#), [List](#), [Wizard](#), and [Breadcrumb](#) widgets, you can choose and apply alternative UI representation while you can visually see the changes on the canvas as you click on the template.
 
 ![widget template](/learn/assets/widget-template.gif)
 
@@ -20,7 +21,7 @@ The following are the two types.
 
 ## Choosing Widget Template from Canvas
 
-1. Drag and drop the **[List](/docs/user-interfaces/web/components/angular-components/datalive/list)** widget, and [bind the widget](/docs/user-interfaces/web/develop/integrating-with-apis/variables#binding-to-widgets) to a dataSet.
+1. Drag and drop the **[List](#)** widget, and [bind the widget](/docs/user-interfaces/web/develop/integrating-with-apis/variables#binding-to-widgets) to a dataSet.
 
 2. When you select the **List** widget on the canvas, you can see the template icon on the toolbar. Click the **template** icon.
 
@@ -32,11 +33,11 @@ The following are the two types.
 
 4. Select the template from the list. The template will be changed and the bindings remain the same from the previous template to the selected-template based on the name of the inner widgets.
 
-Similarly, you can apply a widget template for the **[Cards](/docs/user-interfaces/web/components/angular-components/datalive/cards)** widget also.
+Similarly, you can apply a widget template for the **[Cards](#)** widget also.
 
 ## Choosing Widget Layout from Canvas
 
-1. Drag and drop a **[Wizard](/docs/user-interfaces/web/components/angular-components/container/wizard)** widget.
+1. Drag and drop a **[Wizard](#)** widget.
 
 2. When you select the **Wizard** widget on the canvas, you can see the layout icon on the toolbar. Click the **layout** icon.
 

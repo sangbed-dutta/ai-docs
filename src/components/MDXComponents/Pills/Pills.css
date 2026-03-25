@@ -1,0 +1,90 @@
+.wm-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 24px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+  margin: 0 4px;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.wm-pill:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.wm-pill-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wm-pill-icon img {
+  display: block;
+}
+
+.wm-pill-text {
+  padding-top: 1px;
+}
+
+/* Base styling */
+.wm-pill-web {
+  background: rgba(23, 148, 239, 0.2);
+  color: rgba(23, 148, 239);
+  --wm-pill-icon-color: rgba(23, 148, 239);
+}
+
+.wm-pill-mobile {
+  background: rgba(231, 104, 41, 0.2);
+  color: rgba(231, 104, 41);
+  --wm-pill-icon-color: rgba(231, 104, 41);
+}
+
+.wm-pill-android {
+  background: rgba(120, 194, 87, 0.2);
+  color: rgb(120, 194, 87);
+  --wm-pill-icon-color: rgb(120, 194, 87);
+}
+
+.wm-pill-ios {
+  background: rgba(69, 90, 100, 0.2);
+  color: rgba(69, 90, 100);
+  --wm-pill-icon-color: rgba(69, 90, 100);
+}
+
+.wm-pill-desktop {
+  background: rgba(123, 31, 162, 0.2);
+  color: rgba(123, 31, 162);
+  --wm-pill-icon-color: rgba(123, 31, 162);
+}
+
+.wm-pill-backend {
+  background: rgba(239, 108, 0, 0.2);
+  color: rgba(239, 108, 0);
+  --wm-pill-icon-color: rgba(239, 108, 0);
+}
+
+.wm-pill-platform {
+  background: rgba(0, 131, 143, 0.2);
+  color: rgba(0, 131, 143);
+  --wm-pill-icon-color: rgba(0, 131, 143);
+}
+
+.wm-pill-design {
+  background: rgba(194, 24, 91, 0.2);
+  color: rgba(194, 24, 91);
+  --wm-pill-icon-color: rgba(194, 24, 91);
+}
+
+.wm-pill-beta {
+  background: rgba(85, 119, 238, 0.2);
+  color: rgba(85, 119, 238, 1);
+}

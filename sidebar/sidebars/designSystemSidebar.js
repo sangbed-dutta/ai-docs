@@ -7,17 +7,15 @@ export default [
       type: 'doc',
       id: 'design-system/concepts/index',
     },
-    items: [
-      'design-system/concepts/best-practices',
-    ],
+    items: ['design-system/concepts/best-practices'],
   },
   {
     type: 'category',
-    label: 'Autocode',
+    label: 'Design to Code',
     items: [
-      'design-system/figma-autocode-plugin/working-with-autocode-plugin',
-      'design-system/figma-autocode-plugin/design-guidelines',
-      'design-system/figma-autocode-plugin/figma-cheat-sheet',
+      'design-system/figma-design-to-code-plugin/working-with-design-to-code-plugin',
+      'design-system/figma-design-to-code-plugin/design-guidelines',
+      'design-system/figma-design-to-code-plugin/figma-cheat-sheet',
     ],
   },
   {

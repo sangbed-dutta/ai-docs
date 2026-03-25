@@ -1,4 +1,3 @@
-
 .metricsContainer {
   padding: 2rem;
   max-width: 1200px;
@@ -24,7 +23,9 @@
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   border: 1px solid var(--ifm-color-emphasis-200);
 }
 
@@ -49,7 +50,11 @@
 
 .newDocsCard {
   grid-column: span 1;
-  background: linear-gradient(135deg, var(--ifm-color-primary-darker), var(--ifm-color-primary));
+  background: linear-gradient(
+    135deg,
+    var(--ifm-color-primary-darker),
+    var(--ifm-color-primary)
+  );
   color: white;
 }
 
@@ -140,7 +145,8 @@ details[open] .arrow {
   margin-top: 0.5rem;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   padding: 0.75rem 1rem;
   text-align: left;
   border-bottom: 1px solid var(--ifm-color-emphasis-200);
@@ -183,7 +189,11 @@ details[open] .arrow {
 }
 
 .guideNewDocsCard {
-  background: linear-gradient(135deg, var(--ifm-color-primary-darker), var(--ifm-color-primary));
+  background: linear-gradient(
+    135deg,
+    var(--ifm-color-primary-darker),
+    var(--ifm-color-primary)
+  );
   color: white;
 }
 
@@ -208,7 +218,30 @@ details[open] .arrow {
 }
 
 @media (max-width: 768px) {
-  .topRow, .secondRow {
+  .topRow,
+  .secondRow {
     grid-template-columns: 1fr;
   }
+}
+
+.toggleSection {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.toggleButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--ifm-color-primary);
+  background: transparent;
+  color: var(--ifm-color-primary);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.toggleButtonActive {
+  background: var(--ifm-color-primary);
+  color: white;
 }

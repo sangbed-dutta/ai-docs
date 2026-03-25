@@ -194,7 +194,6 @@
 [data-theme='dark'] .section-title {
   --ifm-heading-color: #fff;
 }
-
 [data-theme='dark'] .env-list-item .content-wrapper .env-item-desc {
   color: inherit;
 }
@@ -393,7 +392,6 @@ body {
   color: var(--ifm-sidebar-link-color);
   border-radius: 0;
 }
-
 .theme-doc-sidebar-menu
   .theme-doc-sidebar-item-link
   .menu__link.menu__link--active {
@@ -596,10 +594,19 @@ button.btn.btn-icon {
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   background: transparent;
-
   &:hover {
     background-color: rgb(239, 239, 239);
   }
+}
+
+button.clean-btn.menu__caret:hover,
+button.clean-btn.menu__caret:focus {
+  background: transparent;
+}
+
+button.clean-btn.menu__caret::before {
+  background-size: 1.25rem 1.25rem;
+  width: 1.25rem;
 }
 
 /* homepage */
@@ -1380,48 +1387,3 @@ button.btn.btn-icon {
 
 @media only screen and (min-width: 993px) {
 }
-
-/* Temporary css */
-/* Style dead links unless they are inside .navbar or .theme-doc-sidebar-container */
-a[href='']:not(
-    :is(
-      .navbar,
-      .navbar *,
-      .theme-doc-sidebar-container,
-      .theme-doc-sidebar-container *
-    )
-  ),
-a[href='#']:not(
-    :is(
-      .navbar,
-      .navbar *,
-      .theme-doc-sidebar-container,
-      .theme-doc-sidebar-container *
-    )
-  ) {
-  color: red;
-}
-
-a[href='']:hover:not(
-    :is(
-      .navbar,
-      .navbar *,
-      .theme-doc-sidebar-container,
-      .theme-doc-sidebar-container *
-    )
-  )::after,
-a[href='#']:hover:not(
-    :is(
-      .navbar,
-      .navbar *,
-      .theme-doc-sidebar-container,
-      .theme-doc-sidebar-container *
-    )
-  )::after {
-  content: ' ⚠️ dead link';
-  font-size: 0.8em;
-  color: red;
-  margin-left: 0.25em;
-}
-
-/* Temporary css */
