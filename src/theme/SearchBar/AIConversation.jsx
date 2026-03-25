@@ -362,25 +362,24 @@ export default function AIConversation({
                         {msg.feedbackHelpful ? '👍' : '👎'}
                       </span>
                       <span>
-                        Feedback recorded
+                        Thanks
                         {!msg.feedbackHelpful && msg.feedbackReason
-                          ? ` • ${FEEDBACK_REASONS.find((item) => item.value === msg.feedbackReason)?.label || msg.feedbackReason}`
+                          ? ` · ${FEEDBACK_REASONS.find((item) => item.value === msg.feedbackReason)?.label || msg.feedbackReason}`
                           : ''}
                       </span>
                     </div>
                   ) : (
                     <>
-                      <div className={styles.feedbackLabel}>
-                        Was this helpful?
-                      </div>
                       <div className={styles.feedbackActions}>
                         <button
                           type="button"
                           className={styles.feedbackBtn}
                           onClick={() => onFeedback(msg.id, { helpful: true })}
                           disabled={!canRateMessage}
+                          title="Helpful"
+                          aria-label="Mark as helpful"
                         >
-                          👍 Helpful
+                          👍
                         </button>
                         <button
                           type="button"
@@ -391,15 +390,17 @@ export default function AIConversation({
                             )
                           }
                           disabled={msg.feedbackStatus === 'submitting'}
+                          title="Not helpful"
+                          aria-label="Mark as not helpful"
                         >
-                          👎 Not helpful
+                          👎
                         </button>
                       </div>
 
                       {showFeedbackPrompt && (
                         <div className={styles.feedbackPrompt}>
                           <div className={styles.feedbackPromptLabel}>
-                            What was wrong?
+                            What went wrong?
                           </div>
                           <div className={styles.feedbackReasonChips}>
                             {FEEDBACK_REASONS.map((reason) => (

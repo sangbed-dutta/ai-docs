@@ -869,91 +869,126 @@
   box-shadow: 0 2px 6px rgba(18, 160, 92, 0.15);
 }
 
+/* ── FEEDBACK BAR ── Minimal inline design */
 .feedbackBar {
   margin-left: 33px;
-  margin-top: 8px;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--bg-panel);
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  animation: feedbackFadeIn 0.4s ease;
+}
+
+@keyframes feedbackFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .feedbackLabel {
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--text2);
-  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text4);
+  margin-right: 2px;
 }
 
 .feedbackActions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  align-items: center;
+  gap: 2px;
 }
 
-.feedbackBtn,
-.feedbackSubmitBtn,
-.feedbackLinkBtn {
-  border-radius: 8px;
-  font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
+/* Icon-only thumb buttons */
 .feedbackBtn {
-  border: 1px solid var(--border);
-  background: var(--bg-modal);
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text4);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 13px;
+  padding: 0;
+  font-family: var(--sans);
+}
+
+.feedbackBtn:hover:not(:disabled) {
+  background: var(--bg-hover);
   color: var(--text2);
-  padding: 7px 12px;
+  transform: scale(1.15);
 }
 
-.feedbackBtn:hover:not(:disabled),
-.feedbackSubmitBtn:hover:not(:disabled) {
-  border-color: var(--wm-blue);
-  color: var(--wm-blue);
-  transform: translateY(-1px);
+.feedbackBtn:active:not(:disabled) {
+  transform: scale(0.92);
 }
 
-.feedbackBtn:disabled,
-.feedbackSubmitBtn:disabled,
-.feedbackLinkBtn:disabled {
-  opacity: 0.6;
+.feedbackBtn:disabled {
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
+/* Reason prompt — slides in below */
 .feedbackPrompt {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid var(--border);
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px 0 0;
+  animation: feedbackSlideIn 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+@keyframes feedbackSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 200px;
+  }
 }
 
 .feedbackPromptLabel {
-  font-size: 11px;
-  color: var(--text3);
-  margin-bottom: 8px;
+  font-size: 10.5px;
+  color: var(--text4);
+  margin-bottom: 6px;
+  font-weight: 500;
 }
 
 .feedbackReasonChips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 5px;
 }
 
 .feedbackChip {
   border: 1px solid var(--border);
-  background: var(--bg-modal);
-  color: var(--text2);
+  background: transparent;
+  color: var(--text3);
   border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 11.5px;
-  font-weight: 600;
+  padding: 3px 10px;
+  font-size: 10.5px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-family: var(--sans);
 }
 
-.feedbackChip:hover,
+.feedbackChip:hover {
+  border-color: var(--text3);
+  color: var(--text2);
+}
+
 .feedbackChipActive {
   border-color: var(--wm-blue);
   background: var(--wm-blue-light);
@@ -963,41 +998,75 @@
 .feedbackPromptActions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
-  margin-top: 10px;
+  gap: 6px;
+  margin-top: 8px;
 }
 
 .feedbackLinkBtn {
   border: none;
   background: transparent;
-  color: var(--text3);
-  padding: 7px 4px;
+  color: var(--text4);
+  padding: 4px 6px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  border-radius: 6px;
+  transition: color 0.15s;
+}
+
+.feedbackLinkBtn:hover:not(:disabled) {
+  color: var(--text2);
+}
+
+.feedbackLinkBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .feedbackSubmitBtn {
-  border: 1px solid rgba(27, 123, 228, 0.2);
-  background: var(--wm-blue-light);
-  color: var(--wm-blue-dark);
-  padding: 7px 12px;
+  border: none;
+  background: var(--wm-blue);
+  color: white;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--sans);
+  border-radius: 6px;
+  transition: all 0.15s;
 }
 
+.feedbackSubmitBtn:hover:not(:disabled) {
+  background: var(--wm-blue-dark);
+}
+
+.feedbackSubmitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Submitted state — subtle inline confirmation */
 .feedbackThanks {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  color: var(--text2);
-  font-size: 12px;
-  font-weight: 600;
+  gap: 5px;
+  color: var(--text4);
+  font-size: 11px;
+  font-weight: 500;
+  animation: feedbackFadeIn 0.4s ease;
 }
 
 .feedbackThanksIcon {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .feedbackError {
-  margin-top: 8px;
+  margin-top: 4px;
+  margin-left: 33px;
   color: #b42318;
-  font-size: 11px;
+  font-size: 10.5px;
+  animation: feedbackFadeIn 0.3s ease;
 }
 
 /* THINKING */
