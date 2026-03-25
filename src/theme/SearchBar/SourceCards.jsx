@@ -25,6 +25,13 @@ const ICON_CLASS = {
   academy: 'srcCardIconAcademy',
 };
 
+const SOURCE_ORDER = {
+  docs: 1,
+  academy: 2,
+  storybook: 3,
+  marketplace: 4,
+};
+
 function ChunkRow({ chunk, isAcademy, onVideoOpen }) {
   const [hovered, setHovered] = useState(false);
 
@@ -207,6 +214,12 @@ export default function SourceCards({
       return scoreB - scoreA;
     });
     return group;
+  });
+
+  groupedCards.sort((a, b) => {
+    const orderA = SOURCE_ORDER[a.source] || 99;
+    const orderB = SOURCE_ORDER[b.source] || 99;
+    return orderA - orderB;
   });
 
   const navHeader = (

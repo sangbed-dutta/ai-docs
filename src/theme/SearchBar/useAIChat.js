@@ -14,6 +14,21 @@ function getSessionId() {
   return id;
 }
 
+const SOURCE_ORDER = {
+  docs: 1,
+  academy: 2,
+  storybook: 3,
+  marketplace: 4,
+};
+
+const sortSourceCards = (cards) => {
+  return [...cards].sort((a, b) => {
+    const orderA = SOURCE_ORDER[a.source] || 99;
+    const orderB = SOURCE_ORDER[b.source] || 99;
+    return orderA - orderB;
+  });
+};
+
 function loadMessages() {
   try {
     const raw = sessionStorage.getItem(SESSION_KEY_PREFIX + 'messages');
@@ -174,7 +189,7 @@ export function useAIChat(pageContext, apiUrl) {
                   url: event.url,
                   meta: event.meta,
                 });
-                setCurrentSourceCards([...sourceCards]);
+                setCurrentSourceCards(sortSourceCards(sourceCards));
                 break;
               case 'followups':
                 followupSuggestions = event.suggestions;
@@ -209,7 +224,7 @@ export function useAIChat(pageContext, apiUrl) {
             .join(''),
           fragments: [...fragments],
           traceSteps: [...traceSteps],
-          sourceCards: [...sourceCards],
+          sourceCards: sortSourceCards(sourceCards),
           followups: followupSuggestions,
           actions,
           traceId: responseMeta?.trace_id || null,
