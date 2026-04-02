@@ -67,44 +67,6 @@ const envData = [
   },
 ];
 
-const resourcesData = [
-  {
-    id: 1,
-    icon: <HeadphoneIcon />,
-    title: 'Tutorial Library',
-    desc: 'Hands-on tutorials to help you learn specific features like data binding, prefabs, workflows, and integrations. ',
-  },
-  {
-    id: 2,
-    icon: <PerformanceIcon />,
-    title: 'Performance Optimization',
-    desc: 'Optimize load performance, API response times, data binding, and runtime behavior with practical tips. ',
-  },
-  {
-    id: 3,
-    icon: <GuideIcon />,
-    title: 'Platform Guide',
-    desc: 'A high-level introduction to Wavemaker, its core capabilities, architecture, and how everything fits together.',
-  },
-  {
-    id: 4,
-    icon: <ProductIcon />,
-    title: 'Product',
-    desc: 'Lorem ipsum dolor sit amet, consectetur adipis elit. Sit enim nec, proin faucibus nibh et sagittis a. Lacinia purus ac amet.',
-  },
-  {
-    id: 5,
-    icon: <ReferenceIcon />,
-    title: 'API Reference',
-    desc: 'A detailed reference for all Wavemaker APIs, events, methods, widgets, and advanced extensibility features. ',
-  },
-  {
-    id: 6,
-    icon: <FAQsIcon />,
-    title: 'Troubleshooting & FAQs',
-    desc: 'Find quick answers to common issues, configuration problems, and environment-related questions. ',
-  },
-];
 
 export function EnvList({ prop }) {
   return (

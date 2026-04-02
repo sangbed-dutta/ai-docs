@@ -58,7 +58,7 @@
 /* Ensure dropdown has proper height in normal search mode */
 .DocSearch-Modal:not(.DocSearch-AskAI-Active) .DocSearch-Dropdown {
   display: block !important;
-  min-height: 400px;
+  /* min-height: 400px; */
 }
 
 .DocSearch-AskAI {
@@ -1336,4 +1336,357 @@
   .DocSearch-AskAI-MarketplaceCard-Icon {
     margin-left: 0;
   }
+}
+
+/* =====================================================================
+   REDESIGNED SEARCH MODAL — clean minimal UI (matches design reference)
+   ===================================================================== */
+
+/* ── Backdrop ────────────────────────────────────────────────────── */
+.DocSearch-Container {
+  background: rgba(10, 10, 20, 0.35);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ── Modal shell ─────────────────────────────────────────────────── */
+.DocSearch-Modal {
+  border-radius: 16px !important;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.07),
+    0 8px 40px rgba(0, 0, 0, 0.1) !important;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Narrower width in standard search mode */
+.DocSearch-Modal:not(.DocSearch-AskAI-Active) {
+  --docsearch-modal-width: 800px;
+}
+
+/* ── Search bar ──────────────────────────────────────────────────── */
+.DocSearch-SearchBar {
+  padding: 24px;
+  gap: 0;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.DocSearch-Form {
+  height: 52px;
+  padding: 16px 20px !important;
+  border-radius: 12px;
+  border: 1px solid rgba(160, 163, 189, 0.52);
+  box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.03) !important;
+}
+
+.DocSearch-Form:focus-within {
+  box-shadow: none !important;
+}
+
+/* Search icon */
+.DocSearch-MagnifierLabel svg {
+  width: 18px;
+  height: 18px;
+  color: #9ca3af;
+}
+
+/* Input text */
+.DocSearch-Input {
+  font-size: 15px !important;
+  color: #111827 !important;
+}
+
+.DocSearch-Input::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Reset (X) button while typing */
+.DocSearch-Reset {
+  color: #9ca3af;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+}
+
+.DocSearch-Reset:hover {
+  color: #6b7280;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Cancel text (mobile) */
+.DocSearch-Cancel {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ── "Ask AI" panel (below search bar) ──────────────────────────── */
+.DocSearch-Tabs-Container {
+  padding: 0 !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  background: transparent;
+  display: flex !important;
+  align-items: stretch;
+  height: auto !important;
+}
+
+.DocSearch-AskAI-Panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding:0;
+  gap: 4px;
+}
+
+/* Ask AI primary row */
+.DocSearch-AskAI-Suggestion {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-align: left;
+}
+
+.DocSearch-AskAI-Suggestion:hover {
+  background: rgba(99, 102, 241, 0.07);
+}
+
+.DocSearch-AskAI-Suggestion__label {
+  font-size: 15px;
+  font-weight: 600;
+  color: transparent;
+  background: linear-gradient(134.75deg, #2563eb 2.51%, #e345ff 109.73%);
+  background-clip: text;
+  font-family: 'DM Sans';
+}
+
+.DocSearch-AskAI-Suggestion__query {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(75, 85, 99, 1);
+}
+
+.DocSearch-AskAI-Suggestion:hover .DocSearch-AskAI-Suggestion__arrow {
+  opacity: 1;
+}
+
+/* Vertical suggestion list */
+.DocSearch-AskAI-SuggestionList {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.DocSearch-AskAI-SuggestionItem {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: #374151;
+  text-align: left;
+  transition:
+    background 0.13s ease,
+    color 0.13s ease;
+  font-family: inherit;
+}
+
+.DocSearch-AskAI-SuggestionItem:hover {
+  background: rgba(99, 102, 241, 0.06);
+  color: #4f46e5;
+}
+
+.DocSearch-AskAI-SuggestionItem__icon {
+  flex-shrink: 0;
+  color: #9ca3af;
+  transition: color 0.13s ease;
+}
+
+.DocSearch-AskAI-SuggestionItem:hover .DocSearch-AskAI-SuggestionItem__icon {
+  color: #6366f1;
+}
+
+/* Dark mode */
+[data-theme='dark'] .DocSearch-Tabs-Container {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+
+
+[data-theme='dark'] .DocSearch-AskAI-SuggestionItem {
+  color: #d1d5db;
+}
+
+[data-theme='dark'] .DocSearch-AskAI-SuggestionItem:hover {
+  background: rgba(129, 140, 248, 0.1);
+  color: #a5b4fc;
+}
+
+/* ── Dropdown / results area ─────────────────────────────────────── */
+.DocSearch-Hit-Container {
+  width: 100%;
+  padding: 0;
+}
+.DocSearch-Dropdown {
+  padding: 0 !important;
+  scrollbar-width: thin;
+  scrollbar-color: #e5e7eb transparent;
+  overflow-x: hidden;
+}
+
+.DocSearch-Dropdown::-webkit-scrollbar {
+  width: 4px;
+}
+
+.DocSearch-Dropdown::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 99px;
+}
+
+/* ── Section label (RECENT SEARCHES) ────────────────────────────── */
+.DocSearch-Hit-source {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.09em !important;
+  text-transform: uppercase !important;
+  color: rgba(90, 90, 90, 1) !important;
+  padding: 0px 20px !important;
+  background: transparent !important;
+  border: none !important;
+  position: relative;
+}
+
+/* ── Individual hit item ─────────────────────────────────────────── */
+.DocSearch-Hits ul {
+  padding: 0 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.DocSearch-Hit {
+  padding: 2px 0 !important;
+}
+
+.DocSearch-Hit a {
+  border-radius: 10px !important;
+  padding: 8px 16px 8px 8px !important;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.DocSearch-Hit[aria-selected='true'] a,
+.DocSearch-Hit--active a {
+  background: rgba(35, 136, 255, 0.06) !important;
+  box-shadow: none !important;
+}
+.DocSearch-Hit-content-wrapper {
+  width: 100%;
+}
+
+/* Icon: rounded blue square */
+.DocSearch-Hit-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  /* background: rgba(35, 136, 255, 0.16); */
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(35, 136, 255, 1);
+}
+
+.DocSearch-Hit-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Title */
+.DocSearch-Hit-title {
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: #111827 !important;
+  white-space: normal;
+}
+
+/* Breadcrumb / path (e.g. "Integrations") */
+.DocSearch-Hit-path {
+  font-size: 12px !important;
+  color: rgba(128, 128, 128, 1) !important;
+}
+
+.DocSearch-Hit-action button[title='Save this search'] {
+  display: none;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.DocSearch-Footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.07) !important;
+  background: #fafafa !important;
+  border-radius: 0 0 16px 16px;
+  padding: 10px 20px !important;
+}
+
+/* ── Dark mode ───────────────────────────────────────────────────── */
+[data-theme='dark'] .DocSearch-Modal {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 8px 40px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme='dark'] .DocSearch-Tabs-Container,
+[data-theme='dark'] .DocSearch-Footer {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+[data-theme='dark'] .DocSearch-SearchBar {
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+[data-theme='dark'] .DocSearch-Input {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+[data-theme='dark'] .DocSearch-Hit-icon {
+  background: rgba(99, 102, 241, 0.18);
+}
+
+[data-theme='dark'] .DocSearch-Hit-title {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+[data-theme='dark'] .DocSearch-Hit-action svg {
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='dark'] .DocSearch-Tab:last-child {
+  color: #818cf8 !important;
+}
+
+[data-theme='dark'] .DocSearch-Tab:last-child:hover {
+  background: rgba(99, 102, 241, 0.15) !important;
 }
