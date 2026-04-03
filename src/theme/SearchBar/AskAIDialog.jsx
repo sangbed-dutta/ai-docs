@@ -4,7 +4,7 @@ import AIConversation from './AIConversation';
 import SourceCards from './SourceCards';
 import styles from './AskAIDialog.module.css';
 
-const SUGGESTIONS = [
+const FALLBACK_SUGGESTIONS = [
   'Binding Rest API',
   'File Upload Components',
   'Apply DS From Marketplace',
@@ -55,9 +55,53 @@ function getPageContext() {
   };
 }
 
+function useDynamicSuggestions(apiUrl, pageContext) {
+  const [suggestions, setSuggestions] = useState(null);
+
+  useEffect(() => {
+    if (!apiUrl) return;
+    let cancelled = false;
+
+    fetch(`${apiUrl}/api/v1/chat/suggestions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        context: pageContext
+          ? {
+              pageTitle: pageContext.pageTitle || '',
+              pageSlug: pageContext.pageSlug || '',
+              pageCategory: pageContext.pageCategory || '',
+              pageSummary: pageContext.pageSummary || '',
+              pageHeadings: pageContext.pageHeadings || [],
+            }
+          : null,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch suggestions');
+        return res.json();
+      })
+      .then((data) => {
+        if (!cancelled && data.suggestions?.length) {
+          setSuggestions(data.suggestions);
+        }
+      })
+      .catch(() => {
+        // Silently fall back to static suggestions
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [apiUrl, pageContext?.pageSlug]);
+
+  return (suggestions || FALLBACK_SUGGESTIONS).slice(0, 3);
+}
+
 export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
   const pageContext = getPageContext();
   const chat = useAIChat(pageContext, apiUrl);
+  const suggestions = useDynamicSuggestions(apiUrl, pageContext);
   const [input, setInput] = useState('');
   const [isClosing, setIsClosing] = useState(false);
   const inputRef = useRef(null);
@@ -181,6 +225,24 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
       <div className={styles.body}>
         {!hasMessages ? (
           <div className={styles.landing}>
+            <button
+              className={styles.landingCloseBtn}
+              onClick={handleClose}
+              aria-label="Close"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
             <div className={styles.landingHero}>
               <div>
                 <img src="/img/icon/AskAI-Icon.svg" alt="Ask AI" />
@@ -198,7 +260,7 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask about academy content"
+                placeholder="Ask about WaveMaker..."
                 rows={3}
                 disabled={chat.isStreaming}
               />
@@ -225,7 +287,7 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
             </form>
 
             <div className={styles.chips}>
-              {SUGGESTIONS.map((s) => (
+              {suggestions.map((s) => (
                 <button
                   key={s}
                   className={styles.chip}

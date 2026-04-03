@@ -82,7 +82,7 @@
 .brandName {
   font-size: 14px;
   font-weight: 500;
-  color:rgba(36, 36, 36, 1);
+  color: rgba(36, 36, 36, 1);
   font-family: inherit;
   text-box-trim: trim-both;
 }
@@ -98,7 +98,9 @@
   background: transparent;
   color: #6b7280;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .closeBtn:hover {
@@ -133,6 +135,31 @@
   background: transparent;
 }
 
+.landingCloseBtn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+  z-index: 2;
+}
+
+.landingCloseBtn:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: #111827;
+}
+
 .landingHero {
   position: relative;
   z-index: 1;
@@ -143,7 +170,6 @@
   margin-bottom: 2.25rem;
   padding-top: 1.5rem;
 }
-
 
 .title {
   font-size: 2.25rem;
@@ -314,12 +340,9 @@
   box-shadow: 0 2px 12px rgba(168, 85, 247, 0.1);
 }
 
-
-
 .chatInputWrapper:focus-within {
   box-shadow: 0 6px 36px rgba(168, 85, 247, 0.26);
 }
-
 
 .chatInputField {
   flex: 1;
@@ -385,8 +408,14 @@
 }
 
 @keyframes stopBtnIn {
-  from { opacity: 0; transform: scale(0.7); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .chatStopBtn:hover {
