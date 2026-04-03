@@ -372,7 +372,7 @@
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
   display: flex;
- flex-direction: column;
+  flex-direction: column;
   gap: 8px;
 }
 
@@ -381,7 +381,7 @@
   min-width: 0;
   overflow: hidden;
   font-size: 10px;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   color: rgba(90, 90, 90, 1);
   white-space: nowrap;
@@ -904,9 +904,9 @@
   transition: all 0.15s;
   line-height: 1;
 }
-.sourcesToggleBtn svg{
-width: 20px;
-height: 20px;
+.sourcesToggleBtn svg {
+  width: 20px;
+  height: 20px;
 }
 
 .sourcesToggleBtn:hover {
@@ -925,9 +925,6 @@ height: 20px;
   align-items: center;
   justify-content: center;
 }
-
-
-
 
 /* Reason prompt — slides in below */
 .feedbackPrompt {
@@ -1163,44 +1160,32 @@ height: 20px;
 
 .followupsChips {
   display: flex;
-  flex-direction: column;
-  gap: 1px;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .followupChip {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  padding: 4px 8px;
-  border-radius: 6px;
-  border: 1px solid transparent;
-  background: transparent;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
   font-size: 12px;
-  color: var(--wm-blue);
+  color: var(--text2);
   cursor: pointer;
   transition: all 0.15s;
   font-family: var(--sans);
   text-align: left;
-  line-height: 1.35;
+  line-height: 1.3;
   font-weight: 500;
-}
-
-.followupChip::before {
-  content: '→';
-  margin-right: 6px;
-  font-size: 12px;
-  opacity: 0.5;
-  transition: transform 0.2s;
-  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .followupChip:hover {
   background: var(--wm-blue-light);
+  border-color: var(--wm-blue-mid);
   color: var(--wm-blue-dark);
-}
-
-.followupChip:hover::before {
-  transform: translateX(2px);
-  opacity: 1;
 }
 
 /* RIGHT: SOURCE CARDS PANEL */
@@ -1275,7 +1260,7 @@ height: 20px;
 }
 
 .sourcesSpinner::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: 50%;
@@ -1284,7 +1269,7 @@ height: 20px;
 }
 
 .sourcesSpinner::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: 50%;
@@ -1295,7 +1280,9 @@ height: 20px;
 }
 
 @keyframes srcSpinnerRotate {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* SOURCE CARD */
@@ -2134,7 +2121,9 @@ height: 20px;
 
 /* ── Streaming circular loader ──────────────────────────────── */
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .streamingSpinner {
@@ -2148,7 +2137,7 @@ height: 20px;
 }
 
 .streamingSpinner::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: 50%;
@@ -2157,7 +2146,7 @@ height: 20px;
 }
 
 .streamingSpinner::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: 50%;
@@ -2278,7 +2267,7 @@ height: 20px;
   font-size: 14px;
   font-weight: 600;
   color: var(--text);
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   line-height: 1.35;
   letter-spacing: -0.01em;
 }
@@ -2384,29 +2373,35 @@ height: 20px;
 
 /* ── ACADEMY: video card + timestamps ──────────────────────── */
 .academyCard {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--bg-modal);
-  margin: 8px 0;
+  margin: 4px 0 2px;
+}
+
+.academyCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
 }
 
 .academyThumbnail {
   position: relative;
-  aspect-ratio: 16 / 7;
+  width: 120px;
+  min-width: 120px;
+  aspect-ratio: 16 / 10;
   background: #1e293b;
+  border-radius: 8px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
 .academyThumbnailClickable {
   cursor: pointer;
 }
 
-.academyThumbnailClickable:hover .academyThumbnailPlaceholder {
-  background: rgba(255, 255, 255, 0.08);
+.academyThumbnailClickable:hover .academyPlayOverlay {
+  opacity: 1;
 }
 
 .academyThumbnailImg {
@@ -2424,25 +2419,42 @@ height: 20px;
   background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
 }
 
-.academyCardInfo {
+.academyPlayOverlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 6px 10px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0.8;
+  transition: opacity 0.15s;
+  border-radius: 8px;
+}
+
+.academyCardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
 }
 
 .academyCardTitle {
-  font-size: 11.5px;
+  font-size: 13px;
   font-weight: 600;
-  color: #fff;
-  line-height: 1.3;
+  color: var(--text);
+  line-height: 1.35;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.academyCardDuration {
+  font-size: 11.5px;
+  color: var(--text3);
+  font-weight: 500;
 }
 
 .academyTimestampRow {
@@ -2462,8 +2474,21 @@ height: 20px;
   background: var(--bg-hover);
 }
 
+.academyTimestampRowActive {
+  background: var(--wm-blue-light);
+  border-left: 2px solid var(--wm-blue);
+}
+
+.academyTimestampRowActive .timestampTag {
+  background: var(--wm-blue);
+  color: #fff;
+}
+
+.academyTimestampRowActive .academyPlayBtn {
+  color: var(--wm-blue);
+}
+
 .academyTimestampRow:hover .academyPlayBtn {
-  opacity: 1;
   color: var(--wm-blue);
 }
 
@@ -2497,10 +2522,7 @@ height: 20px;
   font-size: 10.5px;
   font-weight: 600;
   color: var(--text3);
-  opacity: 0;
-  transition:
-    opacity 0.15s,
-    color 0.15s;
+  transition: color 0.15s;
   flex-shrink: 0;
   white-space: nowrap;
 }

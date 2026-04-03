@@ -61,7 +61,7 @@ const config = {
 
   customFields: {
     ecosystemAgentUrl:
-      process.env.WAVEMAKER_AGENT_URL || 'https://ecosystem-agent.wavemaker.ai',
+      process.env.WAVEMAKER_AGENT_URL || 'http://localhost:8000',
   },
 
   presets: [

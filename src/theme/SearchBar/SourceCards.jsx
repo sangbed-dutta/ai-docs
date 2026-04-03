@@ -1,22 +1,40 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './AIConverstion.module.css';
-import { SOURCE_ICONS} from './SourceIcons';
+import { SOURCE_ICONS } from './SourceIcons';
 
 // ── Video modal dialog ────────────────────────────────────────
 function VideoModal({ url, onClose }) {
   useEffect(() => {
-    const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
+    const handleKey = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
     document.addEventListener('keydown', handleKey);
     return () => document.removeEventListener('keydown', handleKey);
   }, [onClose]);
 
   return createPortal(
     <div className={styles.videoModalOverlay} onClick={onClose}>
-      <div className={styles.videoModalBox} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.videoModalClose} onClick={onClose} aria-label="Close video">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+      <div
+        className={styles.videoModalBox}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          className={styles.videoModalClose}
+          onClick={onClose}
+          aria-label="Close video"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         </button>
         <iframe
@@ -126,80 +144,192 @@ function DocLinkList({ groups }) {
 
 // ── ACADEMY: video card + timestamps ─────────────────────────
 function AcademyVideoCard({ group, onVideoOpen }) {
+  const firstChunk = group.chunks[0];
+  const previewRows = firstChunk?.meta?.segment_previews;
+  const rows =
+    Array.isArray(previewRows) && previewRows.length > 0
+      ? previewRows.map((preview, idx) => ({
+          id: `${group.id}-preview-${idx}`,
+          timeBadge: preview.display_time,
+          label:
+            preview.title ||
+            firstChunk?.meta?.segment_title ||
+            firstChunk?.meta?.section_title ||
+            group.title ||
+            'Section',
+          href: resolveUrl(
+            preview.url || firstChunk?.meta?.url_path || firstChunk?.url,
+            'academy',
+          ),
+          timestamp:
+            preview.timestamp_seconds ??
+            firstChunk?.meta?.timestamp_seconds ??
+            firstChunk?.meta?.start_seconds ??
+            firstChunk?.meta?.start_timestamp,
+          thumbnail: preview.thumbnail,
+        }))
+      : group.chunks.map((chunk, idx) => ({
+          id: `${group.id}-chunk-${idx}`,
+          timeBadge: chunk.meta?.display_time,
+          label:
+            chunk.meta?.segment_title ||
+            chunk.meta?.section_title ||
+            chunk.title ||
+            'Section',
+          href: resolveUrl(chunk.meta?.url_path || chunk.url, 'academy'),
+          timestamp:
+            chunk.meta?.timestamp_seconds ??
+            chunk.meta?.start_seconds ??
+            chunk.meta?.start_timestamp,
+        }));
+
+  const thumbnailSrc =
+    rows.find((row) => row.thumbnail)?.thumbnail ||
+    firstChunk?.meta?.segment_previews?.[0]?.thumbnail ||
+    firstChunk?.meta?.video_thumbnail;
+
+  const duration = firstChunk?.meta?.duration_minutes;
+  const durationLabel = duration ? `${duration} mins` : null;
+
   const buildEmbedUrl = (chunk, withTimestamp = true) => {
     if (!chunk?.meta?.embed_link) return null;
-    let url = chunk.meta.embed_link;
-    if (withTimestamp && chunk.meta.start_timestamp) {
-      url += (url.includes('?') ? '&' : '?') + `t=${chunk.meta.start_timestamp}`;
+    try {
+      const base =
+        typeof window !== 'undefined'
+          ? window.location.origin
+          : 'https://academy.wavemaker.ai';
+      const url = new URL(chunk.meta.embed_link, base);
+      if (withTimestamp) {
+        const timestamp =
+          chunk.meta?.timestamp_seconds ??
+          chunk.meta?.start_seconds ??
+          chunk.meta?.start_timestamp;
+        if (timestamp !== undefined && timestamp !== null && timestamp !== '') {
+          url.searchParams.set('t', String(timestamp));
+        }
+      }
+      return url.toString();
+    } catch {
+      let url = chunk.meta.embed_link;
+      if (withTimestamp) {
+        const timestamp =
+          chunk.meta?.timestamp_seconds ??
+          chunk.meta?.start_seconds ??
+          chunk.meta?.start_timestamp;
+        if (timestamp !== undefined && timestamp !== null && timestamp !== '') {
+          const separator = url.includes('?') ? '&' : '?';
+          if (!/[?&]t=/.test(url)) {
+            url += `${separator}t=${timestamp}`;
+          }
+        }
+      }
+      return url;
     }
-    return url;
   };
 
   const handleThumbnailPlay = () => {
-    const firstChunk = group.chunks[0];
     const url = buildEmbedUrl(firstChunk, false);
     if (url) onVideoOpen(url);
   };
 
-  const handleTimestampPlay = (e, chunk) => {
+  const handleTimestampPlay = (e, timestamp) => {
+    const chunk = {
+      ...firstChunk,
+      meta: {
+        ...(firstChunk?.meta || {}),
+        start_timestamp: timestamp,
+        start_seconds: timestamp,
+        timestamp_seconds: timestamp,
+      },
+    };
     const url = buildEmbedUrl(chunk, true);
     if (url) {
       e.preventDefault();
       onVideoOpen(url);
     }
-    // else: let the default href open (external link fallback)
   };
 
-  const hasThumbnailPlay = !!group.chunks[0]?.meta?.embed_link;
+  const hasThumbnailPlay = !!firstChunk?.meta?.embed_link;
 
   return (
     <div className={styles.academyCard}>
-      {/* Thumbnail — clickable if embed available */}
-      <div
-        className={`${styles.academyThumbnail} ${hasThumbnailPlay ? styles.academyThumbnailClickable : ''}`}
-        onClick={hasThumbnailPlay ? handleThumbnailPlay : undefined}
-        role={hasThumbnailPlay ? 'button' : undefined}
-        tabIndex={hasThumbnailPlay ? 0 : undefined}
-        onKeyDown={hasThumbnailPlay ? (e) => e.key === 'Enter' && handleThumbnailPlay() : undefined}
-        aria-label={hasThumbnailPlay ? `Play ${group.title}` : undefined}
-      >
-        <div className={styles.academyThumbnailPlaceholder}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <polygon points="5 3 19 12 5 21 5 3" fill="white" opacity="0.9" />
-          </svg>
+      {/* Horizontal header: thumbnail + title/duration */}
+      <div className={styles.academyCardHeader}>
+        <div
+          className={`${styles.academyThumbnail} ${hasThumbnailPlay ? styles.academyThumbnailClickable : ''}`}
+          onClick={hasThumbnailPlay ? handleThumbnailPlay : undefined}
+          role={hasThumbnailPlay ? 'button' : undefined}
+          tabIndex={hasThumbnailPlay ? 0 : undefined}
+          onKeyDown={
+            hasThumbnailPlay
+              ? (e) => e.key === 'Enter' && handleThumbnailPlay()
+              : undefined
+          }
+          aria-label={hasThumbnailPlay ? `Play ${group.title}` : undefined}
+        >
+          {thumbnailSrc ? (
+            <img
+              src={thumbnailSrc}
+              alt={group.title}
+              className={styles.academyThumbnailImg}
+            />
+          ) : (
+            <div className={styles.academyThumbnailPlaceholder}>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polygon
+                  points="5 3 19 12 5 21 5 3"
+                  fill="white"
+                  opacity="0.9"
+                />
+              </svg>
+            </div>
+          )}
+          {/* Play overlay on thumbnail */}
+          <div className={styles.academyPlayOverlay}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+          </div>
         </div>
         <div className={styles.academyCardInfo}>
           <span className={styles.academyCardTitle}>{group.title}</span>
+          {durationLabel && (
+            <span className={styles.academyCardDuration}>{durationLabel}</span>
+          )}
         </div>
       </div>
 
       {/* Timestamps */}
-      {group.chunks.map((chunk, idx) => {
-        const timeBadge = chunk.meta?.display_time;
-        const label = chunk.meta?.section_title || chunk.title || 'Section';
-        const href = resolveUrl(chunk.meta?.url_path || chunk.url, 'academy');
-        return (
-          <a
-            key={idx}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.academyTimestampRow}
-            onClick={(e) => handleTimestampPlay(e, chunk)}
-          >
-            {timeBadge && (
-              <span className={styles.timestampTag}>{timeBadge}</span>
-            )}
-            <span className={styles.academyTimestampLabel}>{label}</span>
-            <span className={styles.academyPlayBtn}>
-              <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
-                <polygon points="5 3 19 12 5 21 5 3" />
-              </svg>
-              Play
-            </span>
-          </a>
-        );
-      })}
+      {rows.map((row, idx) => (
+        <a
+          key={row.id}
+          href={row.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${styles.academyTimestampRow} ${idx === 0 ? styles.academyTimestampRowActive : ''}`}
+          onClick={(e) => handleTimestampPlay(e, row.timestamp)}
+        >
+          {row.timeBadge && (
+            <span className={styles.timestampTag}>{row.timeBadge}</span>
+          )}
+          <span className={styles.academyTimestampLabel}>{row.label}</span>
+          <span className={styles.academyPlayBtn}>
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
+            Play
+          </span>
+        </a>
+      ))}
     </div>
   );
 }
@@ -207,7 +337,7 @@ function AcademyVideoCard({ group, onVideoOpen }) {
 // ── Per-source accordion section ──────────────────────────────
 function SourceSection({ source, groups, defaultOpen, onVideoOpen }) {
   const [open, setOpen] = useState(defaultOpen);
-  const IconComponent = SOURCE_ICONS[source] || DocsIcon;
+  const IconComponent = SOURCE_ICONS[source] || SOURCE_ICONS.docs;
   const color = SOURCE_COLORS[source] || '#6b7280';
   const isAcademy = source === 'academy';
 
@@ -224,21 +354,25 @@ function SourceSection({ source, groups, defaultOpen, onVideoOpen }) {
         >
           <IconComponent width="14" height="14" />
         </div>
-        <span className={styles.sourceSectionLabel}>{SOURCE_LABELS[source] || source.toUpperCase()}</span>
+        <span className={styles.sourceSectionLabel}>
+          {SOURCE_LABELS[source] || source.toUpperCase()}
+        </span>
         <ChevronIcon open={open} />
       </button>
 
       {open && (
         <div className={styles.sourceSectionContent}>
-          {isAcademy
-            ? groups.map((group) => (
-                <AcademyVideoCard
-                  key={group.id}
-                  group={group}
-                  onVideoOpen={onVideoOpen}
-                />
-              ))
-            : <DocLinkList groups={groups} />}
+          {isAcademy ? (
+            groups.map((group) => (
+              <AcademyVideoCard
+                key={group.id}
+                group={group}
+                onVideoOpen={onVideoOpen}
+              />
+            ))
+          ) : (
+            <DocLinkList groups={groups} />
+          )}
         </div>
       )}
     </div>
@@ -246,15 +380,7 @@ function SourceSection({ source, groups, defaultOpen, onVideoOpen }) {
 }
 
 // ── Main SourceCards export ───────────────────────────────────
-export default function SourceCards({
-  cards,
-  activeIndex,
-  activeQuestion,
-  totalMessages,
-  isLoading,
-  onPrev,
-  onNext,
-}) {
+export default function SourceCards({ cards, activeQuestion, isLoading }) {
   const scrollRef = useRef(null);
   const [activeVideoUrl, setActiveVideoUrl] = useState(null);
 
@@ -267,7 +393,10 @@ export default function SourceCards({
   cards.forEach((card) => {
     const src = card.source || 'docs';
     if (!bySource[src]) bySource[src] = {};
-    const parentId = card.meta?.parent_doc_id || card.url || `fallback-${card.title}-${Math.random()}`;
+    const parentId =
+      card.meta?.parent_doc_id ||
+      card.url ||
+      `fallback-${card.title}-${Math.random()}`;
     if (!bySource[src][parentId]) {
       bySource[src][parentId] = {
         id: parentId,
@@ -301,11 +430,16 @@ export default function SourceCards({
     return (
       <div className={styles.sourcesCol}>
         {navHeader}
-        <div className={`${styles.sourcesColScroll} ${styles.sourcesColCenter}`} ref={scrollRef}>
+        <div
+          className={`${styles.sourcesColScroll} ${styles.sourcesColCenter}`}
+          ref={scrollRef}
+        >
           {isLoading ? (
             <div className={styles.sourcesLoadingState}>
               <div className={styles.sourcesSpinner} />
-              <span className={styles.sourcesLoadingText}>Gathering sources…</span>
+              <span className={styles.sourcesLoadingText}>
+                Gathering sources…
+              </span>
             </div>
           ) : (
             <div className={styles.sourcesEmpty}>
@@ -336,7 +470,10 @@ export default function SourceCards({
         })}
       </div>
       {activeVideoUrl && (
-        <VideoModal url={activeVideoUrl} onClose={() => setActiveVideoUrl(null)} />
+        <VideoModal
+          url={activeVideoUrl}
+          onClose={() => setActiveVideoUrl(null)}
+        />
       )}
     </div>
   );

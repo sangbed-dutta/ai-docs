@@ -142,15 +142,12 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
 
   // Source cards navigation
   const assistantMessages = chat.messages.filter((m) => m.role === 'assistant');
-  const totalAssistantMessages = assistantMessages.length;
 
   let activeCards = [];
-  let activeIndex = 0;
   let activeQuestion = '';
 
   if (chat.activeMessageId === '__streaming__') {
     activeCards = chat.currentSourceCards;
-    activeIndex = totalAssistantMessages + 1;
     const lastUser = [...chat.messages]
       .reverse()
       .find((m) => m.role === 'user');
@@ -161,8 +158,6 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
     );
     if (activeMsg) {
       activeCards = activeMsg.sourceCards || [];
-      activeIndex =
-        assistantMessages.findIndex((m) => m.id === chat.activeMessageId) + 1;
       const msgIdx = chat.messages.findIndex(
         (m) => m.id === chat.activeMessageId,
       );
@@ -174,21 +169,6 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
       }
     }
   }
-
-  const handlePrevMessage = useCallback(() => {
-    const idx = assistantMessages.findIndex(
-      (m) => m.id === chat.activeMessageId,
-    );
-    if (idx > 0) chat.setActiveMessageId(assistantMessages[idx - 1].id);
-  }, [assistantMessages, chat]);
-
-  const handleNextMessage = useCallback(() => {
-    const idx = assistantMessages.findIndex(
-      (m) => m.id === chat.activeMessageId,
-    );
-    if (idx < assistantMessages.length - 1)
-      chat.setActiveMessageId(assistantMessages[idx + 1].id);
-  }, [assistantMessages, chat]);
 
   return (
     <div
@@ -326,7 +306,12 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
                       aria-label="Stop generation"
                       title="Stop generation"
                     >
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                        fill="currentColor"
+                      >
                         <rect x="1" y="1" width="10" height="10" rx="2" />
                       </svg>
                     </button>
@@ -385,16 +370,8 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
             </div>
             <SourceCards
               cards={activeCards}
-              activeIndex={activeIndex}
               activeQuestion={activeQuestion}
-              totalMessages={
-                chat.isStreaming
-                  ? totalAssistantMessages + 1
-                  : totalAssistantMessages
-              }
               isLoading={chat.isStreaming && activeCards.length === 0}
-              onPrev={handlePrevMessage}
-              onNext={handleNextMessage}
             />
           </div>
         )}
