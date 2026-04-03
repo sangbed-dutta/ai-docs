@@ -497,7 +497,7 @@ export default function AIConversation({
             </div>
             <div className={styles.aiText}>
               {renderFragments(currentFragments, mdComponents)}
-              <span className={styles.streamCursor} />
+              <span className={styles.streamingSpinner} aria-hidden="true" />
             </div>
           </div>
         )}

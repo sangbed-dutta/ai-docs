@@ -1246,6 +1246,58 @@ height: 20px;
   line-height: 1.6;
 }
 
+/* Centre the scroll area content when showing loader or empty */
+.sourcesColCenter {
+  justify-content: center;
+  align-items: center;
+}
+
+/* ── Sources loading state ─────────────────────────────────── */
+.sourcesLoadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.sourcesLoadingText {
+  font-size: 12px;
+  color: var(--text4);
+  letter-spacing: 0.01em;
+}
+
+/* Dashed ring + rotating arc spinner */
+.sourcesSpinner {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.sourcesSpinner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed #3b5aa3;
+  opacity: 0.35;
+}
+
+.sourcesSpinner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top: 2px solid #3b5aa3;
+  border-right: 3px solid #3b5aa3;
+  animation: srcSpinnerRotate 0.9s linear infinite;
+}
+
+@keyframes srcSpinnerRotate {
+  to { transform: rotate(360deg); }
+}
+
 /* SOURCE CARD */
 .srcCard {
   background: var(--bg-modal);
@@ -2078,6 +2130,41 @@ height: 20px;
   font-family: 'Inter', sans-serif;
   color: var(--text);
   letter-spacing: -0.01em;
+}
+
+/* ── Streaming circular loader ──────────────────────────────── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.streamingSpinner {
+  position: relative;
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+.streamingSpinner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed #3b5aa3;
+  opacity: 0.4;
+}
+
+.streamingSpinner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top: 1px solid #3b5aa3;
+  border-right: 3px solid #3b5aa3;
+  animation: spin 0.9s linear infinite;
 }
 
 /* ── Trace steps list ───────────────────────────────────────── */

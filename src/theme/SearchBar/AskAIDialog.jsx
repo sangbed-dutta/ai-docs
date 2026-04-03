@@ -312,26 +312,41 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
                     rows={1}
                     autoComplete="off"
                   />
-                  <button
-                    className={styles.chatSendBtn}
-                    onClick={handleSubmit}
-                    disabled={!input.trim() || chat.isStreaming}
-                    type="button"
-                  >
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                  {chat.isStreaming ? (
+                    <button
+                      type="button"
+                      className={styles.chatStopBtn}
+                      onClick={chat.cancelStream}
+                      aria-label="Stop generation"
+                      title="Stop generation"
                     >
-                      <line x1="22" y1="2" x2="11" y2="13" />
-                      <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                    </svg>
-                  </button>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                        <rect x="1" y="1" width="10" height="10" rx="2" />
+                      </svg>
+                    </button>
+                  ) : (
+                    <button
+                      className={styles.chatSendBtn}
+                      onClick={handleSubmit}
+                      disabled={!input.trim()}
+                      type="button"
+                      aria-label="Send"
+                    >
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <line x1="22" y1="2" x2="11" y2="13" />
+                        <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                      </svg>
+                    </button>
+                  )}
                   <button
                     type="button"
                     className={styles.chatClearBtn}
@@ -339,7 +354,8 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
                       chat.clearHistory();
                       setInput('');
                     }}
-                    title="Clear history"
+                    title="New session"
+                    aria-label="New session"
                   >
                     <svg
                       width="13"
@@ -351,8 +367,8 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     >
-                      <polyline points="1 4 1 10 7 10" />
-                      <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                      <path d="M12 20h9" />
+                      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
                     </svg>
                   </button>
                 </div>
@@ -370,6 +386,7 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
                   ? totalAssistantMessages + 1
                   : totalAssistantMessages
               }
+              isLoading={chat.isStreaming && activeCards.length === 0}
               onPrev={handlePrevMessage}
               onNext={handleNextMessage}
             />

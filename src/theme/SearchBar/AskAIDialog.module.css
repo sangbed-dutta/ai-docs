@@ -314,9 +314,12 @@
   box-shadow: 0 2px 12px rgba(168, 85, 247, 0.1);
 }
 
+
+
 .chatInputWrapper:focus-within {
-  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2);
+  box-shadow: 0 6px 36px rgba(168, 85, 247, 0.26);
 }
+
 
 .chatInputField {
   flex: 1;
@@ -364,24 +367,56 @@
   box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
 }
 
-.chatClearBtn {
+/* Stop generation button — shown while streaming */
+.chatStopBtn {
   flex-shrink: 0;
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 2.15rem;
+  height: 2.15rem;
   border-radius: 50%;
-  border: none;
+  border: 2px solid #ef4444;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: transparent;
-  color: #9ca3af;
+  background: #fff1f2;
+  color: #ef4444;
+  transition: all 0.18s ease;
+  animation: stopBtnIn 0.2s ease forwards;
+}
+
+@keyframes stopBtnIn {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.chatStopBtn:hover {
+  background: #ef4444;
+  color: #ffffff;
+  transform: scale(1.07);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+}
+
+/* New session / reset button */
+.chatClearBtn {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #f9fafb;
+  color: #6b7280;
   transition: all 0.15s ease;
 }
 
 .chatClearBtn:hover {
-  background: #f3f4f6;
-  color: #374151;
+  background: #f0f4ff;
+  border-color: #c7d2fe;
+  color: #3b5aa3;
+  box-shadow: 0 2px 8px rgba(59, 90, 163, 0.12);
 }
 
 .chatInputHint {

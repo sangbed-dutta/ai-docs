@@ -31,7 +31,7 @@ const sortSourceCards = (cards) => {
 
 function loadMessages() {
   try {
-    const raw = sessionStorage.getItem(SESSION_KEY_PREFIX + 'messages');
+    const raw = localStorage.getItem(SESSION_KEY_PREFIX + 'messages');
     return raw ? JSON.parse(raw) : [];
   } catch {
     return [];
@@ -40,12 +40,12 @@ function loadMessages() {
 
 function saveMessages(messages) {
   try {
-    sessionStorage.setItem(
+    localStorage.setItem(
       SESSION_KEY_PREFIX + 'messages',
       JSON.stringify(messages),
     );
   } catch {
-    // sessionStorage quota exceeded — silently ignore
+    // localStorage quota exceeded — silently ignore
   }
 }
 
@@ -103,6 +103,14 @@ export function useAIChat(pageContext, apiUrl) {
       const controller = new AbortController();
       abortRef.current = controller;
 
+      // Hoisted so the catch block can read partial data on abort
+      const fragments = [];
+      const traceSteps = [];
+      const sourceCards = [];
+      let followupSuggestions = [];
+      let actions = [];
+      let responseMeta = null;
+
       try {
         const history = messages.map((m) => ({
           role: m.role,
@@ -132,13 +140,6 @@ export function useAIChat(pageContext, apiUrl) {
         const reader = res.body.getReader();
         const decoder = new TextDecoder();
         let buffer = '';
-
-        const fragments = [];
-        const traceSteps = [];
-        const sourceCards = [];
-        let followupSuggestions = [];
-        let actions = [];
-        let responseMeta = null;
 
         while (true) {
           const { done, value } = await reader.read();
@@ -241,7 +242,31 @@ export function useAIChat(pageContext, apiUrl) {
         setMessages((prev) => [...prev, assistantMsg]);
         setActiveMessageId(assistantMsg.id);
       } catch (err) {
-        if (err.name !== 'AbortError') {
+        if (err.name === 'AbortError') {
+          // User stopped generation — commit whatever partial content arrived
+          if (fragments.length > 0) {
+            const partialMsg = {
+              id: generateId(),
+              role: 'assistant',
+              content: fragments
+                .filter((f) => f.kind === 'text')
+                .map((f) => f.content)
+                .join(''),
+              fragments: [...fragments],
+              traceSteps: [...traceSteps],
+              sourceCards: sortSourceCards([...sourceCards]),
+              followups: [],
+              actions: [],
+              traceId: null,
+              feedbackStatus: 'idle',
+              feedbackHelpful: null,
+              feedbackReason: null,
+              timestamp: Date.now(),
+            };
+            setMessages((prev) => [...prev, partialMsg]);
+            setActiveMessageId(partialMsg.id);
+          }
+        } else {
           const errorMsg = {
             id: generateId(),
             role: 'assistant',
@@ -273,7 +298,7 @@ export function useAIChat(pageContext, apiUrl) {
     setCurrentTraceSteps([]);
     setCurrentSourceCards([]);
     setActiveMessageId(null);
-    sessionStorage.removeItem(SESSION_KEY_PREFIX + 'messages');
+    localStorage.removeItem(SESSION_KEY_PREFIX + 'messages');
   }, []);
 
   const cancelStream = useCallback(() => {

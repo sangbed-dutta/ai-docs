@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Sparkles, FileText } from "lucide-react";
-import thinkingAudioIcon from "/img/icon/thinking-audio-icon.svg";
+
 
 /**
  * Sequential thinking steps shown while the AI is processing
@@ -91,9 +91,7 @@ const ThinkingSteps = ({ messages, isStreaming, traceSteps = [], hasFragments = 
     <div className="ai-thinking">
       {/* Docs AI Agent header */}
       <div className="aicm-ai-header">
-        <div className="aicm-ai-avatar">
-          <Sparkles size={14} />
-        </div>
+        <img src="/img/icon/doc-ai-agent.svg" alt="ai-agent"/>
         <span className="aicm-ai-name">Docs AI Agent</span>
       </div>
 
@@ -110,7 +108,7 @@ const ThinkingSteps = ({ messages, isStreaming, traceSteps = [], hasFragments = 
                 {step.icon === "spinner" ? (
                   <div className="ai-thinking-step__spinner" />
                 ) : step.icon === "audio" ? (
-                  <img src={thinkingAudioIcon} alt="" width={19} height={19} aria-hidden="true" />
+                  <img src="/img/icon/thinking-audio-icon.svg" alt="" width={19} height={19} aria-hidden="true" />
                 ) : (
                   <FileText size={19} />
                 )}
@@ -121,7 +119,13 @@ const ThinkingSteps = ({ messages, isStreaming, traceSteps = [], hasFragments = 
                 {step.items && (
                   <ul className="ai-thinking-step__items">
                     {step.items.map((item, i) => (
-                      <li key={i} className="ai-thinking-step__item">{item}</li>
+                      <li
+                        key={i}
+                        className="ai-thinking-step__item"
+                        style={{ animationDelay: `${i * 120}ms` }}
+                      >
+                        {item}
+                      </li>
                     ))}
                   </ul>
                 )}

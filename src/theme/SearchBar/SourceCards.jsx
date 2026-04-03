@@ -251,7 +251,7 @@ export default function SourceCards({
   activeIndex,
   activeQuestion,
   totalMessages,
-
+  isLoading,
   onPrev,
   onNext,
 }) {
@@ -290,12 +290,6 @@ export default function SourceCards({
     <div className={styles.sourcesNavHeader}>
       <div className={styles.sourcesNavTop}>
         <span className={styles.sourcesNavLabel}>SOURCES</span>
-        {totalMessages > 1 && (
-          <div className={styles.sourcesNavArrows}>
-            <button className={styles.sourcesNavArrow} onClick={onPrev} disabled={activeIndex <= 1} aria-label="Previous">←</button>
-            <button className={styles.sourcesNavArrow} onClick={onNext} disabled={activeIndex >= totalMessages} aria-label="Next">→</button>
-          </div>
-        )}
       </div>
       {activeQuestion && (
         <div className={styles.sourcesNavQuestion}>{activeQuestion}</div>
@@ -307,10 +301,17 @@ export default function SourceCards({
     return (
       <div className={styles.sourcesCol}>
         {navHeader}
-        <div className={styles.sourcesColScroll} ref={scrollRef}>
-          <div className={styles.sourcesEmpty}>
-            Sources will appear here after you ask a question.
-          </div>
+        <div className={`${styles.sourcesColScroll} ${styles.sourcesColCenter}`} ref={scrollRef}>
+          {isLoading ? (
+            <div className={styles.sourcesLoadingState}>
+              <div className={styles.sourcesSpinner} />
+              <span className={styles.sourcesLoadingText}>Gathering sources…</span>
+            </div>
+          ) : (
+            <div className={styles.sourcesEmpty}>
+              Sources will appear here after you ask a question.
+            </div>
+          )}
         </div>
       </div>
     );

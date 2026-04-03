@@ -1309,6 +1309,129 @@
   border-color: rgba(76, 141, 255, 0.5);
 }
 
+/* thinking steps */
+
+.aicm-ai-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.aicm-ai-name {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  color: #1a2035;
+  letter-spacing: -0.01em;
+}
+
+/* ── Thinking Steps ─────────────────────────────────────────────── */
+@keyframes thinking-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes thinking-spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ai-thinking {
+  padding: 8px 0;
+}
+
+.ai-thinking__body {
+  position: relative;
+  padding-left: 20px;
+  margin-top: 12px;
+}
+.ai-thinking__body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 16px;
+  width: 1.5px;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.12) 0%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+}
+
+.ai-thinking-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 4px 24px;
+  animation: thinking-step-in 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.ai-thinking-step + .ai-thinking-step {
+  margin-top: 6px;
+}
+
+.ai-thinking-step__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  color: #6b7280;
+}
+
+.ai-thinking-step__content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ai-thinking-step__text {
+  font-size: 13.5px;
+  font-style: italic;
+  color: #6b7280;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+}
+
+.ai-thinking-step--active .ai-thinking-step__text {
+  color: #4b5563;
+}
+
+.ai-thinking-step__items {
+  list-style: disc;
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ai-thinking-step__item {
+  font-size: 12.5px;
+  font-style: italic;
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+  animation: thinking-step-in 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.ai-thinking-step__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e5e7eb;
+  border-top-color: #4f6ef7;
+  border-radius: 50%;
+  animation: thinking-spinner 0.75s linear infinite;
+}
 /* =============================================
    RESPONSIVE — source/video/academy cards
    ============================================= */
@@ -1437,7 +1560,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding:0;
+  padding: 0;
   gap: 4px;
   min-height: 54px;
 }
@@ -1529,8 +1652,6 @@
   background: rgba(255, 255, 255, 0.03) !important;
   border-color: rgba(255, 255, 255, 0.07) !important;
 }
-
-
 
 [data-theme='dark'] .DocSearch-AskAI-SuggestionItem {
   color: #d1d5db;
