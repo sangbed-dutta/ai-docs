@@ -1,6 +1,35 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styles from './styles.module.css';
-import { SOURCE_ICONS, DocsIcon } from './SourceIcons';
+import React, { useRef, useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import styles from './AIConverstion.module.css';
+import { SOURCE_ICONS} from './SourceIcons';
+
+// ── Video modal dialog ────────────────────────────────────────
+function VideoModal({ url, onClose }) {
+  useEffect(() => {
+    const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, [onClose]);
+
+  return createPortal(
+    <div className={styles.videoModalOverlay} onClick={onClose}>
+      <div className={styles.videoModalBox} onClick={(e) => e.stopPropagation()}>
+        <button className={styles.videoModalClose} onClick={onClose} aria-label="Close video">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+        <iframe
+          src={url}
+          allowFullScreen
+          className={styles.videoModalIframe}
+          title="Academy Video Player"
+        />
+      </div>
+    </div>,
+    document.body,
+  );
+}
 
 const getPlatform = (meta) => {
   const p = meta?.path || meta?.url_path || '';
@@ -9,245 +38,267 @@ const getPlatform = (meta) => {
   return null;
 };
 
-// Docs URLs are relative paths (e.g. "user-interfaces/web/...");
-// academy/marketplace/storybook are already absolute.
 const resolveUrl = (url, source) => {
   if (!url) return '#';
-  if (source !== 'docs') return url; // absolute already
+  if (source !== 'docs') return url;
   if (url.startsWith('http') || url.startsWith('/')) return url;
   return `/docs/${url}`;
 };
 
-const ICON_CLASS = {
-  docs: 'srcCardIconDocs',
-  storybook: 'srcCardIconStorybook',
-  marketplace: 'srcCardIconMarketplace',
-  academy: 'srcCardIconAcademy',
+const SOURCE_ORDER = { docs: 1, academy: 2, storybook: 3, marketplace: 4 };
+
+const SOURCE_LABELS = {
+  docs: 'DOCS',
+  academy: 'ACADEMY',
+  storybook: 'STORYBOOK',
+  marketplace: 'MARKETPLACE',
 };
 
-const SOURCE_ORDER = {
-  docs: 1,
-  academy: 2,
-  storybook: 3,
-  marketplace: 4,
+const SOURCE_COLORS = {
+  docs: '#1b7be4',
+  academy: '#433fed',
+  storybook: '#ff4785',
+  marketplace: '#097fd5',
 };
 
-function ChunkRow({ chunk, isAcademy, onVideoOpen }) {
-  const [hovered, setHovered] = useState(false);
-
-  const rowTitle = chunk.meta?.section_title || chunk.title || 'Section';
-  const timeBadge =
-    isAcademy && chunk.meta?.display_time ? chunk.meta.display_time : null;
-  // For docs: resolve relative path to /docs/... For academy: url is already absolute.
-  const chunkHref = resolveUrl(
-    chunk.meta?.url_path || chunk.url,
-    chunk.source || (isAcademy ? 'academy' : 'docs'),
-  );
-  const excerpt = chunk.excerpt || '';
-
-  const handleClick = (e) => {
-    if (isAcademy && chunk.meta?.embed_link) {
-      e.preventDefault();
-      let embedUrl = chunk.meta.embed_link;
-      if (chunk.meta.start_timestamp) {
-        const sep = embedUrl.includes('?') ? '&' : '?';
-        embedUrl = `${embedUrl}${sep}start=${chunk.meta.start_timestamp}`;
-      }
-      onVideoOpen(embedUrl);
-    }
-  };
-
+// ── Chevron icon ─────────────────────────────────────────────
+function ChevronIcon({ open }) {
   return (
-    <a
-      href={chunkHref}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={styles.chunkRow}
-      onClick={handleClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{
+        transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+        transition: 'transform 0.2s ease',
+        flexShrink: 0,
+      }}
     >
-      <div className={styles.chunkRowInner}>
-        <div className={styles.chunkRowTitle}>
-          {timeBadge && (
-            <span className={styles.timestampBadge}>{timeBadge}</span>
-          )}
-          <span className={styles.chunkRowTitleText}>{rowTitle}</span>
-        </div>
-        {!isAcademy && <span className={styles.chunkRowArrow}>↗</span>}
-      </div>
-      {excerpt && hovered && (
-        <div
-          className={styles.chunkRowExcerpt}
-          style={{ maxHeight: '100px', opacity: 1, marginTop: '5px' }}
-        >
-          {excerpt}
-        </div>
-      )}
-    </a>
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
   );
 }
 
-function GroupCard({ group }) {
-  const [activeVideoUrl, setActiveVideoUrl] = useState(null);
-
-  const isAcademy = group.source === 'academy';
-  const IconComponent = SOURCE_ICONS[group.source] || DocsIcon;
-  const iconClass = styles[ICON_CLASS[group.source] || 'srcCardIconDocs'];
-
-  const displayTitle = group.platform
-    ? `${group.title} · ${group.platform === 'mobile' ? 'Mobile' : 'Web'}`
-    : group.title;
-
-  const chunkLabel = isAcademy
-    ? group.chunks.length === 1
-      ? 'timestamp'
-      : 'timestamps'
-    : group.chunks.length === 1
-      ? 'section'
-      : 'sections';
-
+// ── DOCS: flat link list ──────────────────────────────────────
+function DocLinkList({ groups }) {
   return (
-    <div className={styles.groupedCard}>
-      <div className={styles.groupedCardHeader}>
-        <div className={`${styles.srcCardIcon} ${iconClass}`}>
-          <IconComponent width="20" height="20" />
-        </div>
-        <div className={styles.srcCardMeta}>
-          <div className={styles.srcCardSource}>
-            {group.source.charAt(0).toUpperCase() + group.source.slice(1)}
-            <span className={styles.chunkCountBadge}>
-              {group.chunks.length} {chunkLabel}
-            </span>
-          </div>
-          <div className={styles.srcCardTitle}>
-            {group.url ? (
-              <a
-                href={resolveUrl(group.url, group.source)}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {displayTitle}
-              </a>
-            ) : (
-              displayTitle
-            )}
-          </div>
-        </div>
-      </div>
-
-      {activeVideoUrl && (
-        <div className={styles.inlinePlayerWrapper}>
-          <div className={styles.inlinePlayerHeader}>
-            <span>Now Playing</span>
-            <button
-              onClick={() => setActiveVideoUrl(null)}
-              aria-label="Close Video"
+    <div className={styles.docLinkList}>
+      {groups.map((group) =>
+        group.chunks.map((chunk, ci) => {
+          const href = resolveUrl(chunk.meta?.url_path || chunk.url, 'docs');
+          const label = chunk.meta?.section_title || chunk.title || 'Section';
+          const isFirst = ci === 0;
+          return (
+            <a
+              key={`${group.id}-${ci}`}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${styles.docLink} ${isFirst && ci === 0 && groups.indexOf(group) === 0 ? styles.docLinkActive : ''}`}
             >
-              ✕
-            </button>
-          </div>
-          <iframe
-            src={activeVideoUrl}
-            allowFullScreen
-            className={styles.inlinePlayer}
-            title="Academy Video Player"
-          />
-        </div>
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={styles.docLinkIcon}
+              >
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+              <span className={styles.docLinkText}>{label}</span>
+            </a>
+          );
+        }),
       )}
-
-      <div className={styles.chunkList}>
-        {group.chunks.map((chunk, idx) => (
-          <ChunkRow
-            key={idx}
-            chunk={chunk}
-            isAcademy={isAcademy}
-            onVideoOpen={setActiveVideoUrl}
-          />
-        ))}
-      </div>
     </div>
   );
 }
 
+// ── ACADEMY: video card + timestamps ─────────────────────────
+function AcademyVideoCard({ group, onVideoOpen }) {
+  const buildEmbedUrl = (chunk, withTimestamp = true) => {
+    if (!chunk?.meta?.embed_link) return null;
+    let url = chunk.meta.embed_link;
+    if (withTimestamp && chunk.meta.start_timestamp) {
+      url += (url.includes('?') ? '&' : '?') + `t=${chunk.meta.start_timestamp}`;
+    }
+    return url;
+  };
+
+  const handleThumbnailPlay = () => {
+    const firstChunk = group.chunks[0];
+    const url = buildEmbedUrl(firstChunk, false);
+    if (url) onVideoOpen(url);
+  };
+
+  const handleTimestampPlay = (e, chunk) => {
+    const url = buildEmbedUrl(chunk, true);
+    if (url) {
+      e.preventDefault();
+      onVideoOpen(url);
+    }
+    // else: let the default href open (external link fallback)
+  };
+
+  const hasThumbnailPlay = !!group.chunks[0]?.meta?.embed_link;
+
+  return (
+    <div className={styles.academyCard}>
+      {/* Thumbnail — clickable if embed available */}
+      <div
+        className={`${styles.academyThumbnail} ${hasThumbnailPlay ? styles.academyThumbnailClickable : ''}`}
+        onClick={hasThumbnailPlay ? handleThumbnailPlay : undefined}
+        role={hasThumbnailPlay ? 'button' : undefined}
+        tabIndex={hasThumbnailPlay ? 0 : undefined}
+        onKeyDown={hasThumbnailPlay ? (e) => e.key === 'Enter' && handleThumbnailPlay() : undefined}
+        aria-label={hasThumbnailPlay ? `Play ${group.title}` : undefined}
+      >
+        <div className={styles.academyThumbnailPlaceholder}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3" fill="white" opacity="0.9" />
+          </svg>
+        </div>
+        <div className={styles.academyCardInfo}>
+          <span className={styles.academyCardTitle}>{group.title}</span>
+        </div>
+      </div>
+
+      {/* Timestamps */}
+      {group.chunks.map((chunk, idx) => {
+        const timeBadge = chunk.meta?.display_time;
+        const label = chunk.meta?.section_title || chunk.title || 'Section';
+        const href = resolveUrl(chunk.meta?.url_path || chunk.url, 'academy');
+        return (
+          <a
+            key={idx}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.academyTimestampRow}
+            onClick={(e) => handleTimestampPlay(e, chunk)}
+          >
+            {timeBadge && (
+              <span className={styles.timestampTag}>{timeBadge}</span>
+            )}
+            <span className={styles.academyTimestampLabel}>{label}</span>
+            <span className={styles.academyPlayBtn}>
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+              Play
+            </span>
+          </a>
+        );
+      })}
+    </div>
+  );
+}
+
+// ── Per-source accordion section ──────────────────────────────
+function SourceSection({ source, groups, defaultOpen, onVideoOpen }) {
+  const [open, setOpen] = useState(defaultOpen);
+  const IconComponent = SOURCE_ICONS[source] || DocsIcon;
+  const color = SOURCE_COLORS[source] || '#6b7280';
+  const isAcademy = source === 'academy';
+
+  return (
+    <div className={styles.sourceSection}>
+      <button
+        className={styles.sourceSectionHeader}
+        onClick={() => setOpen((v) => !v)}
+        type="button"
+      >
+        <div
+          className={styles.sourceSectionIcon}
+          style={{ background: `${color}18`, color }}
+        >
+          <IconComponent width="14" height="14" />
+        </div>
+        <span className={styles.sourceSectionLabel}>{SOURCE_LABELS[source] || source.toUpperCase()}</span>
+        <ChevronIcon open={open} />
+      </button>
+
+      {open && (
+        <div className={styles.sourceSectionContent}>
+          {isAcademy
+            ? groups.map((group) => (
+                <AcademyVideoCard
+                  key={group.id}
+                  group={group}
+                  onVideoOpen={onVideoOpen}
+                />
+              ))
+            : <DocLinkList groups={groups} />}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Main SourceCards export ───────────────────────────────────
 export default function SourceCards({
   cards,
   activeIndex,
   activeQuestion,
   totalMessages,
+
   onPrev,
   onNext,
 }) {
   const scrollRef = useRef(null);
+  const [activeVideoUrl, setActiveVideoUrl] = useState(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = 0;
-    }
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
   }, [cards]);
 
-  // GROUPING LOGIC: group chunks by parent_doc_id
-  const groupedCardsMap = cards.reduce((acc, card) => {
-    const parentId =
-      card.meta?.parent_doc_id ||
-      card.url ||
-      `fallback-${card.title}-${Math.random()}`;
-    if (!acc[parentId]) {
-      acc[parentId] = {
+  // Group by parent_doc_id within each source
+  const bySource = {};
+  cards.forEach((card) => {
+    const src = card.source || 'docs';
+    if (!bySource[src]) bySource[src] = {};
+    const parentId = card.meta?.parent_doc_id || card.url || `fallback-${card.title}-${Math.random()}`;
+    if (!bySource[src][parentId]) {
+      bySource[src][parentId] = {
         id: parentId,
-        source: card.source || 'docs',
+        source: src,
         title: card.title || 'Source',
         url: card.url,
         platform: getPlatform(card.meta),
         chunks: [],
       };
     }
-    acc[parentId].chunks.push(card);
-    return acc;
-  }, {});
-
-  const groupedCards = Object.values(groupedCardsMap).map((group) => {
-    group.chunks.sort((a, b) => {
-      const scoreA = a.meta?.relevanceScore ?? 0;
-      const scoreB = b.meta?.relevanceScore ?? 0;
-      return scoreB - scoreA;
-    });
-    return group;
+    bySource[src][parentId].chunks.push(card);
   });
 
-  groupedCards.sort((a, b) => {
-    const orderA = SOURCE_ORDER[a.source] || 99;
-    const orderB = SOURCE_ORDER[b.source] || 99;
-    return orderA - orderB;
-  });
+  // Sorted sources
+  const sortedSources = Object.keys(bySource).sort(
+    (a, b) => (SOURCE_ORDER[a] || 99) - (SOURCE_ORDER[b] || 99),
+  );
 
   const navHeader = (
     <div className={styles.sourcesNavHeader}>
-      <span className={styles.sourcesNavLabel} title={activeQuestion || ''}>
-        {cards.length > 0 && activeQuestion
-          ? `Sources · ${activeQuestion}`
-          : 'Sources'}
-      </span>
-      {totalMessages > 1 && (
-        <div className={styles.sourcesNavArrows}>
-          <button
-            className={styles.sourcesNavArrow}
-            onClick={onPrev}
-            disabled={activeIndex <= 1}
-            aria-label="Previous message sources"
-          >
-            ←
-          </button>
-          <button
-            className={styles.sourcesNavArrow}
-            onClick={onNext}
-            disabled={activeIndex >= totalMessages}
-            aria-label="Next message sources"
-          >
-            →
-          </button>
-        </div>
+      <div className={styles.sourcesNavTop}>
+        <span className={styles.sourcesNavLabel}>SOURCES</span>
+        {totalMessages > 1 && (
+          <div className={styles.sourcesNavArrows}>
+            <button className={styles.sourcesNavArrow} onClick={onPrev} disabled={activeIndex <= 1} aria-label="Previous">←</button>
+            <button className={styles.sourcesNavArrow} onClick={onNext} disabled={activeIndex >= totalMessages} aria-label="Next">→</button>
+          </div>
+        )}
+      </div>
+      {activeQuestion && (
+        <div className={styles.sourcesNavQuestion}>{activeQuestion}</div>
       )}
     </div>
   );
@@ -269,10 +320,23 @@ export default function SourceCards({
     <div className={styles.sourcesCol}>
       {navHeader}
       <div className={styles.sourcesColScroll} ref={scrollRef}>
-        {groupedCards.map((group, i) => (
-          <GroupCard key={group.id || i} group={group} />
-        ))}
+        {sortedSources.map((source) => {
+          const groups = Object.values(bySource[source]);
+          const defaultOpen = source === 'docs' || source === 'academy';
+          return (
+            <SourceSection
+              key={source}
+              source={source}
+              groups={groups}
+              defaultOpen={defaultOpen}
+              onVideoOpen={setActiveVideoUrl}
+            />
+          );
+        })}
       </div>
+      {activeVideoUrl && (
+        <VideoModal url={activeVideoUrl} onClose={() => setActiveVideoUrl(null)} />
+      )}
     </div>
   );
 }

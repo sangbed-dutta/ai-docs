@@ -7,74 +7,22 @@ export const DocsIcon = ({
   style = {},
 }) => (
   <svg
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 64 64"
-    width={width}
-    height={height}
-    className={className}
-    style={style}
   >
-    <style>
-      {`
-        .d-draw { stroke-dasharray: 30; stroke-dashoffset: 30; animation: d-write 3s infinite ease-in-out; }
-        .d1 { animation-delay: 0s; }
-        .d2 { animation-delay: 0.4s; }
-        .d3 { stroke-dasharray: 20; stroke-dashoffset: 20; animation-delay: 0.8s; }
-        @keyframes d-write {
-          0% { stroke-dashoffset: 30; opacity: 0; }
-          20%, 80% { stroke-dashoffset: 0; opacity: 1; }
-          100% { stroke-dashoffset: -30; opacity: 0; }
-        }
-      `}
-    </style>
-    <rect
-      x="12"
-      y="6"
-      width="40"
-      height="52"
-      rx="4"
-      fill="none"
-      stroke="var(--ifm-color-dark, #18181B)"
-      strokeWidth="4"
-    />
-    <line
-      x1="20"
-      y1="20"
-      x2="44"
-      y2="20"
-      stroke="currentColor"
-      strokeWidth="4"
-      strokeLinecap="round"
-      className="d-draw d1"
-    />
-    <line
-      x1="20"
-      y1="32"
-      x2="44"
-      y2="32"
-      stroke="currentColor"
-      strokeWidth="4"
-      strokeLinecap="round"
-      className="d-draw d2"
-    />
-    <line
-      x1="20"
-      y1="44"
-      x2="36"
-      y2="44"
-      stroke="currentColor"
-      strokeWidth="4"
-      strokeLinecap="round"
-      className="d-draw d3"
+    <rect width="32" height="32" rx="8" fill="#1794EF" />
+    <path
+      d="M24.6671 10.7871H23.3337V9.45379C23.3337 9.28712 23.2104 9.14379 23.0437 9.12378C18.8537 8.56378 16.6937 10.0471 16.0003 10.6571C15.307 10.0471 13.147 8.56378 8.95692 9.12378C8.79025 9.14378 8.66691 9.28711 8.66691 9.45379V10.7871H7.33358C7.15024 10.7871 7.00024 10.9371 7.00024 11.1205V21.7871C7.00024 21.9705 7.15024 22.1205 7.33358 22.1205H24.6669C24.8502 22.1205 25.0002 21.9705 25.0002 21.7871V11.1205C25.0002 10.9371 24.8504 10.7871 24.6671 10.7871ZM16.3339 11.2571C16.7372 10.8738 18.6639 9.30044 22.6673 9.74712V19.7437C19.2407 19.377 17.2405 20.3937 16.3339 21.0537V11.2571ZM7.66719 21.4538V11.4538H8.66719V20.1205C8.66719 20.2171 8.70719 20.3071 8.78052 20.3705C8.85385 20.4338 8.95052 20.4638 9.04386 20.4505C12.2006 20.0305 14.1206 20.8505 15.0539 21.4538H7.66719Z"
+      fill="white"
     />
   </svg>
 );
 
 export const StorybookIcon = ({
-  width = '1em',
-  height = '1em',
-  className = '',
-  style = {},
+
 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -139,10 +87,6 @@ export const StorybookIcon = ({
 );
 
 export const MarketplaceIcon = ({
-  width = '1em',
-  height = '1em',
-  className = '',
-  style = {},
 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -180,57 +124,15 @@ export const MarketplaceIcon = ({
 );
 
 export const AcademyIcon = ({
-  width = '1em',
-  height = '1em',
-  className = '',
-  style = {},
+  
 }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 64 64"
-    width="64"
-    height="64"
-  >
-    <style>{`
-    .swing { animation: pendulum 2s infinite ease-in-out; transform-origin: 32px 24px; }
-    @keyframes pendulum {
-      0%, 100% { transform: rotate(15deg); }
-      50% { transform: rotate(-15deg); }
-    }
-  `}</style>
-    <path
-      d="M8 24 L32 12 L56 24 L32 36 Z"
-      fill="none"
-      stroke="var(--ifm-color-dark, #18181B)"
-      stroke-width="4"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M18 30 V46 C18 53 46 53 46 46 V30"
-      fill="none"
-      stroke="var(--ifm-color-dark, #18181B)"
-      stroke-width="4"
-      stroke-linecap="round"
-    />
-    <g class="swing">
-      <line
-        x1="32"
-        y1="24"
-        x2="46"
-        y2="40"
-        stroke="var(--ifm-color-blue-brand, #433FED)"
-        stroke-width="3"
-        stroke-linecap="round"
-      />
-      <circle
-        cx="47"
-        cy="42"
-        r="3"
-        fill="var(--ifm-color-blue-brand, #433FED)"
-      />
-    </g>
-    <circle cx="32" cy="24" r="3" fill="var(--ifm-color-dark, #18181B)" />
-  </svg>
+ <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="32" height="32" rx="8" fill="#2563EB"/>
+<path d="M23.8503 15.1018C23.9995 15.036 24.1261 14.9279 24.2144 14.7908C24.3028 14.6538 24.3489 14.4938 24.3473 14.3307C24.3456 14.1677 24.2961 14.0087 24.2049 13.8735C24.1138 13.7383 23.985 13.6328 23.8345 13.5701L16.692 10.3168C16.4749 10.2178 16.239 10.1665 16.0003 10.1665C15.7617 10.1665 15.5258 10.2178 15.3087 10.3168L8.16699 13.5668C8.01863 13.6318 7.89242 13.7386 7.80379 13.8741C7.71517 14.0097 7.66797 14.1682 7.66797 14.3301C7.66797 14.4921 7.71517 14.6506 7.80379 14.7861C7.89242 14.9217 8.01863 15.0285 8.16699 15.0935L15.3087 18.3501C15.5258 18.4492 15.7617 18.5004 16.0003 18.5004C16.239 18.5004 16.4749 18.4492 16.692 18.3501L23.8503 15.1018Z" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24.333 14.3335V19.3335" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11 16.4167V19.3333C11 19.9964 11.5268 20.6323 12.4645 21.1011C13.4021 21.5699 14.6739 21.8333 16 21.8333C17.3261 21.8333 18.5979 21.5699 19.5355 21.1011C20.4732 20.6323 21 19.9964 21 19.3333V16.4167" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
 );
 
 export const SOURCE_ICONS = {

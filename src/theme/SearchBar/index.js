@@ -120,9 +120,85 @@ function useSearchParameters({ contextualSearch, ...props }) {
 
 
 /**
+ * Fetches AI follow-up suggestions from the stream API based on query.
+ * Aborts the stream as soon as the `followups` event is received.
+ */
+function useAISuggestions(query, apiUrl) {
+  const [suggestions, setSuggestions] = useState([]);
+  const abortRef = useRef(null);
+  const debounceRef = useRef(null);
+
+  useEffect(() => {
+    clearTimeout(debounceRef.current);
+    abortRef.current?.abort();
+    abortRef.current = null;
+
+    if (!query || !query.trim()) {
+      setSuggestions([]);
+      return;
+    }
+
+    debounceRef.current = setTimeout(async () => {
+      const controller = new AbortController();
+      abortRef.current = controller;
+
+      try {
+        const res = await fetch(`${apiUrl}/api/v1/chat/stream`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: query.trim(),
+            sessionId: 'suggestions-' + Date.now(),
+          }),
+          signal: controller.signal,
+        });
+
+        if (!res.ok) return;
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            let event;
+            try { event = JSON.parse(line); } catch { continue; }
+
+            if (event.type === 'followups' && event.suggestions?.length) {
+              setSuggestions(event.suggestions);
+              controller.abort();
+              return;
+            }
+          }
+        }
+      } catch (err) {
+        if (err.name !== 'AbortError') setSuggestions([]);
+      }
+    }, 600);
+
+    return () => clearTimeout(debounceRef.current);
+  }, [query, apiUrl]);
+
+  useEffect(() => () => {
+    abortRef.current?.abort();
+    clearTimeout(debounceRef.current);
+  }, []);
+
+  return suggestions;
+}
+
+/**
  * Custom Modal Wrapper that adds Ask AI suggestion row
  */
-function CustomDocSearchModal({ onClose, onAskAI, ...props }) {
+function CustomDocSearchModal({ onClose, onAskAI, apiUrl, ...props }) {
   const [query, setQuery] = useState('');
   const queryRef = useRef(query);
 
@@ -150,32 +226,36 @@ function CustomDocSearchModal({ onClose, onAskAI, ...props }) {
       }
     };
 
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter' && e.target.classList.contains('DocSearch-Input')) {
+        e.preventDefault();
+        e.stopPropagation();
+        onAskAI(queryRef.current);
+      }
+    };
+
     document.addEventListener('input', handleInput);
+    document.addEventListener('keydown', handleKeyDown, true);
     return () => {
       observer.disconnect();
       document.removeEventListener('input', handleInput);
+      document.removeEventListener('keydown', handleKeyDown, true);
     };
-  }, []);
+  }, [onAskAI]);
 
   return (
     <>
       <DocSearchModal onClose={onClose} {...props} />
-      <AskAISuggestionPortal query={query} onAskAI={onAskAI} />
+      <AskAISuggestionPortal query={query} onAskAI={onAskAI} apiUrl={apiUrl} />
     </>
   );
 }
 
-const AI_SUGGESTIONS = [
-  'Binding Rest API',
-  'Setup CORS',
-  'How to create a new project?',
-  'How to deploy WaveMaker app?',
-];
-
 /**
  * Portal to inject "Ask AI [query]" suggestion row + vertical suggestions below the search input
  */
-function AskAISuggestionPortal({ query, onAskAI }) {
+function AskAISuggestionPortal({ query, onAskAI, apiUrl }) {
+  const suggestions = useAISuggestions(query, apiUrl);
   const [container, setContainer] = useState(null);
 
   useEffect(() => {
@@ -218,15 +298,16 @@ function AskAISuggestionPortal({ query, onAskAI }) {
       </button>
 
       {/* Vertical suggestion list */}
+      
       <ul className="DocSearch-AskAI-SuggestionList">
-        {AI_SUGGESTIONS.map((s) => (
+        {suggestions.map((s) => (
           <li key={s}>
             <button
               type="button"
               className="DocSearch-AskAI-SuggestionItem"
               onClick={() => onAskAI(s)}
             >
-              <svg className="DocSearch-AskAI-SuggestionItem__icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="DocSearch-AskAI-SuggestionItem__icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"  >
                 <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
               <span>{s}</span>

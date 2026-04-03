@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
+import ThinkingSteps from './ThinkingSteps';
 import remarkGfm from 'remark-gfm';
 import DocusaurusCodeBlock from '@theme/CodeBlock';
 import { useHistory } from '@docusaurus/router';
@@ -11,7 +12,7 @@ import {
   StorybookIcon,
   AcademyIcon,
 } from './SourceIcons';
-import styles from './styles.module.css';
+import styles from './AIConverstion.module.css';
 
 const BADGE_ICONS = {
   docs: '●',
@@ -185,7 +186,6 @@ export default function AIConversation({
   isStreaming,
   currentFragments,
   currentTraceSteps,
-  followups,
   activeMessageId,
   onSelectMessage,
   onFollowup,
@@ -242,6 +242,9 @@ export default function AIConversation({
 
           const isActive = activeMessageId === msg.id;
           const sourceCount = msg.sourceCards?.length || 0;
+          const uniqueSources = sourceCount > 0
+            ? [...new Set(msg.sourceCards.map((c) => c.source))]
+            : [];
           const selectedReason = feedbackReasonByMessage[msg.id] || null;
           const showFeedbackPrompt =
             feedbackPromptId === msg.id && msg.feedbackStatus !== 'submitted';
@@ -271,45 +274,18 @@ export default function AIConversation({
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && onSelectMessage(msg.id)}
               >
-                <div className={styles.aiRow}>
-                  <div className={styles.aiIcon}>W</div>
-                  <div className={styles.aiText}>
-                    {msg.fragments
-                      ? renderFragments(msg.fragments, mdComponents)
-                      : msg.content}
+                <div className={styles.agentIconCircle }>
+                    <img src="/img/icon/doc-ai-agent.svg" alt="AI"  onError={(e) => { e.target.style.display='none'; }} />
+                    <span className={styles.agentName}>Docs AI Agent</span>
                   </div>
+                <div className={styles.aiText}>
+                  {msg.fragments
+                    ? renderFragments(msg.fragments, mdComponents)
+                    : msg.content}
                 </div>
               </div>
 
-              {/* Source count badge (desktop only, hidden on mobile via CSS) */}
-              {sourceCount > 0 && (
-                <div
-                  className={styles.sourceCountBadge}
-                  onClick={() => onSelectMessage(msg.id)}
-                >
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                  >
-                    <path d="M2 3h12v1.5H2zM2 7h12v1.5H2zM2 11h8v1.5H2z" />
-                  </svg>
-                  {sourceCount} source{sourceCount !== 1 ? 's' : ''}
-                </div>
-              )}
-
-              {/* Mobile inline source toggle (shown only on mobile via CSS) */}
-              {sourceCount > 0 && (
-                <button
-                  className={styles.mobileSourceToggle}
-                  onClick={() => toggleMobileSources(msg.id)}
-                >
-                  Sources ({sourceCount}){' '}
-                  {expandedMobileId === msg.id ? '▾' : '▸'}
-                </button>
-              )}
-
+             
               {/* Mobile inline source cards */}
               {expandedMobileId === msg.id && msg.sourceCards && (
                 <div className={styles.mobileSourceCards}>
@@ -356,6 +332,26 @@ export default function AIConversation({
 
               {msg.traceId && (
                 <div className={styles.feedbackBar}>
+                  {uniqueSources.length > 0 && (
+                    <button
+                      type="button"
+                      className={styles.sourcesToggleBtn}
+                      onClick={(e) => { e.stopPropagation(); toggleMobileSources(msg.id); }}
+                      aria-label="Toggle sources"
+                    >
+                      <div className={styles.sourcesIconStack}>
+                        {uniqueSources.slice(0, 3).map((src) => {
+                          const Icon = SOURCE_ICONS[src];
+                          return Icon ? (
+                            <div key={src} className={`${styles.sourcesIconBubble} ${styles[`sourcesIconBubble_${src}`]}`}>
+                              <Icon width="12" height="12" />
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                      <span>Sources</span>
+                    </button>
+                  )}
                   {msg.feedbackStatus === 'submitted' ? (
                     <div className={styles.feedbackThanks}>
                       <span className={styles.feedbackThanksIcon}>
@@ -453,6 +449,25 @@ export default function AIConversation({
                 </div>
               )}
 
+              {/* Suggested follow-up questions */}
+              {msg.followups && msg.followups.length > 0 && !isStreaming && (
+                <div className={styles.msgFollowups}>
+                  <div className={styles.msgFollowupsLabel}>Suggested questions</div>
+                  <div className={styles.followupsChips}>
+                    {msg.followups.map((f, i) => (
+                      <button
+                        key={i}
+                        className={styles.followupChip}
+                        onClick={() => onFollowup(f)}
+                        tabIndex={0}
+                      >
+                        {f}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Divider */}
               {idx < messages.length - 1 && (
                 <div className={styles.convDivider} />
@@ -461,65 +476,33 @@ export default function AIConversation({
           );
         })}
 
-        {/* Currently streaming response */}
+        {/* Thinking steps — shown while waiting for first text fragment */}
         {isStreaming && (
-          <>
-            {currentTraceSteps.length > 0 && (
-              <div className={styles.agentTrace}>
-                <div className={styles.traceLineActive}>
-                  <div className={styles.traceDot} />
-                  Searching sources...
-                </div>
-              </div>
-            )}
+          <ThinkingSteps
+            messages={messages}
+            isStreaming={isStreaming}
+            traceSteps={currentTraceSteps}
+            hasFragments={currentFragments.length > 0}
+          />
+        )}
 
-            {currentFragments.length > 0 && (
-              <div className={`${styles.msgAi} ${styles.msgAiActive}`}>
-                <div className={styles.aiRow}>
-                  <div className={styles.aiIcon}>W</div>
-                  <div className={styles.aiText}>
-                    {renderFragments(currentFragments, mdComponents)}
-                    <span className={styles.streamCursor} />
-                  </div>
-                </div>
+        {/* Streaming text — shown once fragments start arriving */}
+        {isStreaming && currentFragments.length > 0 && (
+          <div className={styles.msgAi}>
+            <div className={styles.agentHeader}>
+              <div className={styles.agentIconCircle}>
+                <img src="/img/icon/AskAI-Icon.svg" alt="AI" width="18" height="18" onError={(e) => { e.target.style.display='none'; }} />
               </div>
-            )}
-
-            {currentFragments.length === 0 && (
-              <div className={styles.msgAi}>
-                <div className={`${styles.aiRow} ${styles.thinkingRow}`}>
-                  <div className={styles.aiIcon}>W</div>
-                  <div className={styles.dots}>
-                    <span className={styles.dotsSpan} />
-                    <span className={styles.dotsSpan} />
-                    <span className={styles.dotsSpan} />
-                  </div>
-                  <span className={styles.thinkingText}>Thinking…</span>
-                </div>
-              </div>
-            )}
-          </>
+              <span className={styles.agentName}>Docs AI Agent</span>
+            </div>
+            <div className={styles.aiText}>
+              {renderFragments(currentFragments, mdComponents)}
+              <span className={styles.streamCursor} />
+            </div>
+          </div>
         )}
       </div>
 
-      {/* Follow-up chips */}
-      {followups.length > 0 && !isStreaming && (
-        <div className={styles.followups}>
-          <div className={styles.followupsLabel}>Follow up</div>
-          <div className={styles.followupsChips}>
-            {followups.map((f, i) => (
-              <button
-                key={i}
-                className={styles.followupChip}
-                onClick={() => onFollowup(f)}
-                tabIndex={0}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
     </>
   );
 }

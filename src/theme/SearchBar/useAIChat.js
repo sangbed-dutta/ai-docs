@@ -57,7 +57,11 @@ export function useAIChat(pageContext, apiUrl) {
   const [currentSourceCards, setCurrentSourceCards] = useState([]);
   const [followups, setFollowups] = useState([]);
   const [activeActions, setActiveActions] = useState([]);
-  const [activeMessageId, setActiveMessageId] = useState(null);
+  const [activeMessageId, setActiveMessageId] = useState(() => {
+    const saved = loadMessages();
+    const lastAssistant = [...saved].reverse().find((m) => m.role === 'assistant');
+    return lastAssistant?.id ?? null;
+  });
   const abortRef = useRef(null);
 
   const updateMessage = useCallback((messageId, updater) => {
