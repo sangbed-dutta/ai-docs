@@ -44,6 +44,24 @@ function getBadgeClass(source) {
   }
 }
 
+const GITHUB_RAW_BASE =
+  'https://raw.githubusercontent.com/wavemaker/ai-docs/main/';
+
+function resolveImageSrc(src) {
+  if (!src) return src;
+  // Already absolute — leave as-is
+  if (
+    src.startsWith('http://') ||
+    src.startsWith('https://') ||
+    src.startsWith('/')
+  ) {
+    return src;
+  }
+  // Strip leading ./ or ../
+  const cleaned = src.replace(/^(\.\.?\/)+/, '');
+  return `${GITHUB_RAW_BASE}${cleaned}`;
+}
+
 function buildMarkdownComponents(navigate) {
   return {
     code({ node: _node, inline, className, children, ...props }) {
@@ -59,6 +77,17 @@ function buildMarkdownComponents(navigate) {
         <code className={className} {...props}>
           {children}
         </code>
+      );
+    },
+    img({ node: _node, src, alt, ...props }) {
+      return (
+        <img
+          src={resolveImageSrc(src)}
+          alt={alt || ''}
+          style={{ maxWidth: '100%', borderRadius: '8px', margin: '8px 0' }}
+          loading="lazy"
+          {...props}
+        />
       );
     },
     a({ node: _node, children, href, ...props }) {
@@ -242,9 +271,10 @@ export default function AIConversation({
 
           const isActive = activeMessageId === msg.id;
           const sourceCount = msg.sourceCards?.length || 0;
-          const uniqueSources = sourceCount > 0
-            ? [...new Set(msg.sourceCards.map((c) => c.source))]
-            : [];
+          const uniqueSources =
+            sourceCount > 0
+              ? [...new Set(msg.sourceCards.map((c) => c.source))]
+              : [];
           const selectedReason = feedbackReasonByMessage[msg.id] || null;
           const showFeedbackPrompt =
             feedbackPromptId === msg.id && msg.feedbackStatus !== 'submitted';
@@ -274,10 +304,16 @@ export default function AIConversation({
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && onSelectMessage(msg.id)}
               >
-                <div className={styles.agentIconCircle }>
-                    <img src="/img/icon/doc-ai-agent.svg" alt="AI"  onError={(e) => { e.target.style.display='none'; }} />
-                    <span className={styles.agentName}>Docs AI Agent</span>
-                  </div>
+                <div className={styles.agentIconCircle}>
+                  <img
+                    src="/img/icon/doc-ai-agent.svg"
+                    alt="AI"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                  <span className={styles.agentName}>Docs AI Agent</span>
+                </div>
                 <div className={styles.aiText}>
                   {msg.fragments
                     ? renderFragments(msg.fragments, mdComponents)
@@ -285,7 +321,6 @@ export default function AIConversation({
                 </div>
               </div>
 
-             
               {/* Mobile inline source cards */}
               {expandedMobileId === msg.id && msg.sourceCards && (
                 <div className={styles.mobileSourceCards}>
@@ -336,14 +371,20 @@ export default function AIConversation({
                     <button
                       type="button"
                       className={styles.sourcesToggleBtn}
-                      onClick={(e) => { e.stopPropagation(); toggleMobileSources(msg.id); }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleMobileSources(msg.id);
+                      }}
                       aria-label="Toggle sources"
                     >
                       <div className={styles.sourcesIconStack}>
                         {uniqueSources.slice(0, 3).map((src) => {
                           const Icon = SOURCE_ICONS[src];
                           return Icon ? (
-                            <div key={src} className={`${styles.sourcesIconBubble} ${styles[`sourcesIconBubble_${src}`]}`}>
+                            <div
+                              key={src}
+                              className={`${styles.sourcesIconBubble} ${styles[`sourcesIconBubble_${src}`]}`}
+                            >
                               <Icon width="12" height="12" />
                             </div>
                           ) : null;
@@ -452,7 +493,9 @@ export default function AIConversation({
               {/* Suggested follow-up questions */}
               {msg.followups && msg.followups.length > 0 && !isStreaming && (
                 <div className={styles.msgFollowups}>
-                  <div className={styles.msgFollowupsLabel}>Suggested questions</div>
+                  <div className={styles.msgFollowupsLabel}>
+                    Suggested questions
+                  </div>
                   <div className={styles.followupsChips}>
                     {msg.followups.map((f, i) => (
                       <button
@@ -491,7 +534,15 @@ export default function AIConversation({
           <div className={styles.msgAi}>
             <div className={styles.agentHeader}>
               <div className={styles.agentIconCircle}>
-                <img src="/img/icon/AskAI-Icon.svg" alt="AI" width="18" height="18" onError={(e) => { e.target.style.display='none'; }} />
+                <img
+                  src="/img/icon/AskAI-Icon.svg"
+                  alt="AI"
+                  width="18"
+                  height="18"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                  }}
+                />
               </div>
               <span className={styles.agentName}>Docs AI Agent</span>
             </div>
@@ -502,7 +553,6 @@ export default function AIConversation({
           </div>
         )}
       </div>
-
     </>
   );
 }

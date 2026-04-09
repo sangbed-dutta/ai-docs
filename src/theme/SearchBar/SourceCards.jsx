@@ -146,6 +146,8 @@ function DocLinkList({ groups }) {
 function AcademyVideoCard({ group, onVideoOpen }) {
   const firstChunk = group.chunks[0];
   const previewRows = firstChunk?.meta?.segment_previews;
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
   const rows =
     Array.isArray(previewRows) && previewRows.length > 0
       ? previewRows.map((preview, idx) => ({
@@ -183,10 +185,14 @@ function AcademyVideoCard({ group, onVideoOpen }) {
             chunk.meta?.start_timestamp,
         }));
 
-  const thumbnailSrc =
+  const defaultThumbnail =
     rows.find((row) => row.thumbnail)?.thumbnail ||
     firstChunk?.meta?.segment_previews?.[0]?.thumbnail ||
     firstChunk?.meta?.video_thumbnail;
+
+  // Use hovered row's thumbnail if available, otherwise default
+  const activeIndex = hoveredIndex !== null ? hoveredIndex : 0;
+  const thumbnailSrc = rows[activeIndex]?.thumbnail || defaultThumbnail;
 
   const duration = firstChunk?.meta?.duration_minutes;
   const durationLabel = duration ? `${duration} mins` : null;
@@ -315,8 +321,10 @@ function AcademyVideoCard({ group, onVideoOpen }) {
           href={row.href}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${styles.academyTimestampRow} ${idx === 0 ? styles.academyTimestampRowActive : ''}`}
+          className={`${styles.academyTimestampRow} ${(hoveredIndex !== null ? hoveredIndex === idx : idx === 0) ? styles.academyTimestampRowActive : ''}`}
           onClick={(e) => handleTimestampPlay(e, row.timestamp)}
+          onMouseEnter={() => setHoveredIndex(idx)}
+          onMouseLeave={() => setHoveredIndex(null)}
         >
           {row.timeBadge && (
             <span className={styles.timestampTag}>{row.timeBadge}</span>
