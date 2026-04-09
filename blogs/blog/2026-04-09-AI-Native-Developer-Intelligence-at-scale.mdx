@@ -4,19 +4,25 @@
 
 ---
 
-`LangGraph` `Agentic RAG` `MCP Architecture` `LangFuse` `Production AI`
+<PillGroup>
+  <Pill type="langgraph" />
+  <Pill type="rag" />
+  <Pill type="mcp" />
+  <Pill type="langfuse" />
+  <Pill type="ai" />
+</PillGroup>
 
 ---
 
 ## The Problem
 
-As our product ecosystem expanded — developer-centric documentation, an Academy, a Storybook component library, a Marketplace — our knowledge surface grew faster than any developer could navigate.
+As our product ecosystem expanded with developer-centric documentation, an Academy, a Storybook of component library, a Marketplace — our knowledge surface grew faster than any developer could navigate.
 
-Finding the right component spec meant visiting Storybook. The tutorial video explaining it lived in the Academy. Checking whether a connector already existed required a separate trip to the Marketplace. Then back to Docs to cross-reference everything. Four tools. Four context switches. One question.
+Finding the right component spec meant visiting Storybook. The tutorial video explaining it lived in the Academy. Checking whether a connector already existed required a separate trip to the Marketplace. Then back to Docs to understand concepts. Four tools. Four context switches. One Product.
 
-> Developers were context-switching across four separate surfaces to answer a single question. There was no unified intelligence layer — just fragmented knowledge spread across Docs, Academy, Storybook, and Marketplace, with no thread connecting them.
+> Developers were context-switching across four separate surfaces for finding relavant knowledge belonging to one product. There was no unified intelligence layer — fragmented knowledge spread across Docs, Academy, Storybook, and Marketplace, with no thread connecting them.
 
-The team's response was architectural: don't build a better search bar. Build an intelligence layer that understands all four systems and can reason across them.
+The team's response was architectural- don't build a better search bar. Build an intelligence layer that understands all four systems and can reason across them.
 
 ---
 
@@ -24,16 +30,16 @@ The team's response was architectural: don't build a better search bar. Build an
 
 The foundation of the system is a deliberate principle — one that shapes every design decision downstream.
 
-Rather than ingesting all content into a single shared index, we built a dedicated **MCP (Model Context Protocol(https://modelcontextprotocol.io/specification/2025-11-25)] server** for each system. Docs, Academy, Storybook, and Marketplace each expose their knowledge through their own server, structured to match the shape of data that system produces.
+Rather than ingesting all content into a single shared index, we built a dedicated **[Model Context Protocol](https://modelcontextprotocol.io/specification/2025-11-25) (MCP) server** for each system. Docs, Academy, Storybook, and Marketplace each expose their knowledge through their own server, structured to match the shape of data that system produces.
 
 This matters because Docs are structured differently from video transcripts, which are structured differently from component specs, which are structured differently from marketplace artifacts. A single index flattens those distinctions. Separate MCP servers preserve them.
 
 ![Ecosystem Overview — data sources, per-system indexing pipeline, and external MCP APIs](./assets/images/EcoSystem-Overview.png)
-*Ecosystem overview: data sources, per-system indexing pipeline, and external MCP APIs*
+*Ecosystem overview: Data sources, per-system indexing pipeline, and external MCP APIs*
 
-On top of those four servers sits a **LangGraph-powered Ecosystem Agent** — a stateful orchestration layer that reasons across all four knowledge sources and synthesizes answers for both human developers and external AI agents. The same MCP layer that powers the user-facing Ask-AI also serves the platform's automated development agents during code generation. One system, two consumers.
+On top of those four servers sits a **LangGraph powered Ecosystem Agent** — a stateful orchestration layer that reasons across all four knowledge sources and synthesizes answers for both human developers and external AI agents. The same MCP layer that powers the user-facing Ask-AI also serves the platform's automated development agents during code generation. One system, two consumers.
 
-Two other components are worth calling out:
+Two improve system continuously and enhance the experience, we baked in:
 
 - **LangFuse for full trace observability.** Every agent invocation is traced. Retrieval quality, routing decisions, failure modes — all visible and actionable. The pipeline learns from production behavior, not from assumptions made at design time.
 - **Redis for caching.** Repeated queries are served from cache, keeping response times fast as usage scales.
@@ -45,7 +51,7 @@ Two other components are worth calling out:
 
 ## Four Ask-AI Experiences, Each Purpose-Built
 
-Every surface in the ecosystem has its own Ask-AI, tuned to the knowledge it serves.
+Every surface in the ecosystem has its own **Ask-AI**, tuned to the knowledge it serves.
 
 | Surface | What the AI understands |
 |---|---|
@@ -85,15 +91,15 @@ Any developer writing documentation — even a brief note on how to switch theme
 
 We shipped this into production from day one rather than running it as an internal prototype. That decision created pressure that no review process can simulate — and generated feedback that fundamentally changed the system.
 
-### 01 — Academy indexing was completely redesigned
+#### 1) Academy indexing was completely redesigned
 
 Initial video-level retrieval pointed developers to a video. That turned out not to be good enough. Real usage showed that pointing to a 20-minute video is barely better than not pointing anywhere at all. We rebuilt the entire Academy indexing layer — moving to segment-level transcript indexing with thumbnail-level timestamp precision. It was a significantly more complex engineering investment. It was fully justified by production signal.
 
-### 02 — Agentic orchestration revealed edge cases invisible in testing
+#### 2) Agentic orchestration revealed edge cases invisible in testing
 
 LangGraph's stateful orchestration surfaced routing ambiguities and retrieval failures that no synthetic test suite predicted. LangFuse observability was the instrument that made these visible and actionable — turning production incidents into architectural improvements rather than support tickets.
 
-### 03 — Multi-system synthesis required structured answer design
+#### 3) Multi-system synthesis required structured answer design
 
 Synthesizing across four knowledge sources without a consistent answer structure produced incoherent responses. The answer was a deliberately structured output format — summary, video timestamp, code example, artifact references — that imposes order on multi-source answers and meets developers exactly where they work.
 
@@ -110,21 +116,21 @@ This system replaced a fragmented, passive documentation landscape with an activ
 | **Video discoverability** | Searchable by title only | Segment-level indexing makes every moment in every video findable |
 | **Agent integration** | Development agents had no ecosystem knowledge | Agents query ecosystem knowledge via MCP during code generation |
 
-**4 → 1** knowledge surfaces unified into a single AI-mediated experience.  
-**< 5 min** from documentation contribution to live AI response.  
-**Scales beyond human UX** — the same MCP infrastructure that serves developers also serves the platform's AI agents directly.
+<StatPills>
+  <StatPill color="blue" label="4 → 1" description="knowledge surfaces unified into a single AI-mediated experience" />
+  <StatPill color="green" label="< 5 min" description="from documentation contribution to live AI response" />
+  <StatPill color="indigo" label="Scales Beyond Human UX" description="the same MCP infrastructure that serves developers also serves the platform's AI agents directly" />
+</StatPills>
 
 ---
 
 ## Closing Thought
 
 > We built this to solve real problems in production — not as a demo. Running it in production gave us actual experience and compelled real improvements. That is the only honest way to build AI systems.
->
-> — Engineering Team
+> — **Engineering Team**
 
 The instinct when building internal AI tooling is to keep it in prototype mode until it's "ready." What we found is that ready only comes from shipping. The Academy indexing redesign didn't come from a code review — it came from watching developers use the system and seeing where it fell short.
 
-Build for production. Learn from production. Everything else is guessing.
+Build for production. Learn from production. Everything else is just guessing!
 
 ---
-

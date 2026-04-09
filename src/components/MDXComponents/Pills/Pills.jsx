@@ -42,7 +42,29 @@ const pillConfig = {
   platform: { icon: Layers, label: 'Platform' },
   design: { icon: Palette, label: 'Design' },
   beta: { icon: null, label: 'Beta' },
+  langgraph: { icon: null, label: 'LangGraph' },
+  rag: { icon: null, label: 'Agentic RAG' },
+  mcp: { icon: null, label: 'MCP Architecture' },
+  langfuse: { icon: null, label: 'LangFuse' },
+  ai: { icon: null, label: 'Production AI' },
 };
+
+export function PillGroup({ children }) {
+  return <div className="wm-pill-group">{children}</div>;
+}
+
+export function StatPill({ label, description, color }) {
+  return (
+    <div className="wm-stat-pill-row">
+      <span className="wm-stat-pill" data-color={color}>{label}</span>
+      <span className="wm-stat-pill-desc">{description}</span>
+    </div>
+  );
+}
+
+export function StatPills({ children }) {
+  return <div className="wm-stat-pills">{children}</div>;
+}
 
 export function Pill({ type, text, icon: CustomIcon, children }) {
   const preset = pillConfig[type?.toLowerCase()] || {};
