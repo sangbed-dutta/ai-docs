@@ -8,8 +8,8 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
-  --ifm-container-width-xl: 1440px;
-
+  --ifm-container-width-xl: 2000px;
+  --ifm-container-width:1600px;
   --ifm-color-primary: rgba(23, 148, 239, 1);
   --ifm-color-primary-hover: var(--ifm-color-secondary);
   --ifm-color-dark: rgba(24, 24, 27, 1);
@@ -222,7 +222,8 @@ body {
     outline: none;
   }
 }
-.DocSearch-Hit-action-button:focus, .DocSearch-Hit-action-button:hover{
+.DocSearch-Hit-action-button:focus,
+.DocSearch-Hit-action-button:hover {
   background-color: rgba(255, 255, 255, 0.5) !important;
 }
 .line-clamp-1 {
@@ -335,6 +336,10 @@ span.DocSearch-Button-Keys {
 
 .navbar__items--right > :last-child.button {
   padding-right: 16px;
+}
+
+.top_nav + .container .thin-scrollbar {
+  top: calc(var(--ifm-navbar-height) + 2rem + var(--ifm-top-nav-height));
 }
 
 /* Navbar inner: relative so the center wrapper can be absolutely positioned */
@@ -877,7 +882,7 @@ button.clean-btn.menu__caret::before {
   white-space: nowrap;
   flex-shrink: 0;
   transition:
-    background 0.2s ease,   
+    background 0.2s ease,
     border-color 0.2s ease;
 }
 
