@@ -59,7 +59,9 @@ export function useAIChat(pageContext, apiUrl) {
   const [activeActions, setActiveActions] = useState([]);
   const [activeMessageId, setActiveMessageId] = useState(() => {
     const saved = loadMessages();
-    const lastAssistant = [...saved].reverse().find((m) => m.role === 'assistant');
+    const lastAssistant = [...saved]
+      .reverse()
+      .find((m) => m.role === 'assistant');
     return lastAssistant?.id ?? null;
   });
   const abortRef = useRef(null);
@@ -79,6 +81,22 @@ export function useAIChat(pageContext, apiUrl) {
   useEffect(() => {
     saveMessages(messages);
   }, [messages]);
+
+  // Clear session on unmount (close button, Escape, navigation) and on
+  // page refresh / tab close (beforeunload).  This ensures that no matter
+  // how the Ask AI panel disappears the stale session cannot leak.
+  useEffect(() => {
+    const clearSession = () => {
+      localStorage.removeItem(SESSION_KEY_PREFIX + 'messages');
+      sessionStorage.removeItem('wm-search-session-id');
+    };
+
+    window.addEventListener('beforeunload', clearSession);
+    return () => {
+      window.removeEventListener('beforeunload', clearSession);
+      clearSession(); // fires on React unmount (close / navigation)
+    };
+  }, []);
 
   const sendMessage = useCallback(
     async (text) => {

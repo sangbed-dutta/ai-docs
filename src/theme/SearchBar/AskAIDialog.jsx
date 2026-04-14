@@ -118,11 +118,8 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
 
   // Trigger fade-out then call onClose
   const handleClose = useCallback(() => {
-    if (chat.messages.length === 0) {
-      localStorage.removeItem('wm-search-session-messages');
-    }
     setIsClosing(true);
-  }, [chat.messages.length]);
+  }, []);
 
   const handleAnimationEnd = useCallback(() => {
     if (isClosing) onClose();
@@ -316,10 +313,7 @@ export default function AskAIDialog({ apiUrl, onClose, initialQuery = '' }) {
                 </div>
                 <button
                   className={styles.closeBtn}
-                  onClick={() => {
-                    localStorage.removeItem('wm-search-session-messages');
-                    handleClose();
-                  }}
+                  onClick={handleClose}
                   aria-label="Close"
                 >
                   <svg
