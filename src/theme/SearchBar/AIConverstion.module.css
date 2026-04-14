@@ -1642,7 +1642,6 @@
   background: var(--bg-panel);
   outline: none;
   transition: border-color 0.15s;
-  white-space: nowrap;
 }
 
 .chatInputField:focus {
