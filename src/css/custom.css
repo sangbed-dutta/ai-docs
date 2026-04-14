@@ -204,6 +204,85 @@
   background-image: none;
 }
 
+/* ── Dropdown popover ──────────────────────────────────────── */
+[data-theme='dark'] .dropdown-popover {
+  background: #1e3050;
+  box-shadow:
+    0px 4px 8px 0px rgba(0, 0, 0, 0.3),
+    0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .dropdown-popover .popover-content {
+  box-shadow:
+    0px 4px 8px 0px rgba(0, 0, 0, 0.3),
+    0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .menu-item:hover {
+  background-color: rgba(76, 141, 255, 0.1);
+}
+
+[data-theme='dark'] .menu-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+[data-theme='dark'] .launcher-ecosystem>div>button>div div {
+    background:rgba(255, 255, 255, 0.85) !important;
+} 
+[data-theme='dark'] .launcher-ecosystem>div>button:hover,[data-theme='dark'] .launcher-ecosystem>div>button:focus{
+   background:rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ── Sidebar ───────────────────────────────────────────────── */
+[data-theme='dark'] .theme-doc-sidebar-container {
+  border-right-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Icon buttons ──────────────────────────────────────────── */
+[data-theme='dark'] button.btn.btn-icon:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Homepage search bar ───────────────────────────────────── */
+[data-theme='dark'] .top-banner-section .search-bar-with-ai {
+  background:
+    linear-gradient(#1a2d4a, #1a2d4a) padding-box,
+    conic-gradient(
+        from 187.27deg at 50% 50%,
+        #eead92 0deg,
+        #ff44ec 192.12deg,
+        #fe4ce5 221.27deg,
+        #6018dc 360deg
+      )
+      border-box;
+}
+
+[data-theme='dark'] .top-banner-section .search-bar-with-ai:hover {
+  background:
+    linear-gradient(#1a2d4a, #1a2d4a) padding-box,
+    conic-gradient(
+        from 220deg at 50% 50%,
+        #f2b29b 0deg,
+        #ff63f1 190deg,
+        #1694ef 225deg,
+        #1694ef 360deg
+      )
+      border-box;
+}
+
+[data-theme='dark'] .top-banner-section .text-greeting-desc {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ── Navbar search hover ───────────────────────────────────── */
+[data-theme='dark'] .navbar .navbar__items .search-bar-with-ai .DocSearch-Button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Footer ────────────────────────────────────────────────── */
+[data-theme='dark'] .footer .send-message-section {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
 .markdown h1:first-child,
 .markdown h1 {
   --ifm-h1-font-size: 2.5rem;
@@ -338,7 +417,7 @@ span.DocSearch-Button-Keys {
   padding-right: 16px;
 }
 
-.top_nav + .container .thin-scrollbar {
+.top_nav + .container .thin-scrollbar ,.thin-scrollbar.theme-doc-toc-desktop{
   top: calc(var(--ifm-navbar-height) + 2rem + var(--ifm-top-nav-height));
 }
 
@@ -387,6 +466,9 @@ span.DocSearch-Button-Keys {
   background-position: center;
   vertical-align: bottom;
   margin-left: 6px;
+}
+[data-theme='dark'] .dropdown > .navbar__link:after {
+  background-image: url('/img/dropdown-white.svg');
 }
 
 .menu-wrapper {

@@ -2,6 +2,69 @@
    AskAI Dialog — Full-screen modal, styled from AskAi.css reference
    ═══════════════════════════════════════════════════════════════ */
 
+/* ── Theme tokens ────────────────────────────────────────────── */
+:root {
+  --askai-bg: #ffffff;
+  --askai-bg-img-opacity: 1;
+  --askai-brand-name: rgba(36, 36, 36, 1);
+  --askai-close-icon: #6b7280;
+  --askai-close-hover-bg: rgba(0, 0, 0, 0.06);
+  --askai-close-hover-icon: #111827;
+  --askai-title: #111827;
+  --askai-subtitle: #6b7280;
+  --askai-input-bg: #ffffff;
+  --askai-input-text: #111827;
+  --askai-placeholder: #9ca3af;
+  --askai-input-focus-shadow: rgba(168, 85, 247, 0.26);
+  --askai-chip-bg: #ffffff;
+  --askai-chip-border: #e5e7eb;
+  --askai-chip-text: #374151;
+  --askai-chip-hover-border: #a855f7;
+  --askai-chip-hover-text: #7c3aed;
+  --askai-chip-hover-bg: rgba(168, 85, 247, 0.05);
+  --askai-chat-surface: transparent;
+  --askai-stop-btn-bg: transparent;
+  --askai-stop-btn-border: #e5e7eb;
+  --askai-clear-btn-bg: transparent;
+  --askai-clear-btn-border: #e5e7eb;
+  --askai-clear-btn-text: #6b7280;
+  --askai-clear-btn-hover-bg: #f0f4ff;
+  --askai-clear-btn-hover-border: #c7d2fe;
+  --askai-clear-btn-hover-text: #3b5aa3;
+  --askai-hint: #9ca3af;
+}
+
+[data-theme='dark'] {
+  --askai-bg: #12223f;
+  --askai-bg-img-opacity: 0;
+  --askai-brand-name: rgba(255, 255, 255, 0.85);
+  --askai-close-icon: rgba(255, 255, 255, 0.5);
+  --askai-close-hover-bg: rgba(255, 255, 255, 0.08);
+  --askai-close-hover-icon: rgba(255, 255, 255, 0.92);
+  --askai-title: rgba(255, 255, 255, 0.92);
+  --askai-subtitle: rgba(255, 255, 255, 0.55);
+  --askai-input-bg: #1a2d4a;
+  --askai-input-text: rgba(255, 255, 255, 0.92);
+  --askai-placeholder: rgba(255, 255, 255, 0.35);
+  --askai-input-focus-shadow: rgba(99, 102, 241, 0.3);
+  --askai-chip-bg: rgba(255, 255, 255, 0.06);
+  --askai-chip-border: rgba(255, 255, 255, 0.12);
+  --askai-chip-text: rgba(255, 255, 255, 0.72);
+  --askai-chip-hover-border: rgba(168, 85, 247, 0.6);
+  --askai-chip-hover-text: #c084fc;
+  --askai-chip-hover-bg: rgba(168, 85, 247, 0.12);
+  --askai-chat-surface: #0f1e35;
+  --askai-stop-btn-bg: linear-gradient(185deg, #498fd9b9 0%, #3745b0d7 100%);
+  --askai-stop-btn-border:rgba(255, 255, 255, 0.1);
+  --askai-clear-btn-bg: linear-gradient(185deg, #498fd9b9 0%, #3745b0d7 100%);
+  --askai-clear-btn-border: rgba(255, 255, 255, 0.1);
+  --askai-clear-btn-text: rgba(255, 255, 255, 0.5);
+  --askai-clear-btn-hover-bg: rgba(76, 141, 255, 0.15);
+  --askai-clear-btn-hover-border: rgba(76, 141, 255, 0.4);
+  --askai-clear-btn-hover-text: #4c8dff;
+  --askai-hint: rgba(255, 255, 255, 0.35);
+}
+
 /* ── Full-screen overlay ─────────────────────────────────────── */
 .overlay {
   position: fixed;
@@ -10,7 +73,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: #ffffff;
+  background: var(--askai-bg);
   font-family:
     'DM Sans',
     -apple-system,
@@ -54,6 +117,8 @@
   background: url('/img/background/ask-ai-bg.png') center top / cover no-repeat;
   pointer-events: none;
   z-index: 0;
+  opacity: var(--askai-bg-img-opacity);
+  transition: opacity 0.2s ease;
 }
 
 /* ── Header ─────────────────────────────────────────────────── */
@@ -82,7 +147,7 @@
 .brandName {
   font-size: 14px;
   font-weight: 500;
-  color: rgba(36, 36, 36, 1);
+  color: var(--askai-brand-name);
   font-family: inherit;
   text-box-trim: trim-both;
 }
@@ -96,7 +161,7 @@
   border-radius: 8px;
   border: none;
   background: transparent;
-  color: #6b7280;
+  color: var(--askai-close-icon);
   cursor: pointer;
   transition:
     background 0.15s ease,
@@ -104,8 +169,8 @@
 }
 
 .closeBtn:hover {
-  background: rgba(0, 0, 0, 0.06);
-  color: #111827;
+  background: var(--askai-close-hover-bg);
+  color: var(--askai-close-hover-icon);
 }
 
 /* ── Body ────────────────────────────────────────────────────── */
@@ -147,7 +212,7 @@
   border-radius: 8px;
   border: none;
   background: transparent;
-  color: #6b7280;
+  color: var(--askai-close-icon);
   cursor: pointer;
   transition:
     background 0.15s ease,
@@ -156,8 +221,8 @@
 }
 
 .landingCloseBtn:hover {
-  background: rgba(0, 0, 0, 0.06);
-  color: #111827;
+  background: var(--askai-close-hover-bg);
+  color: var(--askai-close-hover-icon);
 }
 
 .landingHero {
@@ -174,7 +239,7 @@
 .title {
   font-size: 2.25rem;
   font-weight: 800;
-  color: #111827;
+  color: var(--askai-title);
   margin: 0;
   line-height: 1.15;
   text-align: center;
@@ -183,7 +248,7 @@
 
 .subtitle {
   font-size: 1rem;
-  color: #6b7280;
+  color: var(--askai-subtitle);
   margin: 0;
   font-weight: 400;
   line-height: 1.5;
@@ -201,7 +266,7 @@
   min-height: 10rem;
   border-radius: 18px;
   background:
-    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(var(--askai-input-bg), var(--askai-input-bg)) padding-box,
     linear-gradient(135deg, #e879f9 0%, #a855f7 45%, #498fd9b9 100%) border-box;
   border: 1.5px solid transparent;
   transition: box-shadow 0.25s ease;
@@ -209,7 +274,7 @@
 }
 
 .inputContainer:focus-within {
-  box-shadow: 0 6px 36px rgba(168, 85, 247, 0.26);
+  box-shadow: 0 6px 36px var(--askai-input-focus-shadow);
 }
 
 .textarea {
@@ -222,7 +287,7 @@
   font-family: inherit;
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #111827;
+  color: var(--askai-input-text);
   padding: 1.1rem 4.5rem 1.1rem 1.25rem;
   min-height: 80px;
   max-height: 160px;
@@ -231,7 +296,7 @@
 }
 
 .textarea::placeholder {
-  color: #9ca3af;
+  color: var(--askai-placeholder);
 }
 
 /* ── Send button (landing) ───────────────────────────────────── */
@@ -278,9 +343,9 @@
 .chip {
   padding: 0.5rem 1.1rem;
   border-radius: 999px;
-  border: 1.2px solid #e5e7eb;
-  background: #ffffff;
-  color: #374151;
+  border: 1.2px solid var(--askai-chip-border);
+  background: var(--askai-chip-bg);
+  color: var(--askai-chip-text);
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -290,9 +355,9 @@
 }
 
 .chip:hover {
-  border-color: #a855f7;
-  color: #7c3aed;
-  background: rgba(168, 85, 247, 0.05);
+  border-color: var(--askai-chip-hover-border);
+  color: var(--askai-chip-hover-text);
+  background: var(--askai-chip-hover-bg);
   transform: translateY(-1px);
 }
 
@@ -306,6 +371,7 @@
   min-height: 0;
   overflow: hidden;
   padding: 12px;
+  background: var(--askai-chat-surface);
 }
 
 .conversationCol {
@@ -320,7 +386,7 @@
 .chatInputArea {
   flex-shrink: 0;
   padding: 0.85rem 5rem 1rem;
-  background: #ffffff;
+  background: var(--askai-chat-surface);
   position: relative;
   z-index: 1;
 }
@@ -329,19 +395,18 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: #ffffff;
   border-radius: 14px;
   padding: 0.55rem 0.55rem 0.55rem 1.1rem;
   transition: all 0.2s ease;
   background:
-    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(var(--askai-input-bg), var(--askai-input-bg)) padding-box,
     linear-gradient(135deg, #f0abfc 0%, #c084fc 50%, #498fd9b9 100%) border-box;
   border: 1.5px solid transparent;
   box-shadow: 0 2px 12px rgba(168, 85, 247, 0.1);
 }
 
 .chatInputWrapper:focus-within {
-  box-shadow: 0 6px 36px rgba(168, 85, 247, 0.26);
+  box-shadow: 0 6px 36px var(--askai-input-focus-shadow);
 }
 
 .chatInputField {
@@ -352,7 +417,7 @@
   resize: none;
   font-size: 0.92rem;
   line-height: 1.5;
-  color: #111827;
+  color: var(--askai-input-text);
   padding: 0.3rem 0;
   min-height: 1.4rem;
   max-height: 9rem;
@@ -360,13 +425,13 @@
 }
 
 .chatInputField::placeholder {
-  color: #9ca3af;
+  color: var(--askai-placeholder);
 }
 
 .chatSendBtn {
   flex-shrink: 0;
-  width: 2.15rem;
-  height: 2.15rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   border: none;
   display: flex;
@@ -393,16 +458,15 @@
 /* Stop generation button — shown while streaming */
 .chatStopBtn {
   flex-shrink: 0;
-  width: 2.15rem;
-  height: 2.15rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
-  border: 2px solid #ef4444;
+  border: 1px solid var(--askai-stop-btn-border);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: #fff1f2;
-  color: #ef4444;
+  background: var(--askai-stop-btn-bg);
   transition: all 0.18s ease;
   animation: stopBtnIn 0.2s ease forwards;
 }
@@ -430,28 +494,28 @@
   flex-shrink: 0;
   width: 2rem;
   height: 2rem;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  border-radius: 50%;
+  border: 1px solid var(--askai-clear-btn-border);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: #f9fafb;
-  color: #6b7280;
+  background: var(--askai-clear-btn-bg);
+  color: var(--askai-clear-btn-text);
   transition: all 0.15s ease;
 }
 
 .chatClearBtn:hover {
-  background: #f0f4ff;
-  border-color: #c7d2fe;
-  color: #3b5aa3;
+  background: var(--askai-clear-btn-hover-bg);
+  border-color: var(--askai-clear-btn-hover-border);
+  color: var(--askai-clear-btn-hover-text);
   box-shadow: 0 2px 8px rgba(59, 90, 163, 0.12);
 }
 
 .chatInputHint {
   text-align: center;
   font-size: 0.68rem;
-  color: #9ca3af;
+  color: var(--askai-hint);
   margin-top: 0.35rem;
 }
 

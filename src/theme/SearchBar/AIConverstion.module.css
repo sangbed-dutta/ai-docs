@@ -22,6 +22,7 @@
   --shadow:
     0 8px 40px rgba(27, 67, 130, 0.14), 0 2px 12px rgba(27, 67, 130, 0.08);
   --shadow-card: 0 2px 8px rgba(27, 67, 130, 0.08);
+  --askai-source-card-label:rgba(90, 90, 90, 1);
 }
 
 /* Dark mode — follows Docusaurus [data-theme='dark'] convention */
@@ -44,6 +45,8 @@
   --purple: #a78bfa;
   --shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 2px 12px rgba(0, 0, 0, 0.3);
   --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --askai-source-card-label:rgba(255, 255, 255, 0.92);
+  
 }
 
 /* OVERLAY */
@@ -312,12 +315,7 @@
 
 .msgUserBubble {
   background: rgba(255, 255, 255, 0.7);
-  border: 1.22px solid;
-  border-image-source: linear-gradient(
-    91.21deg,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0.44) 94.21%
-  );
+  border: none;
   color: rgba(26, 26, 26, 1);
   border-radius: 12px;
   padding: 10px 14px;
@@ -383,7 +381,7 @@
   font-size: 10px;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  color: rgba(90, 90, 90, 1);
+  color: var(--askai-source-card-label);
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -2107,7 +2105,7 @@
 .agentIconCircle {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   text-box-trim: trim-both;
 }
 
@@ -2122,6 +2120,7 @@
   font-family: 'Inter', sans-serif;
   color: var(--text);
   letter-spacing: -0.01em;
+  text-box-trim: trim-both;
 }
 
 /* ── Streaming circular loader ──────────────────────────────── */

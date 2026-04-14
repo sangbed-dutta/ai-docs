@@ -156,6 +156,17 @@
   transform: scale(1.05);
 }
 
+/* ── Dark mode ──────────────────────────────────────────────── */
+[data-theme='dark'] .thumbnail-text {
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme='dark'] .thumbnail-subtext {
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
 @media (max-width: 640px) {
   .video-card-container {
     flex-direction: column-reverse;

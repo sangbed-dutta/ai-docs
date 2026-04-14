@@ -95,7 +95,10 @@ export default function NavbarContent() {
         <>
           <NavbarItems items={rightItems} />
           <NavbarColorModeToggle className={styles.colorModeToggle} />
-          <AppLauncher excludeId="docs" />
+          <div className="launcher-ecosystem">
+            <AppLauncher excludeId="docs" />
+          </div>
+
           {/* <MenuSection /> */}
           <Link
             to="https://wavemaker.ai/ai-early-bird/"

@@ -59,7 +59,7 @@ function resolveImageSrc(src) {
   }
   // Only prepend the repo base for already-resolved repo-relative asset paths.
   // Raw doc-relative paths like ./assets/... lose their document context if we trim them.
-  if (src.startsWith('docs/') || src.startsWith('static/')) {
+  if (src.startsWith('docs/') || src.startsWith('static/') || src.startsWith('blogs/')) {
     return `${GITHUB_RAW_BASE}${src}`;
   }
   return src;
@@ -230,16 +230,43 @@ export default function AIConversation({
     [history],
   );
   const scrollRef = useRef(null);
+  // true once the user has scrolled up away from the bottom
+  const isUserScrolled = useRef(false);
+  const SCROLL_THRESHOLD = 80; // px from bottom before we consider it "scrolled away"
+
   // Mobile: only one message's sources can be expanded at a time
   const [expandedMobileId, setExpandedMobileId] = useState(null);
   const [feedbackPromptId, setFeedbackPromptId] = useState(null);
   const [feedbackReasonByMessage, setFeedbackReasonByMessage] = useState({});
 
+  // Detect when the user manually scrolls
   useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+      isUserScrolled.current = distFromBottom > SCROLL_THRESHOLD;
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // New message added (user query or completed AI response) → always scroll to
+  // bottom and reset the user-scrolled lock so streaming continues to follow.
+  useEffect(() => {
+    isUserScrolled.current = false;
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages, currentFragments, currentTraceSteps]);
+  }, [messages.length]);
+
+  // Streaming updates (fragments / trace steps) → only scroll if the user
+  // hasn't manually scrolled away to read earlier content.
+  useEffect(() => {
+    if (!isUserScrolled.current && scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [currentFragments, currentTraceSteps]);
 
   const toggleMobileSources = (msgId) => {
     setExpandedMobileId((prev) => (prev === msgId ? null : msgId));
@@ -283,7 +310,6 @@ export default function AIConversation({
             feedbackPromptId === msg.id && msg.feedbackStatus !== 'submitted';
           const canRateMessage =
             msg.traceId &&
-            !isStreaming &&
             msg.feedbackStatus !== 'submitted' &&
             msg.feedbackStatus !== 'submitting';
 
@@ -538,7 +564,7 @@ export default function AIConversation({
             <div className={styles.agentHeader}>
               <div className={styles.agentIconCircle}>
                 <img
-                  src="/img/icon/AskAI-Icon.svg"
+                  src="/img/icon/doc-ai-agent.svg"
                   alt="AI"
                   width="18"
                   height="18"
