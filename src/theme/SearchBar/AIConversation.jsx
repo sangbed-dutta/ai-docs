@@ -57,9 +57,12 @@ function resolveImageSrc(src) {
   ) {
     return src;
   }
-  // Strip leading ./ or ../
-  const cleaned = src.replace(/^(\.\.?\/)+/, '');
-  return `${GITHUB_RAW_BASE}${cleaned}`;
+  // Only prepend the repo base for already-resolved repo-relative asset paths.
+  // Raw doc-relative paths like ./assets/... lose their document context if we trim them.
+  if (src.startsWith('docs/') || src.startsWith('static/')) {
+    return `${GITHUB_RAW_BASE}${src}`;
+  }
+  return src;
 }
 
 function buildMarkdownComponents(navigate) {
