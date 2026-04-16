@@ -119,12 +119,6 @@
           "description": "Platform for universal React applications.",
           "link": "https://expo.dev/",
           "version": "54.0.12"
-        },
-        {
-          "name": "UI Kitten",
-          "description": "React Native UI library based on Eva Design System for building rich cross-platform mobile applicationss.",
-          "link": "https://akveo.github.io/react-native-ui-kitten/",
-          "version": "1.0.0"
         }
       ]
     },
