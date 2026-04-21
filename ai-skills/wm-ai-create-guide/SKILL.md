@@ -82,7 +82,29 @@ Do not ask again after the user responds. Proceed immediately to generation.
 
 ---
 
-## Step 3 — Generate the Guide
+## Step 3 — Register in the Sidebar
+
+After writing the guide file, you **must** add an entry to `sidebar/sidebars/guideSidebar.js` or the page will not appear in navigation.
+
+Find the correct category block (e.g., `security`, `components`, `deployment`) and add a `doc` entry:
+
+```js
+{
+  type: 'doc',
+  id: 'guide/<subfolder>/<filename-without-extension>',
+  label: '<Short human-readable label>',
+},
+```
+
+The `id` must exactly match the file path relative to `docs/`, without the `.md` extension.
+
+:::warning
+Skipping this step means the guide is published but unreachable from the sidebar. Always do this as part of guide creation.
+:::
+
+---
+
+## Step 4 — Generate the Guide
 
 Use the template at `assets/guide-template.md` as your base. Produce a complete `.md` file with no leftover placeholder text.
 

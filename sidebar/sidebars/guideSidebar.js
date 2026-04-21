@@ -11,6 +11,11 @@ export default [
         id: 'guide/security/overview',
         label: 'Security',
       },
+      {
+        type: 'doc',
+        id: 'guide/security/customizing-post-authentication-handlers',
+        label: 'Customize Post-Authentication Handlers',
+      },
     ],
   },
 
