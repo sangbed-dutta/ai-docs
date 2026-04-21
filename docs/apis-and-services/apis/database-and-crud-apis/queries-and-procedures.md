@@ -24,14 +24,13 @@ Use database queries in the following scenarios:
 
 ## Creating Queries
 
-
 Queries are created and managed from the **Query** tab in the **[Database Explorer](../../../studio/workspaces/database-explorer.mdx)**. When creating queries, the editor provides several capabilities:
 
-- **IntelliSense support** – press `Ctrl + Space` to view available tables, columns, and query suggestions.  
-- **Supported query languages**:  
-  - **Native SQL** – database-specific SQL syntax  
-  - **HQL (Hibernate Query Language)** – entity-based, database-independent queries  
-- **Query parameters** – named parameters can be defined, marked as required, and queries cannot be executed until all required parameters are provided.  
+- **IntelliSense support** – press `Ctrl + Space` to view available tables, columns, and query suggestions.
+- **Supported query languages**:
+  - **Native SQL** – database-specific SQL syntax
+  - **HQL (Hibernate Query Language)** – entity-based, database-independent queries
+- **Query parameters** – named parameters can be defined, marked as required, and queries cannot be executed until all required parameters are provided.
 
 :::note
 Queries must be executed successfully before they can be saved.
@@ -42,12 +41,12 @@ Queries must be executed successfully before they can be saved.
 
 WaveMaker supports both Native SQL and HQL. Use the following guidelines to select the appropriate option:
 
-| Scenario | Recommended Option |
-|--------|-------------------|
-| Database-specific features | Native SQL |
-| Database-independent logic | HQL |
-| Entity-based relationships | HQL |
-| Complex joins or aggregations | Native SQL |
+| Scenario                      | Recommended Option |
+| ----------------------------- | ------------------ |
+| Database-specific features    | Native SQL         |
+| Database-independent logic    | HQL                |
+| Entity-based relationships    | HQL                |
+| Complex joins or aggregations | Native SQL         |
 
 ---
 
@@ -87,7 +86,7 @@ UI components can pass values to query parameters through application variables.
 
 ## Generated REST APIs
 
-When a query is saved, WaveMaker automatically exposes it as a REST API. These APIs can be consumed by Wavemaker components, variables, or external clients.
+When a query is saved, WaveMaker automatically exposes it as a REST API. These APIs can be consumed by WaveMaker components, variables, or external clients.
 
 ### API Behavior
 
@@ -111,7 +110,7 @@ When a query is saved, WaveMaker automatically exposes it as a REST API. These A
 WaveMaker maps query types to HTTP methods as shown below:
 
 | Query Type | HTTP Method |
-|------------|-------------|
+| ---------- | ----------- |
 | SELECT     | GET         |
 | INSERT     | POST        |
 | UPDATE     | PUT         |
@@ -119,21 +118,21 @@ WaveMaker maps query types to HTTP methods as shown below:
 
 ---
 
-<!-- ## Using Queries in an Application
+{/* ## Using Queries in an Application
 
-Query APIs can be consumed directly in the application UI using WaveMaker widgets.
+  Query APIs can be consumed directly in the application UI using WaveMaker widgets.
 
-### Steps
+  ### Steps
 
-1. Drag a Data Table or another data-driven widget onto the page.
-2. Set **Retrieve Data From → Services**.
-3. A variable is created automatically.
-4. Select **Database APIs** as the service type.
-5. Choose the required query operation.
-6. Configure pagination and display fields.
-7. Run the application to view the results.
+  1. Drag a Data Table or another data-driven widget onto the page.
+  2. Set **Retrieve Data From → Services**.
+  3. A variable is created automatically.
+  4. Select **Database APIs** as the service type.
+  5. Choose the required query operation.
+  6. Configure pagination and display fields.
+  7. Run the application to view the results.
 
---- -->
+  --- */}
 
 ## Query Architecture
 
@@ -144,7 +143,6 @@ These artifacts are placed under the corresponding Database Service package and 
 The structure shown below illustrates how query-related artifacts are generated and grouped within a Database Service.
 
 ### Generated Project Structure
-
 
 ```text
 services/
@@ -165,7 +163,6 @@ services/
                         ├── HrdbQueryExecutorService.java
                         └── HrdbQueryExecutorServiceImpl.java
 ```
-
 
 Any query created and saved in this Database Service is mapped into the models, service, and controller layers shown above.
 
@@ -188,16 +185,13 @@ For INSERT and UPDATE queries, request POJOs are generated.
 
 For HQL queries, if the query returns an existing entity, the corresponding entity model may be reused.
 
-
 ---
 
 ### Generated Services
 
-
 WaveMaker generates a dedicated Query Execution Service responsible for executing all saved queries in `<service_package>.service`. The following service interface and implementation are generated:
 
-
-- `<DatabaseName>QueryExecutorService` 
+- `<DatabaseName>QueryExecutorService`
 - `<DatabaseName>QueryExecutorServiceImpl`
 
 For every saved query, the following methods are generated:
@@ -251,8 +245,6 @@ name = 'Engineering'
 
 ---
 
-
-
 ## Summary
 
 Database queries in WaveMaker enable implementing custom data access logic while automatically exposing that logic as **REST APIs**.
@@ -271,7 +263,6 @@ This approach provides flexibility and power while maintaining low-code producti
 
 Learn more about working with databases and queries through these practical guides:
 
-- [Working with Dynamic Query Clauses](/docs/guide/migrated-docs/queries-dynamic-clause) - Build flexible queries with runtime conditions
-
+- [Working with Dynamic Query Clauses](#) - Build flexible queries with runtime conditions
 
 ---

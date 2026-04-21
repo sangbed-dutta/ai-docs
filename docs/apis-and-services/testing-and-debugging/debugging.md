@@ -2,9 +2,7 @@
 last_update: { author: "Priyanka Bhadri" }
 ---
 
-
-
-# Debugging 
+# Debugging
 
 When developing applications in WaveMaker, there may be times when the app does not behave as expected or shows errors that are hard to diagnose. Debugging helps you investigate and fix such problems. WaveMaker supports debugging through **logs**, **browser JavaScript debugging**, and can also assist with diagnosing issues in deployed applications.
 
@@ -41,36 +39,36 @@ In some cases, especially when debugging network issues, the WaveMaker support t
 
 ---
 
-<!-- ## JavaScript Debugging
+{/* ## JavaScript Debugging
 
-WaveMaker applications rely heavily on JavaScript for client-side logic. You can use standard browser developer tools to debug client scripts.
+  WaveMaker applications rely heavily on JavaScript for client-side logic. You can use standard browser developer tools to debug client scripts.
 
-### Using `debugger`
+  ### Using `debugger`
 
-Insert the `debugger` keyword into your page event code where you want execution to pause:
+  Insert the `debugger` keyword into your page event code where you want execution to pause:
 
-```javascript
-Page.button2Click = function ($event, widget) {
+  ```javascript
+  Page.button2Click = function ($event, widget) {
     debugger;
     var value = $event.pageX;
-};
-```
+  };
+  ```
 
-When the app runs and hits the `debugger` statement, the browser's developer tools will pause execution at that line, allowing you to step through logic and inspect variables.
+  When the app runs and hits the `debugger` statement, the browser's developer tools will pause execution at that line, allowing you to step through logic and inspect variables.
 
-### Using `console.log`
+  ### Using `console.log`
 
-To inspect runtime values without stopping execution, insert `console.log()` statements in your code:
+  To inspect runtime values without stopping execution, insert `console.log()` statements in your code:
 
-```javascript
-Page.button2Click = function ($event, widget) {
+  ```javascript
+  Page.button2Click = function ($event, widget) {
     console.log(Page.Variables.HrdbEmployeeData.dataSet);
-};
-```
+  };
+  ```
 
-Output appears in the Console panel of your browser's developer tools, providing quick insight into variable values and execution flow.
+  Output appears in the Console panel of your browser's developer tools, providing quick insight into variable values and execution flow.
 
---- -->
+  --- */}
 
 ## Printing Logger Statements in WaveMaker
 
@@ -153,7 +151,9 @@ WaveMaker provides several tools to diagnose and resolve issues:
 - **Logs** — Access server and application logs to understand backend activity and errors.
 - **Logger Statements** — Use SLF4J logging framework to print custom log messages from Java Services with configurable log levels.
 - **HAR Files** — Capture and export network traffic for deep debugging of API/service interactions.
-<!-- - **JavaScript Debugging** — Use browser developer tools to pause execution and inspect client logic. -->
+
+{/* - **JavaScript Debugging** — Use browser developer tools to pause execution and inspect client logic. */}
+
 - **Deployed Application Logs** — Retrieve logs for apps already deployed to understand runtime issues outside the development environment.
 
 Using these debugging techniques together helps you quickly root-cause errors and ensure your WaveMaker application behaves as designed.
@@ -162,5 +162,4 @@ Using these debugging techniques together helps you quickly root-cause errors an
 
 Learn more about debugging through these practical guides:
 
-- [Debug Performance Issues using Fusion Reactor](/docs/guide/migrated-docs/debug-monitor-performance-issues-using-fusion-reactor.md) - Learn how to setup Fusion Reactor tool for WaveMaker Application Performance Monitoring
-
+- [Debug Performance Issues using Fusion Reactor](#) - Learn how to setup Fusion Reactor tool for WaveMaker Application Performance Monitoring

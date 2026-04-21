@@ -106,8 +106,6 @@ This approach provides flexibility to implement custom business rules while stil
 
 Learn more about working with APIs and Java services through these practical guides:
 
-- [Accessing REST APIs from Java Service](/docs/guide/migrated-docs/accessing-rest-apis-java-service) - Call external REST APIs from Java code
-- [Pre and Post Processing for Database Service APIs](/docs/guide/migrated-docs/pre-post-processing-db-service-apis) - Add hooks to database operations
-- [Custom Status Code and Error Messages](/docs/guide/migrated-docs/custom-status-code-error-message-java-service) - Handle errors and HTTP responses
-
-
+- [Accessing REST APIs from Java Service](#) - Call external REST APIs from Java code
+- [Pre and Post Processing for Database Service APIs](#) - Add hooks to database operations
+- [Custom Status Code and Error Messages](#) - Handle errors and HTTP responses
