@@ -79,6 +79,18 @@ Two valid locations exist in this repo; for feature announcements, prefer **co-l
 
 Always include descriptive `alt` text.
 
+## Availability line (required)
+
+Every announcement must include a single-line availability statement immediately after the `{/* truncate */}` marker:
+
+```
+**Available from WaveMaker vX.Y(.Z).**
+```
+
+The version is always user-supplied. Never infer it from context, the current date, or the most recent release note. If the user has not given a version, stop and ask before writing the file.
+
+This line exists because readers landing on an announcement need to know which release introduces the feature without scanning release notes. Keep it on its own line, bold, and formatted exactly as shown.
+
 ## Truncation
 
 Every post must include a `{/* truncate */}` marker. Content above the marker appears on the listing page; content below appears only on the individual post page.

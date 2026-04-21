@@ -33,9 +33,10 @@ Before writing, confirm:
 4. **Author key** — must exist in `data/author/authors.yml`. If it does not, ask the user whether to add it before proceeding.
 5. **Tags** — must exist in `blogs/feature-announcements/tags.yml`. If missing, ask the user whether to add them.
 6. **Summary** — one-sentence hook shown in the listing.
-7. **Links** — related docs page, release note, or blog post (optional but recommended).
-8. **Hero image** (optional) — path or asset to place under `./assets/images/`.
-9. **Academy content** (optional) — an Academy walkthrough URL (`https://academy.wavemaker.ai/Walkthrough?wm=XXX`) and/or a video URL (`https://academy.wavemaker.ai/Watch?wm=XXX`), plus short `title` and `description` for each. Ask the user; do not fabricate.
+7. **Available from version** — **required**. The WaveMaker version the feature first ships in (e.g., `v12.0`, `v12.1.0`). Readers need to know where it lands. Ask the user explicitly; do not guess, do not default, do not proceed without it.
+8. **Links** — related docs page, release note, or blog post (optional but recommended).
+9. **Hero image** (optional) — path or asset to place under `./assets/images/`.
+10. **Academy content** (optional) — an Academy walkthrough URL (`https://academy.wavemaker.ai/Walkthrough?wm=XXX`) and/or a video URL (`https://academy.wavemaker.ai/Watch?wm=XXX`), plus short `title` and `description` for each. Ask the user; do not fabricate.
 
 ## File layout
 
@@ -67,7 +68,14 @@ Reference images with relative paths from the `.mdx` file (`./assets/images/<slu
 3. **Create the file** using `assets/announcement-template.mdx` as the starting point.
    - Fill frontmatter (`title`, `authors`, `tags`, optional `image`).
    - Write the summary paragraph before the `{/* truncate */}` marker — this is what appears on the listing page.
-   - Write the body after the marker.
+   - Immediately after the `{/* truncate */}` marker, on its own line, add the availability line:
+
+     ```
+     **Available from WaveMaker vX.Y(.Z).**
+     ```
+
+     Use the version the user supplied. This line is required on every announcement.
+   - Write the body after that.
    - Use MDX-style comments only: `{/* ... */}`. HTML comments (`<!-- ... -->`) are not valid in MDX and will fail the build.
 
 4. **Place images** (if any) under `blogs/feature-announcements/assets/images/<slug>/` and reference with relative paths.
@@ -119,6 +127,8 @@ Reference images with relative paths from the `.mdx` file (`./assets/images/<slu
 - Using HTML comments (`<!-- ... -->`) anywhere in the MDX body — MDX treats `<` as the start of a JSX element and the build fails. Use `{/* ... */}` instead.
 - Adding `import` statements for `AcademyCard`, `VideoCard`, `Pill`, `PillGroup`, etc. — they are globally registered. Importing them causes redeclaration errors.
 - Fabricating Academy URLs. The `wm=XXX` identifier is generated when content is published on Academy; ask the user for the real URL and do not guess.
+- Skipping the "Available from" line, or guessing the version. It is a required, user-supplied field — stop and ask if the user has not provided it.
+- Editing `assets/announcement-template.mdx` to reintroduce angle-bracket placeholders (e.g., `<Your hook here>`). MDX parses `<Word...` as a JSX element and will fail on the next punctuation or space. Keep placeholders as plain text or wrap examples inside `{/* ... */}` comments.
 - Adding an `<h1>` in the body (duplicates the title from frontmatter).
 - Using absolute paths for images co-located with the post.
 - Using docs-style relative MDX links (`../../user-interfaces/...`) to reach docs — they only work within the docs plugin. From an announcement, use `/docs/<section>/<page>` URL paths.
@@ -132,6 +142,7 @@ Reference images with relative paths from the `.mdx` file (`./assets/images/<slu
 - [ ] Every tag exists in `blogs/feature-announcements/tags.yml`.
 - [ ] Summary precedes `{/* truncate */}`.
 - [ ] No HTML comments (`<!-- ... -->`) anywhere in the body.
+- [ ] Availability line (`**Available from WaveMaker vX.Y.**`) is present immediately after `{/* truncate */}` and uses the version supplied by the user.
 - [ ] Any Academy walkthrough or video URLs were supplied by the user, not invented.
 - [ ] All images live under `blogs/feature-announcements/assets/images/<slug>/` and are referenced relatively.
 - [ ] `npm run lint` passes.
