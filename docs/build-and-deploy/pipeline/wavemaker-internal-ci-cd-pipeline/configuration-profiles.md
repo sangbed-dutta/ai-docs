@@ -3,11 +3,12 @@ title: Configuration Profiles
 id: configuration-profiles
 last_update: { author: "WaveMaker" }
 ---
+
 ---
 
-**Configuration Profiles** allow you to run the same application under different environments with different settings, and this configuration information is stored in the form of profiles. 
+**Configuration Profiles** allow you to run the same application under different environments with different settings, and this configuration information is stored in the form of profiles.
 
-If you need to configure a profile to provide lots of custom settings to suit third-party tools, services, network settings, or certificates, you can do it with the help of **Config Profiles**. This is in line with _[Maven Configuration Profiles](https://maven.apache.org/guides/mini/guide-building-for-different-environments.html)_. The profile can be accessed from the **Settings** option as shown in the image below.
+If you need to configure a profile to provide lots of custom settings to suit third-party tools, services, network settings, or certificates, you can do it with the help of **Config Profiles**. This is in line with *[Maven Configuration Profiles](https://maven.apache.org/guides/mini/guide-building-for-different-environments.html)*. The profile can be accessed from the **Settings** option as shown in the image below.
 
 [![config settings](./assets/img/config_settings.png)](./assets/img/config_settings.png)
 
@@ -29,7 +30,7 @@ The **Development Configuration Profiles,** used with the **Run** option, are no
 
 - Under Security tab, Configuration SSL is disabled by default.
 - There is no provision to configure X-Frame options. It is by default set to “Same Origin”.
-- The App Environment properties can be added, deleted or modified. When you click on Save button, the properties get synchronized with all the profiles. For more information, see [Using App Environment Property](../../../guide/migrated-docs/using-app-environment-properties/).
+- The App Environment properties can be added, deleted or modified. When you click on Save button, the properties get synchronized with all the profiles. For more information, see [Using App Environment Property](#).
 
 ## Deployment Configuration Profile
 
@@ -57,5 +58,5 @@ This custom profile can be used when exporting the project as a WAR file.
 
 ## See Also
 
-[One-Click Deployment](#)  
+[One-Click Deployment](#)\
 [Building a War file from a WaveMaker Project](#)

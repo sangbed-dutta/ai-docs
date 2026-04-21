@@ -2,7 +2,7 @@
 last_update: { author: "Priyanka Bhadri" }
 ---
 
-# Working with Connectors  
+# Working with Connectors
 
 ## Example: Twilio Connector
 
@@ -12,13 +12,12 @@ This section explains how to work with connectors using the **Twilio Connector**
 
 ---
 
-
-
 ## Twilio Connector Overview
 
 The **Twilio Connector** enables applications to send SMS messages using Twilio’s messaging APIs. Once configured, the connector exposes Twilio operations as callable REST services inside WaveMaker.
 
 Common use cases include:
+
 - Sending OTPs
 - Transactional alerts
 - Notifications and reminders
@@ -31,14 +30,9 @@ This document explains how to integrate and use the **Twilio Connector** in a Wa
 
 ---
 
-
-
 ## Importing the Twilio Connector
 
-
-
 The Twilio Connector is obtained by downloading the latest Connector ZIP from the [Twilio Connector ZIP](https://github.com/wavemaker/twilio-connector/releases). The ZIP file is then imported into an existing WaveMaker project using the [Import Resource](../apis/third-party-libraries/jar-files.md) option in WaveMaker Studio. Once the import is completed, the Twilio Connector becomes available under the **Connectors** section of the project and can be configured for use within the application.
-
 
 ---
 
@@ -175,9 +169,9 @@ A `true` value indicates that the OTP is valid and verified.
 
 ## Additional Notes
 
-* The length and format of the OTP are controlled by the **Twilio Verify Service** configuration in your Twilio account.
-* Incoming message handling requires a publicly accessible endpoint registered as a webhook in Twilio.
-* All credentials and sensitive data should be managed using WaveMaker’s profile-based configuration system.
+- The length and format of the OTP are controlled by the **Twilio Verify Service** configuration in your Twilio account.
+- Incoming message handling requires a publicly accessible endpoint registered as a webhook in Twilio.
+- All credentials and sensitive data should be managed using WaveMaker’s profile-based configuration system.
 
 ---
 
@@ -187,13 +181,13 @@ This completes the integration and usage guide for the Twilio Connector in WaveM
 
 Learn more about connectors through these practical guides:
 
-- [AWS S3 Connector](/docs/guide/migrated-docs/aws-s3-connector) - Integrate with Amazon S3 storage
-- [Azure File Storage Connector](/docs/guide/migrated-docs/azure-file-storage-connector) - Connect to Azure storage services
-- [Insert Data from Excel](/docs/guide/migrated-docs/insert-data-from-excel) - Import Excel data into your application
-- [AWS S3 Connector](/docs/guide/migrated-docs/aws-s3-connector) - Integrate with Amazon S3 storage
-- [Twilio Connector](/docs/guide/migrated-docs/twilio-connector) - Add SMS and communication features
-- [Twilio OTP Integration](/docs/guide/migrated-docs/twilio-otp-integration) - Implement one-time password authentication
-- [Integrating Jasper Reports in WaveMaker](/docs/guide/migrated-docs/integrating-sample-jasper-report-wavemaker-application) - Add reporting capabilities
-- [Generate PDF Files Using Jasper Reports](/docs/guide/migrated-docs/generate-pdf-file-using-jasper-reports) - Create PDF documents dynamically
+- [AWS S3 Connector](#) - Integrate with Amazon S3 storage
+- [Azure File Storage Connector](#) - Connect to Azure storage services
+- [Insert Data from Excel](#) - Import Excel data into your application
+- [AWS S3 Connector](#) - Integrate with Amazon S3 storage
+- [Twilio Connector](#) - Add SMS and communication features
+- [Twilio OTP Integration](#) - Implement one-time password authentication
+- [Integrating Jasper Reports in WaveMaker](#) - Add reporting capabilities
+- [Generate PDF Files Using Jasper Reports](#) - Create PDF documents dynamically
 
 ---

@@ -7,7 +7,7 @@ last_update:
 
 ## Overview
 
-WaveMaker generates **fully readable, standards-based Java backend code**.  
+WaveMaker generates **fully readable, standards-based Java backend code**.\
 The code is **not black-boxed** and follows established enterprise patterns using **Java, Spring, and Hibernate/JPA**.
 
 Developers have full access to the source code and can safely extend it without impacting platform upgrades.
@@ -92,8 +92,8 @@ services/
 - Stores metadata used by WaveMaker Studio
 - Used at design time; runtime uses generated Java code
 
-
 **Structure**
+
 ```text
 services/
 └── myDatabase/                      # Main database service
@@ -106,39 +106,38 @@ services/
         ├── myDatabase_query.json
         └── service-info.json
 ```
+
 ---
 
 ## Application Configuration Properties
 
-Whenever services are imported into WaveMaker, the platform automatically **generates configuration properties** that can be mapped to different environments such as Development, QA, or Production.  
-You can view and manage these properties in the **Profiles**.  
+Whenever services are imported into WaveMaker, the platform automatically **generates configuration properties** that can be mapped to different environments such as Development, QA, or Production.\
+You can view and manage these properties in the **Profiles**.\
 For more information, refer to the **[Profiles](../../configurations/profiles.md)** section in the documentation.
 
 For more details on environment-specific configurations, refer to the **[Deployment Profiles](../../configurations/profile-settings.md)** section.
 
 <details>
-<summary>Click to expand configuration properties</summary>
+  <summary>Click to expand configuration properties</summary>
 
-```properties
-# Database Configuration (hrdb)
-db.hrdb.dataSourceType=WM_MANAGED_DATASOURCE
-db.hrdb.driverClass=org.hsqldb.jdbcDriver
-db.hrdb.url=jdbc:hsqldb:file:{WebAppRoot}/WEB-INF/data/hrdb;shutdown=true;ifexists=true;hsqldb.lock_file=false;
-db.hrdb.username=sa
-db.hrdb.password=********
-db.hrdb.schemaName=PUBLIC
-db.hrdb.hbm2ddl=none
-db.hrdb.minPoolSize=2
-db.hrdb.maxPoolSize=4
-db.hrdb.maxPageSize=100
-db.hrdb.transactionTimeout=30
-db.hrdb.jndiName=
-```
+  ```properties
+  # Database Configuration (hrdb)
+  db.hrdb.dataSourceType=WM_MANAGED_DATASOURCE
+  db.hrdb.driverClass=org.hsqldb.jdbcDriver
+  db.hrdb.url=jdbc:hsqldb:file:{WebAppRoot}/WEB-INF/data/hrdb;shutdown=true;ifexists=true;hsqldb.lock_file=false;
+  db.hrdb.username=sa
+  db.hrdb.password=********
+  db.hrdb.schemaName=PUBLIC
+  db.hrdb.hbm2ddl=none
+  db.hrdb.minPoolSize=2
+  db.hrdb.maxPoolSize=4
+  db.hrdb.maxPageSize=100
+  db.hrdb.transactionTimeout=30
+  db.hrdb.jndiName=
+  ```
 </details>
 
-
 ---
-
 
 ## Summary
 
@@ -146,21 +145,18 @@ WaveMaker generates a **clean, layered, and extensible Java backend** aligned wi
 
 Developers can inspect, extend, and maintain the codebase while benefiting from **rapid API generation** and **upgrade-safe customization**.
 
-
 ---
 
 ## How-To Guides
 
 Learn more about working with databases and queries through these practical guides:
 
-
-- [Connecting to Azure SQL Server](/docs/guide/migrated-docs/connect-azure-sql-server) - Configure Azure SQL Server database connections
-- [Uploading JDBC Drivers](/docs/guide/migrated-docs/how-to-upload-jdbc-driver) - Add custom JDBC drivers for database connectivity
-- [Configuring AWS Redshift Database](/docs/guide/migrated-docs/configuring-aws-redshiftdb) - Set up Amazon Redshift connections
-- [Configuring SAP HANA Cloud Database](/docs/guide/migrated-docs/configuring-sap-hana-clouddb) - Integrate with SAP HANA Cloud
-- [MySQL Connection Using SSL](/docs/guide/migrated-docs/mysql-connection-using-ssl) - Secure MySQL connections with SSL/TLS
-- [Switch from MariaDB to MySQL Connector](/docs/guide/migrated-docs/switch-mariadb-to-mysql-connector) - Migration guide for connector changes
-- [Audit History Using CRUD Listeners](/docs/guide/migrated-docs/audit-history-using-crud-listeners) - Track data changes and maintain audit trails
-
+- [Connecting to Azure SQL Server](#) - Configure Azure SQL Server database connections
+- [Uploading JDBC Drivers](#) - Add custom JDBC drivers for database connectivity
+- [Configuring AWS Redshift Database](#) - Set up Amazon Redshift connections
+- [Configuring SAP HANA Cloud Database](#) - Integrate with SAP HANA Cloud
+- [MySQL Connection Using SSL](#) - Secure MySQL connections with SSL/TLS
+- [Switch from MariaDB to MySQL Connector](#) - Migration guide for connector changes
+- [Audit History Using CRUD Listeners](#) - Track data changes and maintain audit trails
 
 ---

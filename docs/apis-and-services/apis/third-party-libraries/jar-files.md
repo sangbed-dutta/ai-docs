@@ -4,11 +4,11 @@ last_update: { author: "Priyanka Bhadri" }
 
 # Integrating Third-Party JAR Files
 
-<!-- WaveMaker allows you to extend your backend capabilities by integrating external Java libraries (JAR files) into your application. Once a JAR is added, its classes become part of the application’s classpath and can be used seamlessly within Java Services or other backend components.
+{/* WaveMaker allows you to extend your backend capabilities by integrating external Java libraries (JAR files) into your application. Once a JAR is added, its classes become part of the application’s classpath and can be used seamlessly within Java Services or other backend components.
 
----
+  ---
 
- -->
+  */}
 
 WaveMaker allows you to extend your backend capabilities by bringing in external Java libraries and using them seamlessly within Java Services. Once a JAR is added, its classes become part of the application’s classpath and can be used seamlessly within Java Services or other backend components
 
@@ -21,31 +21,29 @@ From there, your Java Service can directly import the required classes from the 
 For example, after importing a mail library JAR, you can use its APIs inside a Java Service to send emails as part of your business workflow. This makes it easy to integrate external SDKs, utilities, or enterprise libraries while still keeping your APIs composed and orchestrated within WaveMaker.
 
 This approach helps you:
-- Extend backend logic beyond built-in services  
-- Reuse existing Java libraries  
-- Implement advanced integrations inside composed (BFF) APIs  
 
+- Extend backend logic beyond built-in services
+- Reuse existing Java libraries
+- Implement advanced integrations inside composed (BFF) APIs
 
+{/* ![alt text](assets/jar-file-upload.png) */}
 
-
-
-<!-- ![alt text](assets/jar-file-upload.png) -->
 ![alt text](assets/resourcesupload.png)
 
 ![alt text](assets/third-party-library-options.png)
 
 ---
 
-<!-- ## Using Classes from the JAR
+{/* ## Using Classes from the JAR
 
-After the JAR is imported:
+  After the JAR is imported:
 
-- Add the necessary `import` statements in your Java Service class for the classes you want to use from the JAR.
-- Use the library’s classes and APIs in your service methods just as you would with any other Java code. 
+  - Add the necessary `import` statements in your Java Service class for the classes you want to use from the JAR.
+  - Use the library’s classes and APIs in your service methods just as you would with any other Java code. 
 
-For example, if you import a mail library JAR, you could write code in a Java Service to send emails using that library’s API.
+  For example, if you import a mail library JAR, you could write code in a Java Service to send emails using that library’s API.
 
---- -->
+  --- */}
 
 ## Using Third-Party JARs in Java Services
 
@@ -102,14 +100,12 @@ public String sendEmail(String userName, String password,
 }
 ```
 
+{/* ---
 
 
-<!-- ---
-
-
-- WaveMaker supports importing external JAR files into the `Lib` folder.
-- After import, classes in the JAR can be used in your Java Services.
-- Java Services using third-party libraries can be triggered via variables and bound to UI elements for interaction. -->
+  - WaveMaker supports importing external JAR files into the `Lib` folder.
+  - After import, classes in the JAR can be used in your Java Services.
+  - Java Services using third-party libraries can be triggered via variables and bound to UI elements for interaction. */}
 
 ---
 
@@ -127,4 +123,4 @@ Overall, this approach helps you keep your APIs flexible, powerful, and tailored
 
 Learn more about working with third-party files through these practical guides:
 
-- [Synchronizing WaveMaker Apps with IDEs](/docs/guide/migrated-docs/synchronizing-wavemaker-apps-ides-beta.md) - Synchronizing WaveMaker Apps with IDEs
+- [Synchronizing WaveMaker Apps with IDEs](#) - Synchronizing WaveMaker Apps with IDEs
