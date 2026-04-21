@@ -1,514 +1,100 @@
 /** @type {import('@docusaurus/plugin-content-docs').SidebarConfig} */
 export default [
-      {
-        type: 'category',
-        label: 'Deployment',
-        items: [
-          'guide/deployment/app-integration-with-azure-cdn',
-          'guide/deployment/deployment-to-heroku',
-          'guide/deployment/deployment-using-docker-compose',
-          'guide/deployment/ssl-offloading',
-          {
-            type: 'category',
-            label: 'Deployment to Web Server',
-            items: [
-              'guide/deployment/deploy-to-webserver/wavemaker-application-deployment-jboss',
-              'guide/deployment/deploy-to-webserver/wavemaker-application-deployment-weblogic-application-server',
-              'guide/deployment/deploy-to-webserver/wavemaker-application-deployment-websphere-liberty-profile',
-            ],
-          },
-        ],
-      },
   {
     type: 'category',
-    label: 'Components',
+    label: 'security',
     collapsible: true,
     collapsed: true,
     items: [
       {
-        type: 'category',
-        label: 'Data widgets',
-        items: [
-          {
-            type: 'category',
-            label: 'Data Table',
-            items: [
-              'guide/components/data-table-actions',
-              'guide/components/how-to-configure-row-expansion-in-a-data-table',
-              'guide/components/data-table-widget-representations',
-              'guide/components/view-master-detail-data-records-using-data-table',
-              'guide/components/adding-parent-child-using-form-datatable',
-              'guide/components/add-master-detail-records-using-data-table',
-              'guide/components/export-data-data-table',
-              'guide/components/export-data-data-table-2',
-              'guide/components/setting-blob-filename',
-              'guide/components/dynamic-data-tables',
-              'guide/components/customize-dynamic-datatable',
-              'guide/components/dynamic-data-table-edit',
-              'guide/components/data-table-column-bound-query',
-              'guide/components/combining-columns-data-table',
-              'guide/components/data-table-styling',
-              'guide/components/data-table-format-options',
-              'guide/components/concurrency-record-locking-wavemaker',
-              'guide/components/edit-datatable-bound-to-queryapi',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Form',
-            items: [
-              'guide/components/dynamic-form',
-
-              'guide/components/how-tos-form',
-              'guide/components/form-with-wizard',
-              'guide/components/get-validation-messages-form',
-              'guide/components/form-conditional-flows',
-              'guide/components/adding-master-detail-records-transaction',
-              'guide/components/adding-parent-child-records-single-transaction',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'List',
-            items: [
-              'guide/components/list-basic-usage',
-              'guide/components/list-grouped',
-              'guide/components/list-multi-grouped',
-              'guide/components/setting-partial-page-content-panel-within-list-using-javascript',
-              'guide/components/onrender-event-list-widget',
-              'guide/components/list-data-table',
-              'guide/components/building-editable-list',
-              'guide/components/building-cascading-lists',
-              'guide/components/list-item-access',
-              'guide/components/localization-data-table-column-headings',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Cards',
-            items: ['guide/components/capturing-card-items'],
-          },
-          {
-            type: 'category',
-            label: 'Live Form',
-            items: [
-              'guide/components/live-form-tabbed-form',
-              'guide/components/how-tos-live-form',
-              'guide/components/using-live-form',
-              'guide/components/live-form-linking-another-widget',
-              'guide/components/live-form-related-fields',
-              'guide/components/using-cascading-select-autocomplete-live-form-fields',
-              'guide/components/using-cascading-select-within-live-form',
-              'guide/components/using-cascading-filter-populate-live-form',
-              'guide/components/using-wizard-master-detail-live-form',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Live Filter',
-            items: [
-              'guide/components/live-filter-applying',
-              'guide/components/live-filter-multiple-values',
-              'guide/components/live-filter-range-filter',
-            ],
-          },
-        ],
-      },
-      {
-        type: 'category',
-        label: 'Container',
-        items: [
-          {
-            type: 'category',
-            label: 'Accordion',
-            items: [
-              'guide/components/setting-partial-page-content-accordion-within-list',
-              'guide/components/dynamic-tabs-accordions',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Wizard',
-            items: ['guide/components/how-tos-wizard'],
-          },
-        ],
-      },
-      {
-        type: 'category',
-        label: 'Form Widgets',
-        items: [
-          'guide/components/copy-to-clipboard',
-          {
-            type: 'category',
-            label: 'Select',
-            items: [
-              'guide/components/configuring-select-widget-static-list-values',
-              'guide/components/configuring-select-widget-static-variable',
-              'guide/components/configuring-select-widget-variable',
-              'guide/components/configuring-select-widget-display-data-fields',
-              'guide/components/configuring-select-widget-database-fields',
-              'guide/components/configuring-cascading-select',
-              'guide/components/selection-widgets-use-case',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Radioset',
-            items: ['guide/components/radioset-filter-list'],
-          },
-          {
-            type: 'category',
-            label: 'CheckboxSet',
-            items: ['guide/components/checkboxset-filter-list-data'],
-          },
-          {
-            type: 'category',
-            label: 'Date, Time and Datetime',
-            items: ['guide/components/settimezone-method'],
-          },
-          {
-            type: 'category',
-            label: 'Calendar',
-            items: [
-              'guide/components/how-tos-calendar',
-              'guide/components/calendar-usage-create-event',
-              'guide/components/calender-usage-google-calendar-integration',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'FileUpload',
-            items: [
-              'guide/components/file-upload-widget-operations',
-              'guide/components/upload-file-save-database',
-              'guide/components/file-upload-blob-data',
-              'guide/components/file-upload-custom-directory',
-              'guide/components/accessing-file-upload-java-code',
-              'guide/components/upload-files-from-live-form-form',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Slider',
-            items: ['guide/components/customize-slider'],
-          },
-          {
-            type: 'category',
-            label: 'Rating',
-            items: [
-              'guide/components/rating-widget-using-static-data',
-              'guide/components/rating-widget-using-static-variable',
-              'guide/components/building-rating-widget-using-variable',
-              'guide/components/rating-widget-interactive',
-            ],
-          },
-        ],
-      },
-      {
-        type: 'category',
-        label: 'Basic Widgets',
-        items: [
-          {
-            type: 'category',
-            label: 'Tree',
-            items: [
-              'guide/components/tree-use-case-static-variable',
-              'guide/components/tree-use-case-java-service',
-              'guide/components/tree-use-case-dynamic-tree',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Richtext Editor',
-            items: ['guide/components/adding-custom-fonts-richtext-editor'],
-          },
-          {
-            type: 'category',
-            label: 'Progress Bar',
-            items: ['guide/components/customize-progress-bar'],
-          },
-          {
-            type: 'category',
-            label: 'Progress Circle',
-            items: ['guide/components/using-progress-circle-widget'],
-          },
-        ],
-      },
-      {
-        type: 'category',
-        label: 'Charts',
-        items: [
-          {
-            type: 'category',
-            label: 'How-tos',
-            items: [
-              'guide/components/working-with-charts',
-              'guide/components/charts-displaying-user-selection-another-widget',
-              'guide/components/charts-handling-dynamic-data',
-              'guide/components/charts-custom-data',
-            ],
-          },
-        ],
+        type: 'doc',
+        id: 'guide/security/overview',
+        label: 'Security',
       },
     ],
   },
 
-  // {
-  //   type: 'category',
-  //   label: 'migrated-docs',
-  //   collapsible: true,
-  //   collapsed: true,
-  //   items: [
-  //     {
-  //       docs: [
-          {
-            type: 'category',
-            label: 'App solution',
-            items: [
-              'guide/migrated-docs/creating-registration-page',
-              'guide/migrated-docs/support-password-encryption',
-              'guide/migrated-docs/error-handling-wavemaker-app',
-              'guide/migrated-docs/prevent-user-leaving-page-unsaved-changes',
-              'guide/migrated-docs/microfrontends-iframe',
-              'guide/migrated-docs/building-pwa-app',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'UI Development',
-            items: [
-              'guide/migrated-docs/single-page-app',
-              'guide/migrated-docs/prefab-as-webcomponent',
-              'guide/migrated-docs/passing-parameters-pages',
-              'guide/migrated-docs/passing-parameters-partial-page',
-              'guide/migrated-docs/script-access',
-              'guide/migrated-docs/use-static-variable-pass-data-pages',
-              'guide/migrated-docs/customise-login-page',
-              'guide/migrated-docs/incorporating-additional-icons',
-              'guide/migrated-docs/displaying-icon-color-based-upon-condition',
-              'guide/migrated-docs/change-icon-global-spinner',
-              'guide/migrated-docs/changing-default-favicon',
-              'guide/migrated-docs/changing-app-logo',
-              'guide/migrated-docs/changing-page-title',
-              'guide/migrated-docs/customise-app-style',
-              'guide/migrated-docs/use-conditional-class-property',
-              'guide/migrated-docs/use-conditional-style-property',
-              'guide/migrated-docs/customize-existing-theme',
-              'guide/migrated-docs/adjust-leftnav-width',
-              'guide/migrated-docs/customizing-theme',
-              'guide/migrated-docs/widget-template-layout',
-              'guide/migrated-docs/wizard-layout',
-              'guide/migrated-docs/custom-widget-template',
-              'guide/migrated-docs/using-custom-formatter',
-              'guide/migrated-docs/using-custom-formatter-for-todate',
-              'guide/migrated-docs/customize-breakpoints-for-widths-of-show-in-devices',
-              {
-                type: 'category',
-                label: 'Nav & Dropdown',
-                items: [
-                  'guide/migrated-docs/dynamic-menu-based-user-role',
-                  'guide/migrated-docs/restricting-menu-item-display-based-user-role',
-                ],
-              },
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Localization',
-            items: [
-              'guide/migrated-docs/localization-wavemaker-apps',
-              'guide/migrated-docs/implementing-localization-dropdown-menu',
-              'guide/migrated-docs/setting-language-date-format',
-              'guide/migrated-docs/localization-error-messages',
-              'guide/migrated-docs/localization-data-table-column-headings',
-              'guide/migrated-docs/dynamic-locale-messageselection',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Security',
-            items: [
-              'guide/migrated-docs/saml-integration-onelogin',
-              'guide/migrated-docs/saml-integration-adfs',
-              'guide/migrated-docs/saml-integration-okta',
-              'guide/migrated-docs/sso-openid-azure-active-directory',
-              'guide/migrated-docs/implement-openid-google-provider',
-              'guide/migrated-docs/implement-openid-okta-provider',
-              'guide/migrated-docs/implement-openid-auth0-provider',
-              'guide/migrated-docs/custom-security-using-google-oauth-prefab',
-              'guide/migrated-docs/multiple-security-provider-configuration',
-              'guide/migrated-docs/customizing-post-authentication-handlers',
-              'guide/migrated-docs/add-custom-filters',
-              'guide/migrated-docs/configuring-content-security-policy',
-              'guide/migrated-docs/configure-mtls-in-wmapp',
-              'guide/migrated-docs/switch-security-provider-based-on-profile',
-              'guide/migrated-docs/configuring-jws-and-opaque-security-providers',
-              'guide/migrated-docs/passing-id-access-tokens-as-header',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Databases',
-            items: [
-              'guide/migrated-docs/queries-dynamic-clause',
-              'guide/migrated-docs/connect-azure-sql-server',
-              'guide/migrated-docs/how-to-upload-jdbc-driver',
-              'guide/migrated-docs/fetch-default-number100-records-database',
-              'guide/migrated-docs/one-many-relationship',
-              'guide/migrated-docs/working-with-temporals',
-              'guide/migrated-docs/configuring-aws-redshiftdb',
-              'guide/migrated-docs/configuring-sap-hana-clouddb',
-              'guide/migrated-docs/audit-history-using-crud-listeners',
-              'guide/migrated-docs/rowlevel-security-using-crud-event-listeners',
-              'guide/migrated-docs/validations-using-crudListeners',
-              'guide/migrated-docs/custom-business-logic-using-crud-event-listeners',
-              'guide/migrated-docs/mysql-connection-using-ssl',
-              'guide/migrated-docs/switch-mariadb-to-mysql-connector',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Web services',
-            items: [
-              'guide/migrated-docs/using-app-environment-properties',
-              'guide/migrated-docs/consuming-existing-wm-api-into-another-wm-project',
-              'guide/migrated-docs/dynamic-form',
-              'guide/migrated-docs/using-post-method-send-data-rest-api',
-              'guide/migrated-docs/request-response-processing-rest-services',
-              'guide/migrated-docs/intercept-requests-responses-api-calls-one-place',
-              'guide/migrated-docs/websocket-usage-chatroom-app',
-              'guide/migrated-docs/working-api-with-different-pagination-formats',
-              'guide/migrated-docs/adding-ui-for-api-server-side-pagination',
-              'guide/migrated-docs/secure-server-side-properties',
-              'guide/migrated-docs/rest-services-using-oauth20',
-              'guide/migrated-docs/rest-request-timeouts',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Java services',
-            items: [
-              'guide/migrated-docs/sending-email-using-java-service',
-              'guide/migrated-docs/implementing-forgot-password-feature-using-java-service',
-              'guide/migrated-docs/accessing-rest-apis-java-service',
-              'guide/migrated-docs/scheduling-java-service',
-              'guide/migrated-docs/synchronizing-java-services-controller',
-              'guide/migrated-docs/integrating-amazon-cognito-user-authentication',
-              'guide/migrated-docs/integrating-sample-jasper-report-wavemaker-application',
-              'guide/migrated-docs/generate-pdf-file-using-jasper-reports',
-              'guide/migrated-docs/integrating-junit-tests-for-wavemaker-application',
-              'guide/migrated-docs/pre-post-processing-db-service-apis',
-              'guide/migrated-docs/accessing-loggedin-user-information-using-a-java-service',
-              'guide/migrated-docs/camunda-wavemaker-app-integration',
-              'guide/migrated-docs/azure-file-storage-connector',
-              'guide/migrated-docs/insert-data-from-excel',
-              'guide/migrated-docs/aws-s3-connector',
-              'guide/migrated-docs/twilio-connector',
-              'guide/migrated-docs/twilio-otp-integration',
-              'guide/migrated-docs/custom-status-code-error-message-java-service',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Variables',
-            items: [
-              'guide/migrated-docs/using-filter-conditions-variable',
-              'guide/migrated-docs/using-live-variable-apis',
-              'guide/migrated-docs/using-notification-actions',
-              'guide/migrated-docs/using-navigation-action',
-              'guide/migrated-docs/using-variables-queries-procedure',
-              'guide/migrated-docs/using-service-variable-form',
-              'guide/migrated-docs/using-filter-criteria-data-live-widgets',
-              'guide/migrated-docs/using-filter-criteria-database-crud-variable',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'JavaScript',
-            items: [
-              'guide/migrated-docs/using-javascript-binding',
-              'guide/migrated-docs/using-javascript-external-url',
-              'guide/migrated-docs/using-javascript-loop-command',
-              'guide/migrated-docs/using-function-evaluating-conditions',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Development',
-            items: [
-              'guide/migrated-docs/synchronizing-wavemaker-apps-ides-beta',
-              'guide/migrated-docs/debug-monitor-performance-issues-using-fusion-reactor',
-              'guide/migrated-docs/local-setup',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Table',
-            items: [
-              'guide/components/creating-dynamic-data-table',
-              'guide/components/configuring-row-expansion-in-a-data-table',
-              'guide/components/custom-styling-data-table-columns-rows',
-              'guide/components/combining-columns-in-data-table',
-              'guide/components/displaying-additional-components-data-table',
-              'guide/components/queries-with-dynamic-where-clause',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Form',
-            items: [
-              'guide/components/creating-dynamic-form',
-              'guide/components/live-form-fields-configuration',
-              'guide/components/capturing-data-from-wizard-steps-with-forms'
-            ],
-          }
+  {
+    type: 'category',
+    label: 'components',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/components/overview',
+        label: 'Components',
+      },
+    ],
+  },
 
-          // {
-          //   type: 'category',
-          //   label: 'Deployment',
-          //   items: ['guide/migrated-docs/ssl-offloading'],
-          // },
-          // {
-          //   type: 'category',
-          //   label: 'Upgrading Project',
-          //   items: [
-          //     'guide/migrated-docs/guide-to-upgrade-an-app-wavemaker-9x-to-wavemaker-10-0',
-          //     'guide/migrated-docs/app-migration-wavemaker-9x-10x',
-          //   ],
-          // },
-        // ],
-        // Teams: ['guide/migrated-docs/azure-repos-vcs'],
-        // Mobile: [
-          // {
-          //   type: 'category',
-          //   label: 'Cordova (Hybrid Mobile)',
-          //   items: [
-          //     {
-          //       type: 'category',
-          //       label: 'Cordova How-tos',
-          //       items: [
-          //         'guide/migrated-docs/mobile-notify-new-version-update',
-          //         'guide/migrated-docs/setting-swipe-gestures-list-widget',
-          //         'guide/migrated-docs/working-pull-refresh',
-          //         'guide/migrated-docs/using-search-widget-within-navbar',
-          //         {
-          //           type: 'category',
-          //           label: 'Mobile UI Design',
-          //           items: [
-          //             'guide/migrated-docs/splashscreens-icons',
-          //             'guide/migrated-docs/using-cordova-plugins',
-          //             'guide/migrated-docs/support-for-tablet-view-in-mobile',
-          //             'guide/migrated-docs/sliding-leftnav-mobile-app',
-          //             'guide/migrated-docs/mobile-app-using-bar-code',
-          //             'guide/migrated-docs/custom-date-picker',
-          //           ],
-          //         },
-          //       ],
-          //     },
-          //   ],
-          // },
-        // ],
-  //    },
-   // ],
- // },
+  {
+    type: 'category',
+    label: 'deployement',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/deployement/overview',
+        label: 'Deployement',
+      },
+    ],
+  },
+
+  {
+    type: 'category',
+    label: 'app-solutions',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/app-solutions/overview',
+        label: 'App Solutions',
+      },
+    ],
+  },
+
+  {
+    type: 'category',
+    label: 'layouting-and-styling',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/layouting-and-styling/overview',
+        label: 'Layouting and Styling',
+      },
+    ],
+  },
+
+  {
+    type: 'category',
+    label: 'variables',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/variables/overview',
+        label: 'Variables',
+      },
+    ],
+  },
+
+  {
+    type: 'category',
+    label: 'integration',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/integration/overview',
+        label: 'Integration',
+      },
+    ],
+  },
 ];
