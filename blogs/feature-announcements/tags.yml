@@ -32,3 +32,18 @@ tips:
   label: Tips
   permalink: /tips
   description: Useful tips
+
+ai:
+  label: AI
+  permalink: /ai
+  description: AI-powered capabilities
+
+docs:
+  label: Docs
+  permalink: /docs
+  description: Documentation site improvements
+
+search:
+  label: Search
+  permalink: /search
+  description: Search experience changes
