@@ -65,7 +65,7 @@ This will generate this File structure for that component. Refer [WMX Component]
 
 AI-powered development tools such as Cursor and GitHub Copilot can also accelerate WMX widget creation.
 
-The WMX component creation process typically begins with completing the [local development setup](#) and opening the WaveMaker project in an AI-assisted development environment such as Cursor or a similar IDE. Once the project is loaded, developers can switch the AI assistant to Agent Mode and provide a prompt describing the WMX widget requirements.
+The WMX component creation process typically begins with completing the [local development setup](../../../../guide/integration/set-up-wavemaker-project-locally.md) and opening the WaveMaker project in an AI-assisted development environment such as Cursor or a similar IDE. Once the project is loaded, developers can switch the AI assistant to Agent Mode and provide a prompt describing the WMX widget requirements.
 
 Based on the provided prompt, the AI tool analyzes the project structure and attempts to generate the WMX component. This includes creating the widget implementation, configuring metadata, executing necessary commands, and resolving common errors interactively.
 

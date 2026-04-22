@@ -100,6 +100,11 @@ export default [
         id: 'guide/integration/overview',
         label: 'Integration',
       },
+      {
+        type: 'doc',
+        id: 'guide/integration/set-up-wavemaker-project-locally',
+        label: 'Local Setup with Workspace Sync',
+      },
     ],
   },
 
