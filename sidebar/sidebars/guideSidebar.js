@@ -102,4 +102,18 @@ export default [
       },
     ],
   },
+
+  {
+    type: 'category',
+    label: 'react-native',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/react-native/store-credentials-with-secure-store',
+        label: 'Secure Store',
+      },
+    ],
+  },
 ];
