@@ -31,7 +31,7 @@ Under `src/main/java`, create a package for your security classes.
 src/main/java/com/mycompany/myapp/security/
 ```
 
-![WaveMaker project file tree showing src/main/java, resources, and webapp folders](./images/package-structure.png)
+![WaveMaker project file tree showing src/main/java, resources, and webapp folders](./assets/images/package-structure.png)
 
 ### 2. Implement `WMAuthenticationSuccessHandler`
 
@@ -101,11 +101,11 @@ public class MyCustomAuthenticationSuccessHandler
 }
 ```
 
-| `@Order` value | Effect |
-|---|---|
-| Less than `0` | Your handler runs **before** WaveMaker's default handler |
-| Greater than `0` | Your handler runs **after** WaveMaker's default handler |
-| `0` (default) | Same level as WaveMaker's handler — avoid conflicts |
+| `@Order` value   | Effect                                                   |
+| ---------------- | -------------------------------------------------------- |
+| Less than `0`    | Your handler runs **before** WaveMaker's default handler |
+| Greater than `0` | Your handler runs **after** WaveMaker's default handler  |
+| `0` (default)    | Same level as WaveMaker's handler — avoid conflicts      |
 
 ---
 
@@ -118,10 +118,10 @@ authentication.addAttribute("key", value, Attribute.AttributeScope.ALL);
 authentication.addAttribute("key", value, Attribute.AttributeScope.SERVER_ONLY);
 ```
 
-| Scope | Accessible by |
-|---|---|
-| `ALL` | Both frontend (client) and backend (server) |
-| `SERVER_ONLY` | Backend only — never exposed to the client |
+| Scope         | Accessible by                               |
+| ------------- | ------------------------------------------- |
+| `ALL`         | Both frontend (client) and backend (server) |
+| `SERVER_ONLY` | Backend only — never exposed to the client  |
 
 :::tip
 Use `SERVER_ONLY` for sensitive data like internal user IDs, tokens, or audit timestamps that the frontend has no business reading.
@@ -177,10 +177,10 @@ public class WMAuthentication extends AbstractMutableAuthoritiesAuthenticationTo
 
 ## Limitations and Constraints
 
-| Constraint | Details |
-|---|---|
-| Works across all WaveMaker versions | No version restriction — this approach applies to all editions |
-| One redirection handler only | Only one `wmAuthenticationSuccessRedirectionHandler` bean is supported. Multiple declarations will result in only the last one being used |
-| Spring bean registration required | Handlers must be declared in `project-user-spring.xml` — annotation-based scanning alone is not sufficient |
+| Constraint                          | Details                                                                                                                                   |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Works across all WaveMaker versions | No version restriction — this approach applies to all editions                                                                            |
+| One redirection handler only        | Only one `wmAuthenticationSuccessRedirectionHandler` bean is supported. Multiple declarations will result in only the last one being used |
+| Spring bean registration required   | Handlers must be declared in `project-user-spring.xml` — annotation-based scanning alone is not sufficient                                |
 
 ---

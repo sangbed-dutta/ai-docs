@@ -39,6 +39,11 @@ export default [
         id: 'guide/deployment/overview',
         label: 'Deployment',
       },
+      {
+        type: 'doc',
+        id: 'guide/deployment/ssl-offloading',
+        label: 'SSL Termination',
+      },
     ],
   },
 
