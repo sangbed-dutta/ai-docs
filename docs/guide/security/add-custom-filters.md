@@ -167,7 +167,3 @@ Positioning your filter at `FIRST` means the security context may not yet be pop
 | Spring bean registration required | Filters must be declared in `project-user-spring.xml`; annotation-based scanning alone is not sufficient |
 
 ---
-
-## See Also
-
-- [Customize Post-Authentication Handlers](./customizing-post-authentication-handlers)

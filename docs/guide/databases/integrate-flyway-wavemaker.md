@@ -195,9 +195,3 @@ Each row represents a migration that was applied, along with its version, descri
 | Version numbers are reserved once used | After a versioned script is applied, its version number is permanently reserved — you cannot backfill a lower-versioned script later |
 
 ---
-
-## See Also
-
-- [Upload a JDBC Driver](./upload-jdbc-driver.md)
-- [Schedule a Java Service](../java-services/schedule-java-service.md)
-- [Add Custom Filters in a WaveMaker Application](../security/add-custom-filters.md)
