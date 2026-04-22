@@ -119,13 +119,13 @@ export default [
 
   {
     type: 'category',
-    label: 'React Native',
+    label: 'Device Native',
     collapsible: true,
     collapsed: true,
     items: [
       {
         type: 'doc',
-        id: 'guide/react-native/store-credentials-with-secure-store',
+        id: 'guide/device-native/store-credentials-with-secure-store',
         label: 'Secure Store',
       },
     ],

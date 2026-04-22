@@ -1,5 +1,5 @@
 ---
-title: "Using Storage Services in React Native"
+title: "Using Storage Services in WM Mobile Apps"
 id: "store-credentials-with-secure-store"
 sidebar_label: "Storage Services"
 last_update: { author: "Mayank Prakash",  }
