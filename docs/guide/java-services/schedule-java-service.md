@@ -11,15 +11,7 @@ WaveMaker lets you run backend Java logic automatically at defined time interval
 
 ---
 
-## Prerequisites
 
-Before you begin, make sure you have:
-
-- A WaveMaker project open in WaveMaker Studio
-- Basic familiarity with Java Services in WaveMaker
-- The method you want to schedule already defined in your Java Service
-
----
 
 ## Create a Java Service
 
