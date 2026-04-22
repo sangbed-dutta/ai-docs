@@ -31,7 +31,7 @@ Under `src/main/java`, create a package for your security classes.
 src/main/java/com/mycompany/myapp/security/
 ```
 
-![WaveMaker project file tree showing src/main/java, resources, and webapp folders](./images/package-structure.png)
+![WaveMaker project file tree showing src/main/java, resources, and webapp folders](./assets/images/package-structure.png)
 
 ### 2. Implement `WMAuthenticationSuccessHandler`
 

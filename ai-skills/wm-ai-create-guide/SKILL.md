@@ -58,11 +58,12 @@ Frame everything as helping the user produce a great guide, not as a checklist. 
 | Edge cases / gotchas | "Are there any common mistakes or tricky parts in this flow that users should watch out for?" |
 | Limitations | "Does this feature have any known limitations — e.g., not available in certain tiers, versions, or project types?" |
 | See Also candidates | "Are there related guides or docs I should link to at the end?" |
-| Author name | "Who should be credited as the author in the doc frontmatter?" |
 | Screenshots / GIFs | "Do you have any screenshots or GIFs to include? If yes, share them and tell me which step each belongs to." |
 | Academy video | "Do you have a video for this on Academy (`academy.wavemaker.ai`)? If yes, share the URL and I'll embed it." |
 
 Only ask about gaps that are actually missing — do not ask about something already covered in the draft. If the draft is comprehensive, the message can be short.
+
+**Author name is always required — ask it every time, no exceptions.** It is never in the draft and must always be collected before generating.
 
 **Example prompt format:**
 
@@ -72,7 +73,8 @@ Only ask about gaps that are actually missing — do not ask about something alr
 > - [Specific gap 1 with targeted question]
 > - [Specific gap 2 with targeted question]
 >
-> Also, a few optional additions:
+> A couple of quick things before I generate:
+> - **Who should be credited as the author?** (goes in the doc frontmatter)
 > - Screenshots or GIFs? Share them and tell me which step they go with.
 > - Academy video URL? I'll add a VideoCard for it.
 >
@@ -143,8 +145,8 @@ last_update: { author: "{{Author name, or omit field if not provided}}" }
 - All media is optional. Only include what the user provides.
 - Place media immediately after the step or phase it illustrates.
 - Use a screenshot (`.png`) for static UI states; use a GIF (`.gif`) for flows or interactions.
-- Store all media in `./images/` relative to the doc file.
-- Format: `![Clear description of what is shown](./images/filename.png)`
+- **Always store media in `./assets/images/`** relative to the doc file. Before writing the image path, verify that `assets/images/` exists inside the guide's category folder (e.g. `docs/guide/security/assets/images/`). Create it if it doesn't exist.
+- Format: `![Clear description of what is shown](./assets/images/filename.png)`
 - If the user mentions they'll add a screenshot later, insert a one-line comment as a reminder:
   ```
   {/* TODO: Add screenshot — [describe what to capture] */}
