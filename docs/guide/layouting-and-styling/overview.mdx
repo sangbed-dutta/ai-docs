@@ -1,7 +1,298 @@
 ---
-last_update: { author: "Author Name" }
+title: "Layouting and Styling in WaveMaker"
+id: "overview"
+sidebar_label: "Layouting and Styling"
+last_update: { author: "Aftab Raja" }
 ---
 
-# Overview
+WaveMaker Web apps provides a flexible page layout system that combines left navigation panels, headers, page content, and footers into a cohesive responsive structure. This guide covers the default page layout, how to implement a collapsible navigation sidebar, and how to support dark theme across your application using CSS variables.
 
-Welcome to Layouting and Styling doc.
+---
+
+## Default Page Layout
+
+WaveMaker's default layout structure uses a series of container components to organize your page. Here's the standard markup:
+
+```xml
+<wm-page name="mainpage" pagetitle="Main">
+    <wm-left-panel columnwidth="2" name="leftpanel" content="leftnav" navtype="rail" navheight="full"></wm-left-panel>
+
+    <wm-content name="content">
+        <wm-header content="header" name="header" height="auto"></wm-header>
+
+        <wm-page-content columnwidth="10" name="mainContent"></wm-page-content>
+
+        <wm-footer name="footer" content="footer"></wm-footer>
+    </wm-content>
+</wm-page>
+```
+
+```
++----------------------+--------------------------------------+
+|                      |               HEADER                 |
+|                      +--------------------------------------+
+|                      |                                      |
+|                      |                                      |
+|      LEFT NAV        |           PAGE CONTENT               |
+|   (Full Height)      |                                      |
+|                      |                                      |
+|                      |                                      |
+|                      +--------------------------------------+
+|                      |               FOOTER                 |
++----------------------+--------------------------------------+
+```
+
+### Component Breakdown
+
+| Component           | Purpose                     | Key Attributes                                   |
+| ------------------- | --------------------------- | ------------------------------------------------ |
+| `<wm-page>`         | Root page container         | `name`, `pagetitle`                              |
+| `<wm-left-panel>`   | Left sidebar for navigation | `columnwidth`, `navtype`, `navheight`, `content` |
+| `<wm-content>`      | Main content wrapper        | Contains header, page content, footer            |
+| `<wm-header>`       | Page header section         | `height`, `content`                              |
+| `<wm-page-content>` | Main content area           | `columnwidth` (grid width)                       |
+| `<wm-footer>`       | Page footer section         | Standard footer markup                           |
+
+---
+
+## Making Left Navigation Collapsible
+
+To add a collapsible toggle to your left navigation panel, follow these steps:
+
+### 1. Add a toggle button to the header
+
+Place a button in your header with an icon (hamburger menu or similar). Position it absolutely or use flexbox to place it at the top-right:
+
+```xml
+<wm-header content="header" name="header" height="auto">
+   <wm-button class="btn btn-transparent  btn-collapse" caption="" type="button" margin="unset" name="buttonCollapse"
+        variant="filled:default" iconclass="wi wi-keyboard-arrow-right" on-click="buttonCollapseClick($event, widget)">
+    </wm-button>
+</wm-header>
+```
+
+### 2. Style the toggle button
+
+```css
+.button.app-button.btn.btn-transparent.btn-collapse {
+    position: absolute;
+    right: -12px;
+    bottom: 24px;
+    background: #fff;
+    width: auto;
+    height: auto;
+    min-width: auto;
+    border-radius: 4px;
+    padding: 0;
+    z-index: 2;
+    opacity:0.8;
+}
+```
+
+### 3. Implement the toggle function
+
+In your WaveMaker page controller, add this function:
+
+```javascript
+Partial.buttonCollapseClick = function ($event, widget) {
+    const panel = document.querySelector('.app-left-panel');
+
+    const isCollapsed = panel.classList.toggle('left-panel-collapsed');
+
+    // Toggle icon direction
+    widget.iconclass = isCollapsed 
+        ? "wi wi-keyboard-arrow-right"   // collapsed → show expand icon
+        : "wi wi-keyboard-arrow-left";   // expanded → show collapse icon
+};
+```
+
+### 4. Style the collapsed state
+
+Define CSS for when the `left-panel-collapsed` class is applied:
+
+```css
+.app-left-panel {
+    transition: transform 0.3s ease;
+}
+
+.app-left-panel.left-panel-collapsed{
+   --wm-aside-left-nav-width:280px;
+}
+
+/
+```
+
+---
+
+## Supporting Dark Theme
+
+To implement a dark theme toggle in your application, use a combination of a header button and CSS variables:
+
+### 1. Add a theme toggle button to the header
+
+```xml
+<wm-header content="header" name="header" height="auto">
+    <wm-button class="btn-filled btn-default" caption="" type="button" margin="unset" name="toggleDarkTheme"
+      variant="filled:default" on-click="button1Click($event, widget)" iconclass="fa fa-moon-o">
+    </wm-button>
+</wm-header>
+```
+
+### 2. Implement the theme toggle function
+
+In your WaveMaker page controller:
+
+```javascript
+
+Partial.toggleDarkThemeClick = function ($event, widget) {
+    const html = document.documentElement; // <html> element
+    const isDarkTheme = html.getAttribute('color') === 'dark';
+
+     if (isDarkTheme) {
+        html.removeAttribute('color');
+        widget.iconclass="fa fa-sun-o"
+    } else {
+        html.setAttribute('color', 'dark');
+        widget.iconclass="fa fa-moon-o";
+    }
+    // Optional: persist preference to localStorage
+    localStorage.setItem('theme-preference', isDarkTheme ? 'light' : 'dark');
+};
+```
+
+### 3.WaveMaker already supports dark theme variable you can modify as per requirement
+
+```css
+:root[color='dark'] {
+  --wm-color-primary: #d0bcfe;
+  --wm-color-primary-container: #4f378b;
+  --wm-color-primary-fixed: #eaddff;
+  --wm-color-primary-fixed-dim: #d0bcff;
+  --wm-color-on-primary: #381e72;
+  --wm-color-on-primary-container: #eaddff;
+  --wm-color-on-primary-fixed: #21005d;
+  --wm-color-on-primary-fixed-variant: #4f378b;
+  --wm-color-secondary: #ccc2dc;
+  --wm-color-secondary-container: #4a4458;
+  --wm-color-secondary-fixed: #e8def8;
+  --wm-color-secondary-fixed-dim: #ccc2dc;
+  --wm-color-on-secondary: #332d41;
+  --wm-color-on-secondary-container: #e8def8;
+  --wm-color-on-secondary-fixed: #1d192b;
+  --wm-color-on-secondary-fixed-variant: #4a4458;
+  --wm-color-tertiary: #efb8c8;
+  --wm-color-tertiary-container: #633b48;
+  --wm-color-tertiary-fixed: #ffd8e4;
+  --wm-color-tertiary-fixed-dim: #efb8c8;
+  --wm-color-on-tertiary: #492532;
+  --wm-color-on-tertiary-container: #ffd8e4;
+  --wm-color-on-tertiary-fixed: #31111d;
+  --wm-color-on-tertiary-fixed-variant: #633b48;
+  --wm-color-error: #f2b8b5;
+  --wm-color-error-container: #8c1d18;
+  --wm-color-on-error: #601410;
+  --wm-color-on-error-container: #f9dedc;
+  --wm-color-background: #141218;
+  --wm-color-on-background: #e6e0e9;
+  --wm-color-surface: #141218;
+  --wm-color-surface-variant: #49454f;
+  --wm-color-surface-bright: #3b383e;
+  --wm-color-surface-dim: #141218;
+  --wm-color-surface-tint: #d0bcff;
+  --wm-color-surface-container: #211f26;
+  --wm-color-surface-container-low: #1d1b20;
+  --wm-color-surface-container-lowest: #0f0d13;
+  --wm-color-surface-container-high: #2b2930;
+  --wm-color-surface-container-highest: #36343b;
+  --wm-color-on-surface: #e6e0e9;
+  --wm-color-on-surface-variant: #cac4d0;
+  --wm-color-inverse-surface: #e6e0e9;
+  --wm-color-inverse-on-surface: #322f35;
+  --wm-color-inverse-primary: #6750a4;
+  --wm-color-outline: #938f99;
+  --wm-color-outline-variant: #49454f;
+  --wm-color-shadow: #ffffff;
+  --wm-color-scrim: #000000;
+  --wm-color-on-success: #1d192b;
+}
+```
+
+---
+
+## Best Practices
+
+## Layout & Structure
+
+- **Follow a clear layout hierarchy**: Left Nav (fixed) + Right Section (Header → Content → Footer)
+- **Avoid inline styles**; rely on reusable classes for consistency
+- Use **flexbox (`wm-container`) or grid concepts** instead of hardcoded positioning
+- Keep layout **modular** (leftnav, header, content as separate partials)
+
+---
+
+## CSS & Theming
+
+- \*\*Use CSS variables for all design tokens (colors, spacing, radius, etc.)
+- **Override variables using proper selectors**:
+- Avoid redefining styles directly; instead **modify variables** to propagate changes globally
+
+---
+
+## Component-First Styling
+
+- **Prefer existing WaveMaker classes/components first** before adding custom styles
+- Extend styles using **custom classes layered on top**, not by overriding core styles aggressively
+- Keep styles **scoped and reusable** (e.g., `.app-left-panel`, `.custom-card`)
+- Avoid deep nested selectors — keep CSS maintainable
+
+---
+
+## Animations & Interactions
+
+- Use **CSS transitions (not JS-heavy animations)** for better performance
+- Animate **transform & opacity** instead of width/height when possible
+- Keep animations **fast and subtle** (`0.2s – 0.3s ease`)
+- Ensure interactions (collapse, theme switch) feel **smooth and responsive**
+
+---
+
+## Responsive Design
+
+- Design **mobile-first** where possible
+- Use **media queries** to adapt layout:
+  - Collapse left nav into **drawer on small screens**
+- Avoid fixed widths — prefer `%`, `flex`, or `auto`
+- Test on:
+  - Mobile
+  - Tablet
+  - Desktop
+
+---
+
+## Accessibility & UX
+
+- Ensure **sufficient contrast** in both light & dark themes
+- Use clear **visual states** (hover, active, focus)
+- Keep navigation intuitive and consistent
+- Make toggle buttons (nav/theme) **easy to access**
+
+---
+
+## Summary
+
+A good WaveMaker UI should be:
+
+- Well-structured
+- Theme-driven (via variables)
+- Component-based
+- Fully responsive
+- Smooth & performant
+- Easy to maintain
+
+---
+
+## See Also
+
+[Design system](../../design-system/concepts/)
+[User Interface](../../user-interfaces/web/concepts/overview)
+[React components](../../user-interfaces/web/components/react-components)

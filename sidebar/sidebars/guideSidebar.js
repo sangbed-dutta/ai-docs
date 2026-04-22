@@ -8,11 +8,6 @@ export default [
     items: [
       {
         type: 'doc',
-        id: 'guide/security/overview',
-        label: 'Security',
-      },
-      {
-        type: 'doc',
         id: 'guide/security/customizing-post-authentication-handlers',
         label: 'Customize Post-Authentication Handlers',
       },
@@ -35,21 +30,26 @@ export default [
 
   {
     type: 'category',
-    label: 'deployement',
+    label: 'deployment',
     collapsible: true,
     collapsed: true,
     items: [
       {
         type: 'doc',
-        id: 'guide/deployement/overview',
-        label: 'Deployement',
+        id: 'guide/deployment/overview',
+        label: 'Deployment',
+      },
+      {
+        type: 'doc',
+        id: 'guide/deployment/ssl-offloading',
+        label: 'SSL Termination',
       },
     ],
   },
 
   {
     type: 'category',
-    label: 'app-solutions',
+    label: 'App Solutions',
     collapsible: true,
     collapsed: true,
     items: [
@@ -63,7 +63,7 @@ export default [
 
   {
     type: 'category',
-    label: 'layouting-and-styling',
+    label: 'Layouting And Styling',
     collapsible: true,
     collapsed: true,
     items: [
@@ -99,6 +99,44 @@ export default [
         type: 'doc',
         id: 'guide/integration/overview',
         label: 'Integration',
+      },
+      {
+        type: 'doc',
+        id: 'guide/integration/set-up-wavemaker-project-locally',
+        label: 'Local Setup with Workspace Sync',
+      },
+      {
+        type: 'doc',
+        id: 'guide/integration/use-sse-in-wavemaker-ui',
+        label: 'Handle SSE Events',
+      },
+    ],
+  },
+
+  {
+    type: 'category',
+    label: 'java-services',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/java-services/schedule-java-service',
+        label: 'Schedule a Java Service',
+      },
+    ],
+  },
+
+  {
+    type: 'category',
+    label: 'Device Native',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/device-native/store-credentials-with-secure-store',
+        label: 'Secure Store',
       },
     ],
   },
