@@ -2,19 +2,37 @@
 export default [
   {
     type: 'category',
-    label: 'security',
+    label: 'App Solutions',
     collapsible: true,
     collapsed: true,
     items: [
       {
         type: 'doc',
-        id: 'guide/security/customizing-post-authentication-handlers',
-        label: 'Customize Post-Authentication Handlers',
+        id: 'guide/app-solutions/overview',
+        label: 'App Solutions',
+      },
+    ],
+  },
+  {
+    type: 'category',
+    label: 'integration',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/integration/overview',
+        label: 'Integration',
       },
       {
         type: 'doc',
-        id: 'guide/security/add-custom-filters',
-        label: 'Add Custom Filters',
+        id: 'guide/integration/set-up-wavemaker-project-locally',
+        label: 'Local Setup with Workspace Sync',
+      },
+      {
+        type: 'doc',
+        id: 'guide/integration/use-sse-in-wavemaker-ui',
+        label: 'Handle SSE Events',
       },
     ],
   },
@@ -40,6 +58,25 @@ export default [
 
   {
     type: 'category',
+    label: 'security',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/security/customizing-post-authentication-handlers',
+        label: 'Customize Post-Authentication Handlers',
+      },
+      {
+        type: 'doc',
+        id: 'guide/security/add-custom-filters',
+        label: 'Add Custom Filters',
+      },
+    ],
+  },
+
+  {
+    type: 'category',
     label: 'deployment',
     collapsible: true,
     collapsed: true,
@@ -53,20 +90,6 @@ export default [
         type: 'doc',
         id: 'guide/deployment/ssl-offloading',
         label: 'SSL Termination',
-      },
-    ],
-  },
-
-  {
-    type: 'category',
-    label: 'App Solutions',
-    collapsible: true,
-    collapsed: true,
-    items: [
-      {
-        type: 'doc',
-        id: 'guide/app-solutions/overview',
-        label: 'App Solutions',
       },
     ],
   },
@@ -95,30 +118,6 @@ export default [
         type: 'doc',
         id: 'guide/variables/overview',
         label: 'Variables',
-      },
-    ],
-  },
-
-  {
-    type: 'category',
-    label: 'integration',
-    collapsible: true,
-    collapsed: true,
-    items: [
-      {
-        type: 'doc',
-        id: 'guide/integration/overview',
-        label: 'Integration',
-      },
-      {
-        type: 'doc',
-        id: 'guide/integration/set-up-wavemaker-project-locally',
-        label: 'Local Setup with Workspace Sync',
-      },
-      {
-        type: 'doc',
-        id: 'guide/integration/use-sse-in-wavemaker-ui',
-        label: 'Handle SSE Events',
       },
     ],
   },
