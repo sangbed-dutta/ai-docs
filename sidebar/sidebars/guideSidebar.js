@@ -105,6 +105,20 @@ export default [
 
   {
     type: 'category',
+    label: 'java-services',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/java-services/schedule-java-service',
+        label: 'Schedule a Java Service',
+      },
+    ],
+  },
+
+  {
+    type: 'category',
     label: 'react-native',
     collapsible: true,
     collapsed: true,
