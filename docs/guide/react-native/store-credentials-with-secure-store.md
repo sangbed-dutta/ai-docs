@@ -1,49 +1,86 @@
 ---
-title: "Store Credentials Securely with SecureStore"
+title: "Use Storage Services in React Native"
 id: "store-credentials-with-secure-store"
-sidebar_label: "Secure Store"
+sidebar_label: "Storage Services"
 last_update: { author: "Mayank Prakash" }
 ---
 
 ## Overview
 
-WaveMaker React Native apps include a built-in `SecureStorageService` that stores sensitive data — such as passwords and authentication tokens — in the device's native secure storage (iOS Keychain on iOS, Keystore on Android). This guide covers the three core API methods and walks through a complete "Remember Me" implementation for a login page.
+WaveMaker React Native apps provide two built-in services for persisting data locally on the device: `StorageService` for general app data, and `SecureStorageService` for sensitive information such as passwords and authentication tokens. This guide covers how to use both services and walks through a complete "Remember Me" implementation using `SecureStorageService`.
 
 ---
 
-## Prerequisites
+## Choosing the Right Service
 
-Before you begin, make sure you have:
-
-- A WaveMaker React Native project
-- A login page with username and password input fields (required for the Remember Me use-case)
+| Use Case                                        | Recommended Service    |
+| ----------------------------------------------- | ---------------------- |
+| User preferences, app flags, cached responses   | `StorageService`       |
+| Tokens, passwords, secrets, sensitive user data | `SecureStorageService` |
 
 ---
 
-## Add, Retrieve, and Delete Items
+## StorageService
 
-### Add an item
+`StorageService` is built on `@react-native-async-storage/async-storage` and is recommended for storing general, non-sensitive data.
 
-Use `setItem(key, value)` to store a string value under a key:
+### Supported Methods
+
+| Method                | Description                                                                   |
+| --------------------- | ----------------------------------------------------------------------------- |
+| `setItem(key, value)` | Stores the value under the given key. Returns `Promise<void>`.                |
+| `getItem(key)`        | Retrieves the value for the given key. Returns `Promise<string \| null>`.     |
+| `removeItem(key)`     | Removes the value for the given key. Returns `Promise<void>`.                 |
+| `getAll()`            | Retrieves all stored key-value pairs as an object. Returns `Promise<object>`. |
 
 ```javascript
-App.getDependency('SecureStorageService').setItem("superHero", "Batman");
+// Add
+App.getDependency('StorageService').setItem("theme", "dark");
+
+// Retrieve
+const theme = await App.getDependency('StorageService').getItem("theme");
+
+// Delete
+App.getDependency('StorageService').removeItem("theme");
+
+// Retrieve all
+const all = await App.getDependency('StorageService').getAll();
 ```
 
-### Retrieve an item
+---
 
-Use `getItem(key)` to retrieve a stored value. It returns a `Promise<string | null>` — `null` if the key does not exist:
+## SecureStorageService
+
+`SecureStorageService` uses `expo-secure-store` under the hood, which maps to iOS Keychain and Android Keystore. Use it for any data you would not want exposed if the device were compromised.
+
+:::note
+`SecureStorageService` supports a maximum of **4 KB per key**. It is not suitable for large datasets.
+:::
+
+### Supported Methods
+
+| Method                | Description                                                             |
+| --------------------- | ----------------------------------------------------------------------- |
+| `setItem(key, value)` | Stores the value securely under the given key. Returns `Promise<void>`. |
+| `getItem(key)`        | Retrieves a securely stored value. Returns `Promise<string \| null>`.   |
+| `removeItem(key)`     | Removes a securely stored value. Returns `Promise<void>`.               |
+
+:::note
+Unlike `StorageService`, `getAll()` is not available in `SecureStorageService`.
+:::
+
+`getItem` returns `null` if the key does not exist — always guard against this before parsing the result.
 
 ```javascript
-App.getDependency('SecureStorageService').getItem("superHero");
-```
+// Add
+App.getDependency('SecureStorageService').setItem("authToken", "abc123");
 
-### Delete an item
+// Retrieve — guard against null on first run
+const token = await App.getDependency('SecureStorageService').getItem("authToken");
+if (!token) return;
 
-Use `removeItem(key)` to delete a stored value:
-
-```javascript
-App.getDependency('SecureStorageService').removeItem("superHero");
+// Delete
+App.getDependency('SecureStorageService').removeItem("authToken");
 ```
 
 ---
@@ -51,6 +88,13 @@ App.getDependency('SecureStorageService').removeItem("superHero");
 ## Use-Case: Remember Me on the Login Page
 
 This section shows how to save and restore login credentials when a user checks "Remember Me."
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- A WaveMaker React Native project
+- A login page with username and password input fields (required for the Remember Me use-case)
 
 ### Add a Remember Me checkbox
 
@@ -81,7 +125,7 @@ Page.remembermeChange = async function($event, widget, newVal, oldVal) {
 
 ### Restore credentials on page load
 
-In `Page.onReady`, retrieve stored credentials and pre-fill the form. Guard against a `null` return — `getItem` returns `null` on first run when nothing has been stored yet:
+In `Page.onReady`, retrieve stored credentials and pre-fill the form:
 
 ```javascript
 Page.onReady = async function() {
@@ -97,21 +141,5 @@ Page.onReady = async function() {
 ```
 
 :::warning
-Storing plaintext passwords in SecureStore protects against external access but does not protect against a compromised device. Evaluate your app's security requirements before implementing credential persistence.
+Storing plaintext passwords in `SecureStore` protects against external access but does not protect against a compromised device. Evaluate your app's security requirements before implementing credential persistence.
 :::
-
----
-
-## Limitations and Constraints
-
-| Constraint   | Details                                                                                                                                                                            |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Storage size | Maximum **4 KB per key**. Not suitable for large payloads.                                                                                                                         |
-| `getAll()`   | Not available in `SecureStorageService`. Use [`StorageService`](../../../docs/guide/react-native/store-credentials-with-secure-store.md) if you need to enumerate all stored keys. |
-| Return type  | `getItem` returns `Promise<string \| null>`. Always check for `null` before parsing.                                                                                               |
-
----
-
-## See Also
-
-- [Storage Service](/learn/react-native/storage-service-usage/) — Overview of both `StorageService` and `SecureStorageService`, and guidance on choosing between them
