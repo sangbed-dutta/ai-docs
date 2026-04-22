@@ -115,6 +115,20 @@ export default [
 
   {
     type: 'category',
+    label: 'databases',
+    collapsible: true,
+    collapsed: true,
+    items: [
+      {
+        type: 'doc',
+        id: 'guide/databases/upload-jdbc-driver',
+        label: 'Upload a JDBC Driver',
+      }
+    ],
+  },
+
+  {
+    type: 'category',
     label: 'java-services',
     collapsible: true,
     collapsed: true,
