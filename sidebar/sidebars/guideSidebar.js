@@ -11,6 +11,11 @@ export default [
         id: 'guide/security/customizing-post-authentication-handlers',
         label: 'Customize Post-Authentication Handlers',
       },
+      {
+        type: 'doc',
+        id: 'guide/security/add-custom-filters',
+        label: 'Add Custom Filters',
+      },
     ],
   },
 
@@ -128,7 +133,12 @@ export default [
         type: 'doc',
         id: 'guide/databases/upload-jdbc-driver',
         label: 'Upload a JDBC Driver',
-      }
+      },
+      {
+        type: 'doc',
+        id: 'guide/databases/integrate-flyway-wavemaker',
+        label: 'Flyway Integration',
+      },
     ],
   },
 
