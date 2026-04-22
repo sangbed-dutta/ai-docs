@@ -130,13 +130,13 @@ export default [
     items: [
       {
         type: 'doc',
-        id: 'guide/databases/upload-jdbc-driver',
-        label: 'Upload a JDBC Driver',
+        id: 'guide/databases/integrate-flyway-wavemaker',
+        label: 'Flyway Integration',
       },
       {
         type: 'doc',
-        id: 'guide/databases/integrate-flyway-wavemaker',
-        label: 'Flyway Integration',
+        id: 'guide/databases/db-crud-event-listeners',
+        label: 'DB CRUD Event Listeners',
       },
     ],
   },
@@ -151,6 +151,11 @@ export default [
         type: 'doc',
         id: 'guide/java-services/schedule-java-service',
         label: 'Schedule a Java Service',
+      },
+      {
+        type: 'doc',
+        id: 'guide/java-services/custom-status-code-and-error-message',
+        label: 'Custom Status Codes & Error Messages',
       },
     ],
   },
