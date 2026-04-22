@@ -179,11 +179,16 @@ To process the submitted data when the user clicks **Save**, implement the `onBe
 
 ```js
 Page.formUserDetailsBeforeSubmit = function($event, widget, $data) {
-    console.log($data.firstName);
-    console.log($data.lastName);
-    console.log($data.age);
-    console.log($data.gender);
-    console.log($data.phonenumber);
+     if ($data.firstName == undefined) {
+    // Assumes that the Notification Action "notificationAction" is already created
+    Page.Actions.notificationAction.invoke({
+      "class": "error",
+      "message": "First name cannot be empty",
+      "position": "center center"
+    });
+
+    return false; // Stop the form submission
+  }
 };
 ```
 
