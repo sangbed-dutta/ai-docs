@@ -8,11 +8,6 @@ export default [
     items: [
       {
         type: 'doc',
-        id: 'guide/security/overview',
-        label: 'Security',
-      },
-      {
-        type: 'doc',
         id: 'guide/security/customizing-post-authentication-handlers',
         label: 'Customize Post-Authentication Handlers',
       },
@@ -35,21 +30,21 @@ export default [
 
   {
     type: 'category',
-    label: 'deployement',
+    label: 'deployment',
     collapsible: true,
     collapsed: true,
     items: [
       {
         type: 'doc',
-        id: 'guide/deployement/overview',
-        label: 'Deployement',
+        id: 'guide/deployment/overview',
+        label: 'Deployment',
       },
     ],
   },
 
   {
     type: 'category',
-    label: 'app-solutions',
+    label: 'App Solutions',
     collapsible: true,
     collapsed: true,
     items: [
@@ -63,7 +58,7 @@ export default [
 
   {
     type: 'category',
-    label: 'layouting-and-styling',
+    label: 'Layouting And Styling',
     collapsible: true,
     collapsed: true,
     items: [
@@ -124,7 +119,7 @@ export default [
 
   {
     type: 'category',
-    label: 'react-native',
+    label: 'React Native',
     collapsible: true,
     collapsed: true,
     items: [
