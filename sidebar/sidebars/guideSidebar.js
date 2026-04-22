@@ -100,6 +100,11 @@ export default [
         id: 'guide/integration/set-up-wavemaker-project-locally',
         label: 'Local Setup with Workspace Sync',
       },
+      {
+        type: 'doc',
+        id: 'guide/integration/use-sse-in-wavemaker-ui',
+        label: 'Handle SSE Events',
+      },
     ],
   },
 
