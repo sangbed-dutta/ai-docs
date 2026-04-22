@@ -1,5 +1,5 @@
 ---
-title: "Handle SSE Events in WaveMaker Page Scripts"
+title: "Handle SSE Events in WaveMaker App"
 id: "use-sse-in-wavemaker-ui"
 sidebar_label: "Handle SSE Events"
 last_update: { author: "Raj Kumar Reddy" }
@@ -7,7 +7,7 @@ last_update: { author: "Raj Kumar Reddy" }
 
 ## Overview
 
-Server-Sent Events (SSE) let your WaveMaker app receive a continuous stream of live updates from a server over a single HTTP connection — without polling. Because WaveMaker does not support SSE-driven variables natively, you manage SSE connections entirely in page script using the browser's built-in `EventSource` API. This guide covers the SSE lifecycle, connection state handling, and a step-by-step working implementation in a WaveMaker page.
+Server-Sent Events (SSE) let your WaveMaker app receive a continuous stream of live updates from a server over a single HTTP connection — without polling. Because WaveMaker does not support SSE-driven variables natively, you manage SSE connections entirely in page script using the browser's built-in `EventSource` API. This guide covers the SSE lifecycle, connection state handling, and a step-by-step working implementation in a WaveMaker app.
 
 ---
 
@@ -16,7 +16,7 @@ Server-Sent Events (SSE) let your WaveMaker app receive a continuous stream of l
 Before you begin, make sure you have:
 
 - A backend SSE endpoint already available and accessible from your app
-- Familiarity with WaveMaker page scripting (JavaScript in the **Script** tab)
+- Familiarity with WaveMaker scripting
 
 ---
 
@@ -89,7 +89,7 @@ When you create an `EventSource`, it moves through these stages:
 
 ---
 
-## How to Implement SSE in a WaveMaker Page Script
+## How to Implement SSE in a WaveMaker App
 
 Because WaveMaker does not provide an SSE Variable type, you manage the `EventSource` directly in the page's JavaScript. Follow this pattern:
 
