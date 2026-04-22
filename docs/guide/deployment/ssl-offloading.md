@@ -205,4 +205,3 @@ Check each of the following in order:
 ## See Also
 
 - [Customize Post-Authentication Handlers](../security/customizing-post-authentication-handlers.md)
-- [Security Overview](../security/overview.mdx)
