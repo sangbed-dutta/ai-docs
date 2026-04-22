@@ -2,10 +2,8 @@
 title: "Using Storage Services in React Native"
 id: "store-credentials-with-secure-store"
 sidebar_label: "Storage Services"
-last_update: { author: "Mayank Prakash" }
+last_update: { author: "Mayank Prakash",  }
 ---
-
-## Overview
 
 WaveMaker React Native apps provide two built-in services for persisting data locally on the device: `StorageService` for general app data, and `SecureStorageService` for sensitive information such as passwords and authentication tokens. This guide covers how to use both services and walks through a complete "Remember Me" implementation using `SecureStorageService`.
 
