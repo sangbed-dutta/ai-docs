@@ -25,6 +25,11 @@ export default [
         id: 'guide/components/overview',
         label: 'Components',
       },
+      {
+        type: 'doc',
+        id: 'guide/components/dynamic-form-metadata',
+        label: 'Dynamic Form with Metadata',
+      },
     ],
   },
 
