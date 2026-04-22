@@ -11,8 +11,6 @@ WaveMaker lets you run backend Java logic automatically at defined time interval
 
 ---
 
-
-
 ## Create a Java Service
 
 1. In your WaveMaker project, navigate to **File Explorer > src/main/java** and open or create your Java Service class.
@@ -99,12 +97,12 @@ Spring Scheduler uses a six-field cron format:
 Seconds   Minutes   Hours   Day-of-Month   Month   Day-of-Week
 ```
 
-| Example | Meaning |
-|---|---|
-| `*/10 * * * * ?` | Every 10 seconds |
-| `0 */5 * * * ?` | Every 5 minutes |
-| `0 0 9 * * MON-FRI` | Every weekday at 9:00 AM |
-| `0 0 0 1 * ?` | First day of every month at midnight |
+| Example             | Meaning                              |
+| ------------------- | ------------------------------------ |
+| `*/10 * * * * ?`    | Every 10 seconds                     |
+| `0 */5 * * * ?`     | Every 5 minutes                      |
+| `0 0 9 * * MON-FRI` | Every weekday at 9:00 AM             |
+| `0 0 0 1 * ?`       | First day of every month at midnight |
 
 ---
 
@@ -135,5 +133,5 @@ You have successfully configured a Java Service to run on a schedule using Sprin
 
 ## See Also
 
-- [Store Credentials with Secure Store](../react-native/store-credentials-with-secure-store.md)
+- [Store Credentials with Secure Store](../device-native/store-credentials-with-secure-store.md)
 - [Customize Post-Authentication Handlers](../security/customizing-post-authentication-handlers.md)
